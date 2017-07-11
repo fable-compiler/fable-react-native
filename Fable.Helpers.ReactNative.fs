@@ -1419,7 +1419,7 @@ let inline createToolbarActionWithIcon(title:string,icon: IImageSourceProperties
     ]
 
 let inline toolbarAndroid (props:IToolbarAndroidProperties list) (onActionSelected:int -> unit) : React.ReactElement =
-    createElement(
+    createElementWithObjProps(
         RN.ToolbarAndroid,
         !!JS.Object.assign(
             createObj ["onActionSelected" ==> onActionSelected],
@@ -1463,7 +1463,7 @@ let inline datePickerIOS (props:IDatePickerIOSProperties list) : React.ReactElem
       props, [])
 
 let inline drawerLayoutAndroid (props:IDrawerLayoutAndroidProperties list) (renderNavigationView: unit -> React.ReactElement) (children: React.ReactElement list): React.ReactElement =
-    createElement(
+    createElementWithObjProps(
       RN.DrawerLayoutAndroid,
       !!JS.Object.assign(
             createObj ["renderNavigationView" ==> renderNavigationView],
