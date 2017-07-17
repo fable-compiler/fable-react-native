@@ -36,7 +36,7 @@ let inline showImagePicker (props: IImagePickerOptions list) f =
 let showImagePickerAsync (props: IImagePickerOptions list) =
     Fable.PowerPack.Promise.create(fun onSuccess onError ->
         showImagePicker
-            !!(keyValueList CaseRules.LowerFirst props)
+            props
             (fun result ->
                 if not result.didCancel then
                     if System.String.IsNullOrEmpty result.error then
