@@ -346,6 +346,9 @@ module Props =
     type IListViewProperties =
         interface end
 
+    type IFlatListProperties =
+        interface end
+
     type IScrollViewProperties =
         inherit IListViewProperties
 
@@ -1256,8 +1259,7 @@ module Props =
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
 
-
-    type ListViewProperties<'a>  =
+    type ListViewProperties<'a> = 
         | DataSource of ListViewDataSource<'a>
         | EnableEmptySections of bool
         | InitialListSize of float
@@ -1275,6 +1277,11 @@ module Props =
         | ScrollRenderAheadDistance of float
         | Ref of Ref<obj>
         interface IListViewProperties
+
+    type FlatListProperties<'a> =
+        | Refreshing of bool
+        | Ref of Ref<obj>
+        interface IFlatListProperties
 
     type SwipeableListViewProps<'a> =
         | DataSource of SwipeableListViewDataSource<'a> // REQUIRED!
@@ -1538,6 +1545,13 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
       RN.ListView,
       !!JS.Object.assign(
             createObj ["dataSource" ==> dataSource],
+            keyValueList CaseRules.LowerFirst props), [])
+
+let inline flatList<'a> (data:seq <'a>) (props: IFlatListProperties list)  : React.ReactElement =
+    createElementWithObjProps(
+      RN.FlatList,
+      !!JS.Object.assign(
+            createObj ["data" ==> data],
             keyValueList CaseRules.LowerFirst props), [])
 
 let inline mapView (props:IMapViewProperties list) (children: React.ReactElement list): React.ReactElement =

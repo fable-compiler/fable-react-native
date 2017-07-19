@@ -1098,6 +1098,15 @@ module ReactNative =
         inherit React.ComponentClass<ListViewProperties<'a>>
         abstract DataSource: ListViewDataSource<'a> with get, set
 
+    and FlatListProperties<'a> =
+        inherit ScrollViewProperties
+        inherit React.Props<FlatListStatic<'a>>
+        abstract refreshing: bool with get, set
+        abstract ref: Ref<obj> option with get, set
+
+    and FlatListStatic<'a> =
+        inherit React.ComponentClass<FlatListProperties<'a>>
+
     and MapViewAnnotation =
         abstract latitude: float option with get, set
         abstract longitude: float option with get, set
@@ -2060,6 +2069,9 @@ module ReactNative =
     and ListView<'a> =
         ListViewStatic<'a>
 
+    and FlatList<'a> =
+        FlatListStatic<'a>
+
     and MapView =
         MapViewStatic
 
@@ -2253,6 +2265,7 @@ module ReactNative =
         [<Import("Image", "react-native")>] static member Image with get(): ImageStatic = jsNative and set(v: ImageStatic): unit = jsNative
         [<Import("LayoutAnimation", "react-native")>] static member LayoutAnimation with get(): LayoutAnimationStatic = jsNative and set(v: LayoutAnimationStatic): unit = jsNative
         [<Import("ListView", "react-native")>] static member ListView with get(): ListViewStatic<obj> = jsNative and set(v: ListViewStatic<obj>): unit = jsNative
+        [<Import("FlatList", "react-native")>] static member FlatList with get(): FlatListStatic<obj> = jsNative and set(v: FlatListStatic<obj>): unit = jsNative
         [<Import("MapView", "react-native")>] static member MapView with get(): MapViewStatic = jsNative and set(v: MapViewStatic): unit = jsNative
         [<Import("Modal", "react-native")>] static member Modal with get(): ModalStatic = jsNative and set(v: ModalStatic): unit = jsNative
         [<Import("Navigator", "react-native")>] static member Navigator with get(): NavigatorStatic = jsNative and set(v: NavigatorStatic): unit = jsNative
