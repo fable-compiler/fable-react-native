@@ -1547,7 +1547,7 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
             createObj ["dataSource" ==> dataSource],
             keyValueList CaseRules.LowerFirst props), [])
 
-let inline flatList<'a> (data:seq <'a>) (props: IFlatListProperties list)  : React.ReactElement =
+let inline flatList<'a> (data:seq<'a>) (props: IFlatListProperties list)  : React.ReactElement =
     createElementWithObjProps(
       RN.FlatList,
       !!JS.Object.assign(

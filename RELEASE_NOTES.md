@@ -1,4 +1,4 @@
-### 1.1.3
+### 1.1.4
 
 * Added first prototype of FlatList mappings
 
