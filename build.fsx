@@ -364,13 +364,6 @@ let pushNuget (releaseNotes: ReleaseNotes) (projFiles: string list) =
     |> Seq.filter (needsPublishing versionRegex releaseNotes)
     |> Seq.iter (fun projFile ->
         let projDir = Path.GetDirectoryName(projFile)
-        let nugetKey =
-            if hasBuildParam "NugetKey" then
-                getBuildParam "NugetKey"
-            else
-                match environVarOrNone "NUGET_KEY" with
-                | Some nugetKey -> nugetKey
-                | None -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable or via NugetKey build parameter"
                 
         // Restore dependencies here so they're updated to latest project versions
         Util.run projDir dotnetExePath "restore"
