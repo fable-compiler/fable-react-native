@@ -365,18 +365,21 @@ let pushNuget (releaseNotes: ReleaseNotes) (projFiles: string list) =
     |> Seq.iter (fun projFile ->
         let projDir = Path.GetDirectoryName(projFile)
         let nugetKey =
-            match environVarOrNone "NUGET_KEY" with
-            | Some nugetKey -> nugetKey
-            | None -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable"
+            if hasBuildParam "NugetKey" then
+                getBuildParam "NugetKey"
+            else
+                match environVarOrNone "NUGET_KEY" with
+                | Some nugetKey -> nugetKey
+                | None -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable or via NugetKey build parameter"
+                
         // Restore dependencies here so they're updated to latest project versions
         Util.run projDir dotnetExePath "restore"
         Util.run projDir dotnetExePath (sprintf "pack -c Release /p:Version=%s" releaseNotes.NugetVersion)
-        Directory.GetFiles(projDir </> "bin" </> "Release", "*.nupkg")
-        |> Array.find (fun nupkg -> nupkg.Contains(releaseNotes.NugetVersion))
-        |> (fun nupkg ->
-            (Path.GetFullPath nupkg, nugetKey)
-            ||> sprintf "nuget push %s -s nuget.org -k %s"
-            |> Util.run projDir dotnetExePath)
+
+        Paket.Push (fun p -> 
+            { p with 
+                WorkingDir = projDir </> "bin" </> "Release" })
+        
         // After successful publishing, update the project file
         (versionRegex, projFile) ||> Util.replaceLines (fun line _ ->
             versionRegex.Replace(line, "<Version>"+releaseNotes.NugetVersion+"</Version>") |> Some)
@@ -407,6 +410,11 @@ let publishPackages () =
 
 Target "PublishPackages" publishPackages
 Target "PublishPackage" publishPackages
+
+Target "Release" DoNothing
+
+"PublishPackage"
+==> "Release"
 
 // Start build
 RunTargetOrDefault "Build"
