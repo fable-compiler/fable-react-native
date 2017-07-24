@@ -14,6 +14,9 @@ type Table<'a> = 'a[]
 let inline private setItem(key, s): JS.Promise<unit> =
     unbox(Globals.AsyncStorage.setItem(key,s))
 
+let inline private removeItem(key): JS.Promise<unit> =
+    unbox(Globals.AsyncStorage.removeItem key)
+
 /// Removes all rows from the model.
 let [<PassGenerics>] clear<'a>() =
     let key = modelsKey + typeof<'a>.FullName
@@ -98,6 +101,11 @@ let [<PassGenerics>] replaceWithKey<'a>(key,data:'a []) =
     let modelKey = modelsKey + typeof<'a>.FullName + "/" + key
     let newModel : string = data |> toJsonWithTypeInfo
     setItem(modelKey,newModel)
+
+/// Deletes all rows of a model
+let [<PassGenerics>] deleteWithKey<'a>(key) =
+    let modelKey = modelsKey + typeof<'a>.FullName + "/" + key
+    removeItem(modelKey)    
 
 /// Replaces all rows of a model
 let [<PassGenerics>] replace<'a>(data:'a []) =
