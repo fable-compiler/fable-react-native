@@ -1711,19 +1711,17 @@ let encode (text: string, encoding:string) : string = jsNative
 let encodeBase64 (text: string) : string = encode(text,"base64")
 let encodeAscii (text: string) : string = encode(text,"ascii")
 
-    
-[<Import("BackHandler","react-native")>]
-let private BackHandler = obj()
+[<Import("BackAndroid","react-native")>]
+let private BackAndroid = obj()
 
 let removeOnHardwareBackPressHandler (onHardwareBackPress: unit -> bool): unit =
-    BackHandler?removeEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
+    BackAndroid?removeEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
 
 let setOnHardwareBackPressHandler (onHardwareBackPress: unit -> bool): unit =
-    BackHandler?addEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
-
+    BackAndroid?addEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
 
 let exitApp (): unit =
-    BackHandler?exitApp() |> ignore
+    BackAndroid?exitApp() |> ignore
 
 [<Import("Linking","react-native")>]
 let private Linking = obj()
