@@ -1,3 +1,6 @@
+### 1.2.3
+* SignaturePad
+
 ### 1.2.2
 * RemoveItem in Simple DB
 

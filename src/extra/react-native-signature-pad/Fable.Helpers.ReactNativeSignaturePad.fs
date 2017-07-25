@@ -5,13 +5,20 @@ open Fable.Core.JsInterop
 open Fable.Import
 module RN = Fable.Helpers.ReactNative
 
-let SignaturePad: React.ComponentClass<obj> = importDefault "react-native-signature-pad"
+module R = Fable.Helpers.React
+
+type RCom = Fable.Import.React.ComponentClass<obj>
+
+let SignaturePad: RCom = importDefault "react-native-signature-pad"
 
 /// Opens a signature pad with callbacks for onError and onChange
-let inline signaturePad (props:Fable.Helpers.ReactNative.Props.IStyle list) (onError:exn -> unit) (onChange:string -> unit) : React.ReactElement =
-    RN.createElementWithObjProps(
-        SignaturePad,
+let signaturePad (props:Fable.Helpers.ReactNative.Props.IStyle list) (onError:exn -> unit) (onChange:string -> unit) : React.ReactElement =
+    let onChange (o:obj) = onChange(o?base64DataUrl |> unbox)
+    let pad =
         createObj
             [ "style" ==> keyValueList CaseRules.LowerFirst props
               "onError" ==> onError
-              "onChange" ==> fun (o:obj) -> onChange(!!o?base64DataUrl) ], [])
+              "onChange" ==> onChange ]
+        |> unbox
+
+    R.from SignaturePad pad []
