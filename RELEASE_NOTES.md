@@ -1,3 +1,6 @@
+### 1.3.0-alpha001
+* RN 0.47 support
+
 ### 1.2.3
 * SignaturePad
 
