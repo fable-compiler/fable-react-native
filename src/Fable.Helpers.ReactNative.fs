@@ -1294,7 +1294,7 @@ module Props =
         | Horizontal of bool
         | InitialNumToRender of float
         | InitialScrollIndex of float
-        | KeyExtractor of Func<'a, int, string>
+        | KeyExtractor of Func<'a, float, string>
         | LegacyImplementation of bool
         | NumColumns of float
         | OnEndReached of Func<float, unit>
