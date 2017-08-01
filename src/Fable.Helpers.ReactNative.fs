@@ -1281,10 +1281,12 @@ module Props =
     type FlatListRenderItemSeparator = { highlight : Func<unit, unit>; unhighlight : Func<unit, unit> }
     type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
 
-    type GetItemLayoutResult = { length: float; offset: float; index: float }
+    type GetItemLayoutResult = { length : float; offset : float; index : float }
     
-    type ViewToken<'a> = { item: 'a; key: string; index: float; isViewable: bool; section: obj }
-    type OnViewableItemsChangedInfo<'a> = { viewableItems: ViewToken<'a> []; changed: ViewToken<'a> [] }
+    type ViewToken<'a> = { item : 'a; key : string; index : float; isViewable : bool; section : obj }
+    type OnViewableItemsChangedInfo<'a> = { viewableItems : ViewToken<'a> []; changed : ViewToken<'a> [] }
+
+    type ViewabilityConfig = { minimumViewTime : float; viewAreaCoveragePercentThreshold : float; itemVisiblePercentThreshold : float; waitForInteraction : bool }
 
     type FlatListProperties<'a> =
         | ItemSeparatorComponent of React.ReactElement
@@ -1307,7 +1309,7 @@ module Props =
         | Refreshing of bool
         | RemoveClippedSubviews of bool
         | RenderItem of Func<FlatListRenderItemInfo<'a>, React.ReactElement>
-        | ViewabilityConfig of obj
+        | ViewabilityConfig of ViewabilityConfig
         | Ref of Ref<obj>
         interface IFlatListProperties
 
