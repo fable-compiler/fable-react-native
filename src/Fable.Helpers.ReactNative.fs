@@ -1281,6 +1281,8 @@ module Props =
     type FlatListRenderItemSeparator = { highlight : Func<unit, unit>; unhighlight : Func<unit, unit> }
     type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
 
+    type GetItemLayoutResult = { length: float; offset: float; index: float }
+
     type FlatListProperties<'a> =
         | ItemSeparatorComponent of React.ReactElement
         | ListEmptyComponent of React.ReactElement
@@ -1288,7 +1290,7 @@ module Props =
         | ListHeaderComponent of React.ReactElement
         | ColumnWrapperStyle of IStyle list
         | ExtraData of obj
-        | GetItemLayout of Func<ResizeArray<'a>, float, float*float*float>
+        | GetItemLayout of Func<ResizeArray<'a>, GetItemLayoutResult>
         | Horizontal of bool
         | InitialNumToRender of float
         | InitialScrollIndex of float
