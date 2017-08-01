@@ -1278,8 +1278,31 @@ module Props =
         | Ref of Ref<obj>
         interface IListViewProperties
 
+    type FlatListRenderItemSeparator = { highlight : Func<unit, unit>; unhighlight : Func<unit, unit> }
+    type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
+
     type FlatListProperties<'a> =
+        | ItemSeparatorComponent of React.ReactElement
+        | ListEmptyComponent of React.ReactElement
+        | ListFooterComponent of React.ReactElement
+        | ListHeaderComponent of React.ReactElement
+        | ColumnWrapperStyle of IStyle list
+        | ExtraData of obj
+        | GetItemLayout of Func<ResizeArray<'a>, float, float*float*float>
+        | Horizontal of bool
+        | InitialNumToRender of float
+        | InitialScrollIndex of float
+        | KeyExtractor of Func<obj*int, string>
+        | LegacyImplementation of bool
+        | NumColumns of float
+        | OnEndReached of Func<float, unit>
+        | OnEndReachedThreshold of float
+        | OnRefresh of Func<unit, unit>
+        | OnViewableItemsChanged of Func<ResizeArray<obj>, ResizeArray<obj>, unit>
         | Refreshing of bool
+        | RemoveClippedSubviews of bool
+        | RenderItem of Func<FlatListRenderItemInfo<'a>, React.ReactElement>
+        | ViewabilityConfig of obj
         | Ref of Ref<obj>
         interface IFlatListProperties
 
@@ -1547,7 +1570,7 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
             createObj ["dataSource" ==> dataSource],
             keyValueList CaseRules.LowerFirst props), [])
 
-let inline flatList<'a> (data:seq<'a>) (props: IFlatListProperties list)  : React.ReactElement =
+let inline flatList<'a> (data:'a []) (props: IFlatListProperties list)  : React.ReactElement =
     createElementWithObjProps(
       RN.FlatList,
       !!JS.Object.assign(
