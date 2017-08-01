@@ -1282,6 +1282,9 @@ module Props =
     type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
 
     type GetItemLayoutResult = { length: float; offset: float; index: float }
+    
+    type ViewToken<'a> = { item: 'a; key: string; index: float; isViewable: bool; section: obj }
+    type OnViewableItemsChangedInfo<'a> = { viewableItems: ViewToken<'a> []; changed: ViewToken<'a> [] }
 
     type FlatListProperties<'a> =
         | ItemSeparatorComponent of React.ReactElement
@@ -1300,7 +1303,7 @@ module Props =
         | OnEndReached of Func<float, unit>
         | OnEndReachedThreshold of float
         | OnRefresh of Func<unit, unit>
-        | OnViewableItemsChanged of Func<ResizeArray<obj>, ResizeArray<obj>, unit>
+        | OnViewableItemsChanged of Func<OnViewableItemsChangedInfo<'a>, unit>
         | Refreshing of bool
         | RemoveClippedSubviews of bool
         | RenderItem of Func<FlatListRenderItemInfo<'a>, React.ReactElement>
