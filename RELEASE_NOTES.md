@@ -1,3 +1,6 @@
+### 1.3.0-alpha002
+* Fix flat list
+
 ### 1.3.0-alpha001
 * RN 0.47 support
 
