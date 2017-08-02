@@ -1278,8 +1278,38 @@ module Props =
         | Ref of Ref<obj>
         interface IListViewProperties
 
+    type FlatListRenderItemSeparator = { highlight : Func<unit, unit>; unhighlight : Func<unit, unit> }
+    type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
+
+    type GetItemLayoutResult = { length : float; offset : float; index : float }
+    
+    type ViewToken<'a> = { item : 'a; key : string; index : float; isViewable : bool; section : obj }
+    type OnViewableItemsChangedInfo<'a> = { viewableItems : ViewToken<'a> []; changed : ViewToken<'a> [] }
+
+    type ViewabilityConfig = { minimumViewTime : float; viewAreaCoveragePercentThreshold : float; itemVisiblePercentThreshold : float; waitForInteraction : bool }
+
     type FlatListProperties<'a> =
+        | ItemSeparatorComponent of React.ReactElement
+        | ListEmptyComponent of React.ReactElement
+        | ListFooterComponent of React.ReactElement
+        | ListHeaderComponent of React.ReactElement
+        | ColumnWrapperStyle of IStyle list
+        | ExtraData of obj
+        | GetItemLayout of Func<ResizeArray<'a>, GetItemLayoutResult>
+        | Horizontal of bool
+        | InitialNumToRender of float
+        | InitialScrollIndex of float
+        | KeyExtractor of Func<'a, float, string>
+        | LegacyImplementation of bool
+        | NumColumns of float
+        | OnEndReached of Func<float, unit>
+        | OnEndReachedThreshold of float
+        | OnRefresh of Func<unit, unit>
+        | OnViewableItemsChanged of Func<OnViewableItemsChangedInfo<'a>, unit>
         | Refreshing of bool
+        | RemoveClippedSubviews of bool
+        | RenderItem of Func<FlatListRenderItemInfo<'a>, React.ReactElement>
+        | ViewabilityConfig of ViewabilityConfig
         | Ref of Ref<obj>
         interface IFlatListProperties
 
@@ -1547,7 +1577,7 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
             createObj ["dataSource" ==> dataSource],
             keyValueList CaseRules.LowerFirst props), [])
 
-let inline flatList<'a> (data:seq<'a>) (props: IFlatListProperties list)  : React.ReactElement =
+let inline flatList<'a> (data:'a []) (props: IFlatListProperties list)  : React.ReactElement =
     createElementWithObjProps(
       RN.FlatList,
       !!JS.Object.assign(
