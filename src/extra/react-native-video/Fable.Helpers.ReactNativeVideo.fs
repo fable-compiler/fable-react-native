@@ -42,13 +42,4 @@ open Props
 let inline video (props:IVideoProperties list) : React.ReactElement =
     RN.createElement(
       RNV.Video,
-        !!JS.Object.assign(keyValueList CaseRules.LowerFirst props), [])
-
-let inline seek (i: int) =
-    RNV.Video.seek(i)
-
-let inline presentFullscreenPlayer () =
-    RNV.Video.presentFullscreenPlayer ()
-
-let inline launchImageLibrary () =
-    RNV.Video.dismissFullscreenPlayer ()
+        props, [])
