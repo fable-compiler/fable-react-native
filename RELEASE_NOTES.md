@@ -1,3 +1,6 @@
+### 1.3.0-alpha003
+* Fix flat list
+
 ### 1.3.0-alpha002
 * Fix flat list
 
