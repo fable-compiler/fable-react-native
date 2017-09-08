@@ -426,6 +426,7 @@ module Props =
     type FlexStyle =
         | AlignItems of ItemAlignment
         | AlignSelf of Alignment
+        | AspectRatio of float
         | BorderBottomWidth of float
         | BorderLeftWidth of float
         | BorderRightWidth of float
