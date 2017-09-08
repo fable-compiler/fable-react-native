@@ -328,6 +328,7 @@ module ReactNative =
 
         abstract alignItems: FlexAlignType option with get, set
         abstract alignSelf: (* TODO StringEnum auto |  *) string option with get, set
+        abstract aspectRatio: float option with get, set
         abstract borderBottomWidth: float option with get, set
         abstract borderLeftWidth: float option with get, set
         abstract borderRightWidth: float option with get, set
