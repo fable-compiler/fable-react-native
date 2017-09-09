@@ -1,3 +1,6 @@
+### 1.3.0-alpha004
+* Add AspectRatio to FlexStyle #5
+
 ### 1.3.0-alpha003
 * Fix flat list
 
