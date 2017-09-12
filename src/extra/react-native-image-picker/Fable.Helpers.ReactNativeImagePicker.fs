@@ -49,6 +49,31 @@ let showImagePickerAsync (props: IImagePickerOptions list) =
 let inline launchCamera (props: IImagePickerOptions list) f =
     IP.ImagePicker.launchCamera(!!(keyValueList CaseRules.LowerFirst props), f)
 
+let launchCameraAsync (props: IImagePickerOptions list) =
+    Fable.PowerPack.Promise.create(fun onSuccess onError ->
+        launchCamera
+            props
+            (fun result ->
+                if not result.didCancel then
+                    if System.String.IsNullOrEmpty result.error then
+                        onSuccess (Some result.uri)
+                    else
+                        onError (System.Exception result.error)
+                else onSuccess None)
+    )
 
 let inline launchImageLibrary (props: IImagePickerOptions list) f =
     IP.ImagePicker.launchImageLibrary(!!(keyValueList CaseRules.LowerFirst props), f)
+    
+let launchImageLibraryAsync (props: IImagePickerOptions list) =
+    Fable.PowerPack.Promise.create(fun onSuccess onError ->
+        launchImageLibrary
+            props
+            (fun result ->
+                if not result.didCancel then
+                    if System.String.IsNullOrEmpty result.error then
+                        onSuccess (Some result.uri)
+                    else
+                        onError (System.Exception result.error)
+                else onSuccess None)
+    )
