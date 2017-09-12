@@ -1818,6 +1818,39 @@ module ImageStore =
         Promise.create(fun onSuccess onError ->
             ImageStore?addImageFromBase64(imageData, onSuccess, onError) |> ignore
         )
+        
+/// ImageEditor contains functions which help to deal with image data.
+module ImageEditor =
+
+    type CropData() =
+        let data = createObj [  ]
+
+        member __.SetSize(width:int,height:int) =
+            let size = 
+                createObj
+                    [ "width" ==> width
+                      "height" ==> height ]
+
+            data?size <- size
+
+
+        member __.SetOffset(x:int,y:int) =
+            let offset = 
+                createObj
+                    [ "x" ==> x
+                      "y" ==> y ]
+
+            data?offset <- offset            
+
+    [<Import("ImageEditor","react-native")>]
+    let private ImageEditor = obj()
+
+    /// Crop the image specified by the URI param. If URI points to a remote image, it will be downloaded automatically. 
+    /// If the image cannot be loaded/downloaded, the failure callback will be called.
+    let cropImage (uri:string) (cropData:CropData) : JS.Promise<string> =
+        Promise.create(fun onSuccess onError ->
+            ImageEditor?cropImage(uri, cropData, onSuccess, onError) |> ignore
+        )
 
 module Toast =
     [<Import("ToastAndroid","react-native")>]
