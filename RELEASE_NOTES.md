@@ -1,4 +1,4 @@
-### 1.3.0-alpha006
+### 1.3.0-alpha007
 * Fix ImageResizer for v1.0 - https://github.com/fable-compiler/fable-react-native/pull/10
 * More ImageEditor bindings - https://github.com/fable-compiler/fable-react-native/pull/9
 
