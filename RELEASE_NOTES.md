@@ -1,3 +1,8 @@
+### 1.3.0-alpha005
+* Add ImageEditor bindings - https://github.com/fable-compiler/fable-react-native/pull/6
+* Add ReactNativeSignatureView support - https://github.com/fable-compiler/fable-react-native/pull/7
+* Async launchCamera and launchImageLibrary functions - https://github.com/fable-compiler/fable-react-native/pull/8
+
 ### 1.3.0-alpha004
 * Add AspectRatio to FlexStyle #5
 
