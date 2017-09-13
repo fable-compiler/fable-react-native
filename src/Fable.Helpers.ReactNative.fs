@@ -1821,26 +1821,51 @@ module ImageStore =
         
 /// ImageEditor contains functions which help to deal with image data.
 module ImageEditor =
+    [<RequireQualifiedAccess>]
+    type ResizeMode =
+    | Contain
+    | Cover
+    | Stretch
 
     type CropData() =
         let data = createObj [  ]
 
-        member __.SetSize(width:int,height:int) =
+        member this.SetSize(width:int,height:int) =
             let size = 
                 createObj
                     [ "width" ==> width
                       "height" ==> height ]
 
             data?size <- size
+            this
 
+        member this.SetDisplaySize(width:int,height:int) =
+            let size = 
+                createObj
+                    [ "width" ==> width
+                      "height" ==> height ]
 
-        member __.SetOffset(x:int,y:int) =
+            data?displaySize <- size
+            this
+
+        member this.SetOffset(x:int,y:int) =
             let offset = 
                 createObj
                     [ "x" ==> x
                       "y" ==> y ]
 
-            data?offset <- offset            
+            data?offset <- offset
+            this
+
+        member this.SetResizeMode(mode:ResizeMode) =
+
+            data?displaysize <- 
+                match mode with
+                | ResizeMode.Contain -> "contain"
+                | ResizeMode.Cover -> "cover"
+                | ResizeMode.Stretch -> "stretch"
+            this
+
 
     [<Import("ImageEditor","react-native")>]
     let private ImageEditor = obj()
@@ -1849,7 +1874,7 @@ module ImageEditor =
     /// If the image cannot be loaded/downloaded, the failure callback will be called.
     let cropImage (uri:string) (cropData:CropData) : JS.Promise<string> =
         Promise.create(fun onSuccess onError ->
-            ImageEditor?cropImage(uri, cropData, onSuccess, onError) |> ignore
+            ImageEditor?cropImage(uri, cropData?data, onSuccess, onError) |> ignore
         )
 
 module Toast =
