@@ -1,23 +1,11 @@
-### 1.3.0-alpha008
-* Fix ImageResizer for v1.0 - https://github.com/fable-compiler/fable-react-native/pull/10
-* More ImageEditor bindings - https://github.com/fable-compiler/fable-react-native/pull/9
-
-### 1.3.0-alpha005
+### 1.3.0
+* BREAKING: RN 0.47 support - this is breaking since React Native is breaking in some cases
+* BREAKING: ImageResizer fixes for v1.0 - https://github.com/fable-compiler/fable-react-native/pull/10
 * Add ImageEditor bindings - https://github.com/fable-compiler/fable-react-native/pull/6
 * Add ReactNativeSignatureView support - https://github.com/fable-compiler/fable-react-native/pull/7
 * Async launchCamera and launchImageLibrary functions - https://github.com/fable-compiler/fable-react-native/pull/8
-
-### 1.3.0-alpha004
-* Add AspectRatio to FlexStyle #5
-
-### 1.3.0-alpha003
-* Fix flat list
-
-### 1.3.0-alpha002
-* Fix flat list
-
-### 1.3.0-alpha001
-* RN 0.47 support
+* Add AspectRatio to FlexStyle
+* Flat list support
 
 ### 1.2.3
 * SignaturePad
