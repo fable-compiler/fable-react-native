@@ -1,4 +1,4 @@
-<Project Sdk="FSharp.NET.Sdk;Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Version>1.3.1</Version>
     <TargetFramework>netstandard1.6</TargetFramework>
@@ -26,9 +26,6 @@
     <Compile Include="extra/react-native-modal-datetime-picker/Fable.Helpers.ReactNativeDateTimePicker.fs" />
     <Compile Include="extra/react-native-video/Fable.Import.ReactNativeVideo.fs" />
     <Compile Include="extra/react-native-video/Fable.Helpers.ReactNativeVideo.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="FSharp.NET.Sdk" Version="1.*" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.*" PackagePath="fable\" />
