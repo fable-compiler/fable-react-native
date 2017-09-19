@@ -1,5 +1,6 @@
-### 1.3.1
+### 1.4.0
 * Add ReactNativeSignatureView support to the project
+* Add react-native-modal-datetime-picker bindings - https://github.com/fable-compiler/fable-react-native/pull/11
 
 ### 1.3.0
 * BREAKING: RN 0.47 support - this is breaking since React Native is breaking in some cases
