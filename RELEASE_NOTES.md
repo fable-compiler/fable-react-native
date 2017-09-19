@@ -1,3 +1,6 @@
+### 1.3.1
+* Add ReactNativeSignatureView support to the project
+
 ### 1.3.0
 * BREAKING: RN 0.47 support - this is breaking since React Native is breaking in some cases
 * BREAKING: ImageResizer fixes for v1.0 - https://github.com/fable-compiler/fable-react-native/pull/10

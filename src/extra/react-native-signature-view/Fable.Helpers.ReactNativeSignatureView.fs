@@ -14,7 +14,7 @@ type SignatureViewRef() =
 
     /// Sets the internal ref
     member internal __.SetRef (ref: obj) : unit = 
-        signaturePad := Some ref
+        signatureView := Some ref
 
     /// Resets the signature
     member __.Reset() = 
