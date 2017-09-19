@@ -23,6 +23,7 @@
     <Compile Include="extra/react-native-push-notification/Fable.Helpers.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-signature-pad/Fable.Helpers.ReactNativeSignaturePad.fs" />
     <Compile Include="extra/react-native-signature-view/Fable.Helpers.ReactNativeSignatureView.fs" />
+    <Compile Include="extra/react-native-modal-datetime-picker/Fable.Helpers.ReactNativeDateTimePicker.fs" />
     <Compile Include="extra/react-native-video/Fable.Import.ReactNativeVideo.fs" />
     <Compile Include="extra/react-native-video/Fable.Helpers.ReactNativeVideo.fs" />
   </ItemGroup>
