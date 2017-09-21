@@ -822,16 +822,14 @@ module Props =
 
     module Picker =
         type PickerIOSItemProperties =
-            | Value of U2<string, float>
+            | Value of U2<string, int>
             | Label of string
-
 
         type PickerItemProperties =
             | Label of string // REQUIRED!
-            | Value of obj
+            | Value of string
             | Color of string
             | TestID of string
-
 
         type PickerPropertiesIOS =
             | ItemStyle of IStyle list
@@ -846,8 +844,8 @@ module Props =
             interface IPickerProperties
 
         type PickerProperties =
-            | OnValueChange of Func<obj, float, unit>
-            | SelectedValue of obj
+            | OnValueChange of Func<string, int, unit>
+            | SelectedValue of string
             | Style of IStyle list
             | TestId of string
             | Ref of Ref<Picker>

@@ -1,3 +1,6 @@
+### 1.4.1
+* Picker values as string
+
 ### 1.4.0
 * Add ReactNativeSignatureView support to the project
 * Add react-native-modal-datetime-picker bindings - https://github.com/fable-compiler/fable-react-native/pull/11
