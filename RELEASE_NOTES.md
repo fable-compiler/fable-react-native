@@ -1,4 +1,5 @@
-### 1.4.1
+### 1.5.0
+* Barcode scanning via react-native-camera
 * Picker values as string
 
 ### 1.4.0

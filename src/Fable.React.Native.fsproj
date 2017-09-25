@@ -30,7 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.*" PackagePath="fable\" />
-    <!-- If we don't do it like this Nuget won't respect the folder structure -->
+    <!-- If we don't do it like this NuGet won't respect the folder structure -->
     <Content Include="extra\" PackagePath="fable\extra" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
