@@ -346,7 +346,7 @@ module Props =
     type IListViewProperties =
         interface end
 
-    type IFlatListProperties =
+    type IFlatListProperties<'a> =
         interface end
 
     type IScrollViewProperties =
@@ -1310,7 +1310,7 @@ module Props =
         | RenderItem of Func<FlatListRenderItemInfo<'a>, React.ReactElement>
         | ViewabilityConfig of ViewabilityConfig
         | Ref of Ref<obj>
-        interface IFlatListProperties
+        interface IFlatListProperties<'a>
 
     type SwipeableListViewProps<'a> =
         | DataSource of SwipeableListViewDataSource<'a> // REQUIRED!
@@ -1576,7 +1576,7 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
             createObj ["dataSource" ==> dataSource],
             keyValueList CaseRules.LowerFirst props), [])
 
-let inline flatList<'a> (data:'a []) (props: IFlatListProperties list)  : React.ReactElement =
+let inline flatList<'a> (data:'a []) (props: IFlatListProperties<'a> list)  : React.ReactElement =
     createElementWithObjProps(
       RN.FlatList,
       !!JS.Object.assign(
