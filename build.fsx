@@ -331,38 +331,14 @@ let installDotnetSdk () =
 
         dotnetExePath <- localDotnetExePath
 
-    // let oldPath = System.Environment.GetEnvironmentVariable("PATH")
-    // System.Environment.SetEnvironmentVariable("PATH", sprintf "%s%s%s" dotnetSDKPath (System.IO.Path.PathSeparator.ToString()) oldPath)
-
 let clean () =
     !! "**/bin" ++ "**/obj/"
     |> CleanDirs
 
-let needsPublishing (versionRegex: Regex) (releaseNotes: ReleaseNotes) projFile =
-    printfn "Project: %s" projFile
-    if releaseNotes.NugetVersion.ToUpper().EndsWith("NEXT")
-    then
-        printfn "Version in Release Notes ends with NEXT, don't publish yet."
-        false
-    else
-        File.ReadLines(projFile)
-        |> Seq.tryPick (fun line ->
-            let m = versionRegex.Match(line)
-            if m.Success then Some m else None)
-        |> function
-            | None -> failwith "Couldn't find version in project file"
-            | Some m ->
-                let sameVersion = m.Groups.[1].Value = releaseNotes.NugetVersion
-                if sameVersion then
-                    printfn "Already version %s, no need to publish." releaseNotes.NugetVersion
-                not sameVersion
-
 let pushNuget (releaseNotes: ReleaseNotes) (projFiles: string list) =
-    let versionRegex = Regex("<Version>(.*?)</Version>", RegexOptions.IgnoreCase)
     projFiles
-    |> Seq.map (fun projFile -> __SOURCE_DIRECTORY__ </> projFile)
-    |> Seq.filter (needsPublishing versionRegex releaseNotes)
     |> Seq.iter (fun projFile ->
+        let projFile = __SOURCE_DIRECTORY__ </> projFile
         let projDir = Path.GetDirectoryName(projFile)
                 
         // Restore dependencies here so they're updated to latest project versions
@@ -372,10 +348,6 @@ let pushNuget (releaseNotes: ReleaseNotes) (projFiles: string list) =
         Paket.Push (fun p -> 
             { p with 
                 WorkingDir = projDir </> "bin" </> "Release" })
-        
-        // After successful publishing, update the project file
-        (versionRegex, projFile) ||> Util.replaceLines (fun line _ ->
-            versionRegex.Replace(line, "<Version>"+releaseNotes.NugetVersion+"</Version>") |> Some)
     )
 
 Target "Clean" clean
