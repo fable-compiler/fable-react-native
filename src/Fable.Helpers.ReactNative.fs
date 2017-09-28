@@ -1296,11 +1296,11 @@ module Props =
         | ExtraData of obj
         | GetItemLayout of Func<ResizeArray<'a>, GetItemLayoutResult>
         | Horizontal of bool
-        | InitialNumToRender of float
+        | InitialNumToRender of int
         | InitialScrollIndex of float
         | KeyExtractor of Func<'a, float, string>
         | LegacyImplementation of bool
-        | NumColumns of float
+        | NumColumns of int
         | OnEndReached of Func<float, unit>
         | OnEndReachedThreshold of float
         | OnRefresh of Func<unit, unit>

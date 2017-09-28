@@ -1,4 +1,4 @@
-### 1.5.1
+### 1.5.2
 * Type info for items in FlatList
 
 ### 1.5.0
