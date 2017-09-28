@@ -331,10 +331,6 @@ let installDotnetSdk () =
 
         dotnetExePath <- localDotnetExePath
 
-let clean () =
-    !! "**/bin" ++ "**/obj/"
-    |> CleanDirs
-
 let pushNuget (releaseNotes: ReleaseNotes) (projFiles: string list) =
     projFiles
     |> Seq.iter (fun projFile ->
@@ -350,11 +346,13 @@ let pushNuget (releaseNotes: ReleaseNotes) (projFiles: string list) =
                 WorkingDir = projDir </> "bin" </> "Release" })
     )
 
-Target "Clean" clean
+Target "Clean" (fun _ ->
+    !! "**/bin" ++ "**/obj/"
+    |> CleanDirs
+)
 
 Target "Build" (fun () ->
     installDotnetSdk ()
-    clean ()
     for pkg in packages do
         let projFile = __SOURCE_DIRECTORY__ </> (pkg + ".fsproj")
         let projDir = Path.GetDirectoryName(projFile)
@@ -362,9 +360,8 @@ Target "Build" (fun () ->
         Util.run projDir dotnetExePath "build"
 )
 
-let publishPackages () =
+Target "PublishPackages" (fun _ ->
     installDotnetSdk ()
-    clean ()
     for pkg in packages do
         let projFile = __SOURCE_DIRECTORY__ </> (pkg + ".fsproj")
         let projDir = Path.GetDirectoryName(projFile)
@@ -372,13 +369,13 @@ let publishPackages () =
             Util.findFileUpwards "RELEASE_NOTES.md" projDir
             |> ReleaseNotesHelper.LoadReleaseNotes
         pushNuget release [projFile]
+)
 
-Target "PublishPackages" publishPackages
-Target "PublishPackage" publishPackages
 
 Target "Release" DoNothing
 
-"PublishPackage"
+"Clean"
+==> "PublishPackages"
 ==> "Release"
 
 // Start build
