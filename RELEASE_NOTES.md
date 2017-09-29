@@ -1,3 +1,6 @@
+### 1.6.0
+* Fix compat issues with Fable update
+
 ### 1.5.2
 * Type info for items in FlatList
 

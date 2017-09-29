@@ -1430,10 +1430,10 @@ module R = Fable.Helpers.React
 let inline localImage (path:string) : IImageSourceProperties list = jsNative
 
 let inline createElement(c: React.ComponentClass<'T>, props: 'P list, children: React.ReactElement list) =
-    applySpread R.createEl (c, keyValueList CaseRules.LowerFirst props, children)
+    R.createElement (c, keyValueList CaseRules.LowerFirst props, children)
 
 let inline internal createElementWithObjProps(c: React.ComponentClass<'T>, props: obj, children: React.ReactElement list) =
-    applySpread R.createEl (c, props, children)
+    R.createElement (c, props, children)
 
 let inline text (props:TextProperties list) (text:string): React.ReactElement =
     createElement(RN.Text, props, [React.str text])
@@ -1726,12 +1726,6 @@ let inline newDataSource<'a> (elements:'a []) =
 
 let inline updateDataSource<'a> (data:'a []) (dataSource : ListViewDataSource<'a>) : ListViewDataSource<'a> =
     dataSource.cloneWithRows(!!data)
-
-// [<Emit(typeof<React.Emitter>, "Com")>]
-// let createComponent<'T,'P,'S when 'T :> React.Component<'P,'S>> (props: 'P) (children: React.ReactElement list): React.ReactElement = jsNative
-
-// [<Emit(typeof<React.Emitter>, "Com")>]
-// let createScene<'T,'P,'S when 'T :> React.Component<'P,'S>> (props: 'P) : React.ReactElement = jsNative
 
 [<Import("Buffer","buffer")>]
 [<Emit("$0.from($1).toString($2)")>]
