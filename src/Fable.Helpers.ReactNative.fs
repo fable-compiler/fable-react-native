@@ -1439,7 +1439,8 @@ let inline text (props:TextProperties list) (text:string): React.ReactElement =
     createElement(RN.Text, props, [React.str text])
 
 let inline textInput (props: ITextInputProperties list) (text:string): React.ReactElement =
-    createElement(RN.TextInput, props, [R.str text])
+    let valueProp = TextInput.TextInputProperties.Value text :> ITextInputProperties
+    createElement(RN.TextInput, valueProp :: props, [])
 
 let inline createToolbarAction(title:string,showStatus:ToolbarActionShowStatus) : ToolbarAndroidAction =
     createObj [
