@@ -1,3 +1,6 @@
+### 1.6.1
+* Fix #17: textInput on IOS (@ddunlea)
+
 ### 1.6.0
 * Fix compat issues with Fable update
 
