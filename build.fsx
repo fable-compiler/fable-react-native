@@ -16,7 +16,7 @@ System.Console.OutputEncoding <- System.Text.Encoding.UTF8
 let project = "fable-react-native"
 let gitOwner = "fable-compiler"
 
-let dotnetcliVersion = "2.1.3"
+let dotnetcliVersion = "2.1.4"
 let mutable dotnetExePath = environVarOrDefault "DOTNET" "dotnet"
 
 let CWD = __SOURCE_DIRECTORY__

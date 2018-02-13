@@ -1,3 +1,6 @@
+### 1.6.2
+* Adding react-native-device-info helper (#19 @forki)
+
 ### 1.6.1
 * Fix #17: textInput on IOS (@ddunlea)
 
