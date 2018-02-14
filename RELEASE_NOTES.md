@@ -1,3 +1,6 @@
+### 1.6.3
+*Add a button (#20 @forki)
+
 ### 1.6.2
 * Adding react-native-device-info helper (#19 @forki)
 
