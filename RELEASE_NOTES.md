@@ -1,5 +1,5 @@
 
-### 1.6.4
+### 1.6.5
 * FlatList's KeyExtractor by Index is an int (@forki)
 
 ### 1.6.3
