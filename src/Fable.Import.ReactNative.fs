@@ -1223,6 +1223,20 @@ module ReactNative =
         abstract style: ViewStyle option with get, set
         abstract underlayColor: string option with get, set
 
+    and ButtonProperties =
+        inherit React.Props<ButtonStatic>
+        abstract title: string option with get, set
+        abstract onPress: Func<unit> option with get, set
+        abstract accessibilityLabel: string option with get, set
+        abstract color: string option with get, set
+        abstract disabled: bool option with get, set
+        abstract testID: string option with get, set
+        abstract hasTVPreferredFocus: Boolean option with get, set
+
+    and ButtonStatic =
+        inherit React.ComponentClass<ButtonProperties>        
+        
+
     and TouchableHighlightStatic =
         inherit React.ComponentClass<TouchableHighlightProperties>
 
@@ -2136,6 +2150,9 @@ module ReactNative =
     and ToolbarAndroid =
         ToolbarAndroidStatic
 
+    and Button =
+        ButtonStatic
+
     and TouchableHighlight =
         TouchableHighlightStatic
 
@@ -2289,6 +2306,7 @@ module ReactNative =
         [<Import("TextInput", "react-native")>] static member TextInput with get(): TextInputStatic = jsNative and set(v: TextInputStatic): unit = jsNative
         [<Import("ToolbarAndroid", "react-native")>] static member ToolbarAndroid with get(): ToolbarAndroidStatic = jsNative and set(v: ToolbarAndroidStatic): unit = jsNative
         [<Import("TouchableHighlight", "react-native")>] static member TouchableHighlight with get(): TouchableHighlightStatic = jsNative and set(v: TouchableHighlightStatic): unit = jsNative
+        [<Import("Button", "react-native")>] static member Button with get(): ButtonStatic = jsNative and set(v: ButtonStatic): unit = jsNative
         [<Import("TouchableNativeFeedback", "react-native")>] static member TouchableNativeFeedback with get(): TouchableNativeFeedbackStatic = jsNative and set(v: TouchableNativeFeedbackStatic): unit = jsNative
         [<Import("TouchableOpacity", "react-native")>] static member TouchableOpacity with get(): TouchableOpacityStatic = jsNative and set(v: TouchableOpacityStatic): unit = jsNative
         [<Import("TouchableWithoutFeedback", "react-native")>] static member TouchableWithoutFeedback with get(): TouchableWithoutFeedbackStatic = jsNative and set(v: TouchableWithoutFeedbackStatic): unit = jsNative

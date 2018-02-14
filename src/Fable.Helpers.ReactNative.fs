@@ -1065,6 +1065,18 @@ module Props =
         | OnRequestClose of (unit->unit)
         | OnShow of Func<NativeSyntheticEvent<obj>, unit>
 
+    type IButtonProperties =
+        interface end
+
+    type ButtonProperties =
+        | Title of string
+        | OnPress of (unit->unit)
+        | Disabled of bool
+        | Color of string
+        | TestID of string
+        | HasTVPreferredFocus of bool
+        interface IButtonProperties
+
     type ITouchableHighlightProperties =
         interface end
 
@@ -1594,6 +1606,12 @@ let inline modal (props:ModalProperties list) : React.ReactElement =
     createElement(
       RN.Modal,
       props, [])
+
+let inline button (props:IButtonProperties list) (children: React.ReactElement list) : React.ReactElement =
+    createElement(
+      RN.Button,
+      props,
+      children)
 
 let inline touchableWithoutFeedback (props:ITouchableWithoutFeedbackProperties list) (children: React.ReactElement list): React.ReactElement =
     createElement(
