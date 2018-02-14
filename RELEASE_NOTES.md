@@ -1,5 +1,9 @@
+
+### 1.6.4
+* FlatList's KeyExtractor by Index is an int (@forki)
+
 ### 1.6.3
-*Add a button (#20 @forki)
+* Add a button (#20 @forki)
 
 ### 1.6.2
 * Adding react-native-device-info helper (#19 @forki)
