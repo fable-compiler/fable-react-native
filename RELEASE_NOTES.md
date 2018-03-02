@@ -1,3 +1,6 @@
+### 1.7.0
+* async-safe, static lifecycle hooks - https://fb.me/react-async-component-lifecycle-hooks
+
 ### 1.6.6
 * KeyboardShouldPersistTaps changed for ScrollViews
 
