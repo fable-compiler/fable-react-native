@@ -581,7 +581,7 @@ NUGET
   remote: https://www.nuget.org/api/v2
     FAKE (4.64.3)
     FSharp.Core (4.2.3) - content: none, redirects: force
-    Octokit (0.28)
+    Octokit (0.29)
 GITHUB
   remote: fsharp/FAKE
     modules/Octokit/Octokit.fsx (642a01a5e17b870f816cdd7ee09115e018b786f0)
