@@ -28,9 +28,8 @@ Target "Bootstrap" (fun () ->
 )
 
 Target "PublishPackages" (fun () ->
-    ()
-    // [ "src/Fable.React.Native.fsproj"]
-    // |> publishPackages CWD dotnetExePath
+    [ "src/Fable.React.Native.fsproj"]
+    |> publishPackages CWD dotnetExePath
 )
 
 Target "GitHubRelease" (fun () ->
