@@ -1255,7 +1255,7 @@ module Props =
         | ScrollPerfTag of string
         interface IScrollViewPropertiesAndroid
 
-    [<RequireQualifiedAccess>]
+    [<RequireQualifiedAccess; StringEnum>]
     type KeyboardShouldPersistTapsProperties =
     | Never
     | Always
