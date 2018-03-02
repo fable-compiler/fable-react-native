@@ -1,3 +1,5 @@
+### 1.6.6
+* KeyboardShouldPersistTaps changed for ScrollViews
 
 ### 1.6.5
 * FlatList's KeyExtractor by Index is an int (@forki)

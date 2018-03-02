@@ -1255,11 +1255,17 @@ module Props =
         | ScrollPerfTag of string
         interface IScrollViewPropertiesAndroid
 
+    [<RequireQualifiedAccess>]
+    type KeyboardShouldPersistTapsProperties =
+    | Never
+    | Always
+    | Handled
+
     type ScrollViewProperties =
         | ContentContainerStyle of ViewStyle list
         | Horizontal of bool
         | KeyboardDismissMode of string
-        | KeyboardShouldPersistTaps of bool
+        | KeyboardShouldPersistTaps of KeyboardShouldPersistTapsProperties
         | OnScroll of Func<obj, unit>
         | PagingEnabled of bool
         | RemoveClippedSubviews of bool
