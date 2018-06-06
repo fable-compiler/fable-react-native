@@ -1595,12 +1595,22 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
             createObj ["dataSource" ==> dataSource],
             keyValueList CaseRules.LowerFirst props), [])
 
-let inline flatList<'a> (data:'a []) (props: IFlatListProperties<'a> list)  : React.ReactElement =
+let inline flatList<'a> (data:'a []) (props: FlatListProperties<'a> list)  : React.ReactElement =
+    let pascalCaseProps, camelCaseProps =
+      List.partition (function
+                      | ItemSeparatorComponent _ -> true
+                      | ListEmptyComponent _ -> true
+                      | ListFooterComponent _ -> true
+                      | ListHeaderComponent _ -> true
+                      | _ -> false)
+                      props
+
     createElementWithObjProps(
       RN.FlatList,
       !!JS.Object.assign(
             createObj ["data" ==> data],
-            keyValueList CaseRules.LowerFirst props), [])
+            keyValueList CaseRules.LowerFirst camelCaseProps,
+            keyValueList CaseRules.None pascalCaseProps), [])
 
 let inline mapView (props:IMapViewProperties list) (children: React.ReactElement list): React.ReactElement =
     createElement(
