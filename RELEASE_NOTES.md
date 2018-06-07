@@ -1,3 +1,6 @@
+### 1.7.2
+* Some of FlatList properties are upper case: @iyegoroff
+
 ### 1.7.1
 * KeyboardShouldPersistTaps changed for ScrollViews
 

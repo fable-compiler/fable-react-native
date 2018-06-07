@@ -1276,7 +1276,7 @@ module Props =
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
 
-    type ListViewProperties<'a> = 
+    type ListViewProperties<'a> =
         | DataSource of ListViewDataSource<'a>
         | EnableEmptySections of bool
         | InitialListSize of float
@@ -1299,7 +1299,7 @@ module Props =
     type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
 
     type GetItemLayoutResult = { length : float; offset : float; index : float }
-    
+
     type ViewToken<'a> = { item : 'a; key : string; index : float; isViewable : bool; section : obj }
     type OnViewableItemsChangedInfo<'a> = { viewableItems : ViewToken<'a> []; changed : ViewToken<'a> [] }
 
@@ -1596,6 +1596,8 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
             keyValueList CaseRules.LowerFirst props), [])
 
 let inline flatList<'a> (data:'a []) (props: FlatListProperties<'a> list)  : React.ReactElement =
+    // Some of FlatList properties are upper case:
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-native/index.d.ts#L3608-L3623
     let pascalCaseProps, camelCaseProps =
       List.partition (function
                       | ItemSeparatorComponent _ -> true
@@ -1769,7 +1771,7 @@ let encode (text: string, encoding:string) : string = jsNative
 let encodeBase64 (text: string) : string = encode(text,"base64")
 let encodeAscii (text: string) : string = encode(text,"ascii")
 
-    
+
 [<Import("BackHandler","react-native")>]
 let private BackHandler = obj()
 
@@ -1845,7 +1847,7 @@ module ImageStore =
         Promise.create(fun onSuccess onError ->
             ImageStore?addImageFromBase64(imageData, onSuccess, onError) |> ignore
         )
-        
+
 /// ImageEditor contains functions which help to deal with image data.
 module ImageEditor =
     [<RequireQualifiedAccess>]
@@ -1858,7 +1860,7 @@ module ImageEditor =
         let data = createObj [  ]
 
         member this.SetSize(width:int,height:int) =
-            let size = 
+            let size =
                 createObj
                     [ "width" ==> width
                       "height" ==> height ]
@@ -1867,7 +1869,7 @@ module ImageEditor =
             this
 
         member this.SetDisplaySize(width:int,height:int) =
-            let size = 
+            let size =
                 createObj
                     [ "width" ==> width
                       "height" ==> height ]
@@ -1876,7 +1878,7 @@ module ImageEditor =
             this
 
         member this.SetOffset(x:int,y:int) =
-            let offset = 
+            let offset =
                 createObj
                     [ "x" ==> x
                       "y" ==> y ]
@@ -1886,7 +1888,7 @@ module ImageEditor =
 
         member this.SetResizeMode(mode:ResizeMode) =
 
-            data?displaysize <- 
+            data?displaysize <-
                 match mode with
                 | ResizeMode.Contain -> "contain"
                 | ResizeMode.Cover -> "cover"
@@ -1897,7 +1899,7 @@ module ImageEditor =
     [<Import("ImageEditor","react-native")>]
     let private ImageEditor = obj()
 
-    /// Crop the image specified by the URI param. If URI points to a remote image, it will be downloaded automatically. 
+    /// Crop the image specified by the URI param. If URI points to a remote image, it will be downloaded automatically.
     /// If the image cannot be loaded/downloaded, the failure callback will be called.
     let cropImage (uri:string) (cropData:CropData) : JS.Promise<string> =
         Promise.create(fun onSuccess onError ->
