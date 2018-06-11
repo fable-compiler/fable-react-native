@@ -319,22 +319,44 @@ module ReactNative =
         abstract Presets: obj with get, set
 
     and [<StringEnum>] FlexAlignType =
-        | ``Flex-start`` | ``Flex-end`` | Center | Stretch | Baseline
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | Stretch
+        | Baseline
 
     and [<StringEnum>] FlexAlignSelfType =
-        | Auto | ``Flex-start`` | ``Flex-end`` | Center | Stretch | Baseline
+        | Auto
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | Stretch
+        | Baseline
 
     and [<StringEnum>] FlexJustifyType =
-        | ``Flex-start`` | ``Flex-end`` | Center | ``Space-between`` | ``Space-around`` | ``Space-evenly``
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | [<CompiledName("space-between")>] SpaceBetween
+        | [<CompiledName("space-around")>] SpaceAround
+        | [<CompiledName("space-evenly")>] SpaceEvenly
 
     and [<StringEnum>] FlexAlignContentType =
-        | ``Flex-start`` | ``Flex-end`` | Center | Stretch | ``Space-between`` | ``Space-around``
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | Stretch
+        | [<CompiledName("space-between")>] SpaceBetween
+        | [<CompiledName("space-around")>] SpaceAround
 
     and [<StringEnum>] FlexDisplayType =
         | None | Flex
 
     and [<StringEnum>] FlexDirectionType =
-        | Row | ``Row-reverse`` | Column | ``Column-reverse``
+        | Row
+        | [<CompiledName("row-reverse")>] RowReverse
+        | Column
+        | [<CompiledName("column-reverse")>] ColumnReverse
 
     and [<StringEnum>] FlexWrapType =
         | Wrap | Nowrap
@@ -630,7 +652,10 @@ module ReactNative =
         abstract renderToHardwareTextureAndroid: bool option with get, set
 
     and [<StringEnum; RequireQualifiedAccess>] PointerEvents =
-        | ``Box-none`` | None | ``Box-only`` | AutoViewStyle
+        | [<CompiledName("box-none")>] BoxNone
+        | None
+        | [<CompiledName("box-only")>] BoxOnly
+        | Auto
 
     and ViewProperties =
         inherit ViewPropertiesAndroid
@@ -1841,7 +1866,9 @@ module ReactNative =
         abstract popInitialNotification: unit -> PushNotification
 
     and [<StringEnum>] StatusBarStyle =
-        | Default | ``Light-content``
+        | Default
+        | [<CompiledName("light-content")>] LightContent
+        | [<CompiledName("dark-content")>] DarkContent
 
     and [<StringEnum; RequireQualifiedAccess>] StatusBarAnimation =
         | None | Fade | Slide

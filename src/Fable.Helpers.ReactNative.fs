@@ -188,9 +188,10 @@ module Props =
 
     [<StringEnum; RequireQualifiedAccess>]
     type TextDecorationLine =
-        | None | Underline
-        | ``Line-through``
-        | ``Underline line-through``
+        | None
+        | Underline
+        | [<CompiledName("line-through")>] LineThrough
+        | [<CompiledName("underline line-through")>] UnderlineLineThrough
 
     [<StringEnum; RequireQualifiedAccess>]
     type LineBreakMode =
@@ -246,7 +247,18 @@ module Props =
 
     [<StringEnum; RequireQualifiedAccess>]
     type SystemIcon =
-        | Bookmarks | Contacts | Downloads | Favorites | Featured | History | More | ``Most-recent`` | ``Most-viewed`` | Recents | Search | ``Top-rated``
+        | Bookmarks
+        | Contacts
+        | Downloads
+        | Favorites
+        | Featured 
+        | History
+        | More
+        | [<CompiledName("most-recent")>] MostRecent
+        | [<CompiledName("most-viewed")>] MostViewed
+        | Recents
+        | Search
+        | [<CompiledName("top-rated")>] TopRated
 
     [<StringEnum; RequireQualifiedAccess>]
     type Dim =
