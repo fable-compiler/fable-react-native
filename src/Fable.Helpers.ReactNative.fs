@@ -603,8 +603,8 @@ module Props =
         | AllowFontScaling of bool
         | LineBreakMode of LineBreakMode
         | NumberOfLines of float
-        | OnLayout of Func<LayoutChangeEvent, unit>
-        | OnPress of (unit->unit)
+        | OnLayout of (LayoutChangeEvent -> unit)
+        | OnPress of (unit -> unit)
         | Style of IStyle list
         | TestID of string
         interface ITextProperties
@@ -624,7 +624,7 @@ module Props =
             | ClearButtonMode of string
             | ClearTextOnFocus of bool
             | EnablesReturnKeyAutomatically of bool
-            | OnKeyPress of (unit->unit)
+            | OnKeyPress of (unit -> unit)
             | SelectionState of obj
             interface ITextInputIOSProperties
 
@@ -646,14 +646,14 @@ module Props =
             | KeyboardType of KeyboardType
             | MaxLength of float
             | Multiline of bool
-            | OnBlur of (unit->unit)
+            | OnBlur of (unit -> unit)
             | OnChange of (obj -> unit)
             | OnChangeText of (string -> unit)
             | OnEndEditing of (obj -> unit)
-            | OnFocus of (unit->unit)
-            | OnLayout of Func<obj, unit>
-            | OnSelectionChange of (unit->unit)
-            | OnSubmitEditing of Func<obj, unit>
+            | OnFocus of (unit -> unit)
+            | OnLayout of (obj -> unit)
+            | OnSelectionChange of (unit -> unit)
+            | OnSubmitEditing of (obj -> unit)
             | Password of bool
             | Placeholder of string
             | PlaceholderTextColor of string
@@ -673,7 +673,7 @@ module Props =
             | ContentInsetStart of float
             | Logo of obj
             | NavIcon of obj
-            | OnIconClicked of (unit->unit)
+            | OnIconClicked of (unit -> unit)
             | OverflowIcon of obj
             | Rtl of bool
             | Style of IStyle list
@@ -686,16 +686,16 @@ module Props =
             interface IToolbarAndroidProperties
 
     type GestureResponderHandlers =
-        | OnStartShouldSetResponder of Func<GestureResponderEvent, bool>
-        | OnMoveShouldSetResponder of Func<GestureResponderEvent, bool>
-        | OnResponderGrant of Func<GestureResponderEvent, unit>
-        | OnResponderReject of Func<GestureResponderEvent, unit>
-        | OnResponderMove of Func<GestureResponderEvent, unit>
-        | OnResponderRelease of Func<GestureResponderEvent, unit>
-        | OnResponderTerminationRequest of Func<GestureResponderEvent, bool>
-        | OnResponderTerminate of Func<GestureResponderEvent, unit>
-        | OnStartShouldSetResponderCapture of Func<GestureResponderEvent, bool>
-        | OnMoveShouldSetResponderCapture of (unit->unit)
+        | OnStartShouldSetResponder of (GestureResponderEvent -> bool)
+        | OnMoveShouldSetResponder of (GestureResponderEvent -> bool)
+        | OnResponderGrant of (GestureResponderEvent -> unit)
+        | OnResponderReject of (GestureResponderEvent -> unit)
+        | OnResponderMove of (GestureResponderEvent -> unit)
+        | OnResponderRelease of (GestureResponderEvent -> unit)
+        | OnResponderTerminationRequest of (GestureResponderEvent -> bool)
+        | OnResponderTerminate of (GestureResponderEvent -> unit)
+        | OnStartShouldSetResponderCapture of (GestureResponderEvent -> bool)
+        | OnMoveShouldSetResponderCapture of (GestureResponderEvent -> unit)
         interface IGestureResponderHandlers
 
     type ViewPropertiesIOS =
@@ -716,9 +716,9 @@ module Props =
         | AccessibilityLabel of string
         | Accessible of bool
         | HitSlop of obj
-        | OnAcccessibilityTap of (unit->unit)
-        | OnLayout of Func<LayoutChangeEvent, unit>
-        | OnMagicTap of (unit->unit)
+        | OnAcccessibilityTap of (unit -> unit)
+        | OnLayout of (LayoutChangeEvent -> unit)
+        | OnMagicTap of (unit -> unit)
         | PointerEvents of PointerEvents
         | RemoveClippedSubviews of bool
         | Style of IStyle list
@@ -728,9 +728,9 @@ module Props =
     type ViewPagerAndroidProperties =
         | InitialPage of int
         | ScrollEnabled of bool
-        | OnPageScroll of Func<NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData>, unit>
-        | OnPageSelected of Func<NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData>, unit>
-        | OnPageScrollStateChanged of Func<ScrollState, unit>
+        | OnPageScroll of (NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> -> unit)
+        | OnPageSelected of (NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> -> unit)
+        | OnPageScrollStateChanged of (ScrollState -> unit)
         | KeyboardDismissMode of KeyboardDismissMode
         | PageMargin of float
         | Style of IStyle list
@@ -752,7 +752,7 @@ module Props =
         | AllowsInlineMediaPlayback of bool
         | Bounces of bool
         | DecelerationRate of DecelerationRate
-        | OnShouldStartLoadWithRequest of Func<WebViewIOSLoadRequestEvent, bool>
+        | OnShouldStartLoadWithRequest of (WebViewIOSLoadRequestEvent -> bool)
         | ScrollEnabled of bool
         interface IWebViewPropertiesIOS
 
@@ -772,14 +772,14 @@ module Props =
         | ContentInset of Insets
         | Html of string
         | InjectedJavaScript of string
-        | OnError of Func<NavState, unit>
-        | OnLoad of Func<NavState, unit>
-        | OnLoadEnd of Func<NavState, unit>
-        | OnLoadStart of Func<NavState, unit>
-        | OnNavigationStateChange of Func<NavState, unit>
-        | OnShouldStartLoadWithRequest of Func<bool>
-        | RenderError of Func<React.ReactElement>
-        | RenderLoading of Func<React.ReactElement>
+        | OnError of (NavState -> unit)
+        | OnLoad of (NavState -> unit)
+        | OnLoadEnd of (NavState -> unit)
+        | OnLoadStart of (NavState -> unit)
+        | OnNavigationStateChange of (NavState -> unit)
+        | OnShouldStartLoadWithRequest of (obj -> bool)
+        | RenderError of (unit -> React.ReactElement)
+        | RenderLoading of (unit -> React.ReactElement)
         | ScrollEnabled of bool
         | StartInLoadingState of bool
         | Style of IStyle list
@@ -793,8 +793,8 @@ module Props =
     type SegmentedControlIOSProperties =
         | Enabled of bool
         | Momentary of bool
-        | OnChange of Func<NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>, unit>
-        | OnValueChange of Func<string, unit>
+        | OnChange of (NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent> -> unit)
+        | OnValueChange of (string -> unit)
         | SelectedIndex of float
         | TintColor of string
         | Values of ResizeArray<string>
@@ -827,7 +827,7 @@ module Props =
             | Animating of bool
             | Color of string
             | HidesWhenStopped of bool
-            | OnLayout of Func<obj, unit>
+            | OnLayout of (obj -> unit)
             | Size of Size
             | Style of IStyle list
             | Ref of Ref<ActivityIndicatorIOS>
@@ -839,7 +839,7 @@ module Props =
         | MinimumDate of DateTime
         | MinuteInterval of float
         | Mode of DatePickerIOSMode
-        | OnDateChange of Func<DateTime, unit>
+        | OnDateChange of (DateTime -> unit)
         | TimeZoneOffsetInMinutes of float
         | Ref of Ref<DatePickerIOS>
         interface IDatePickerIOSProperties
@@ -850,11 +850,11 @@ module Props =
         | DrawerPosition of DrawerLayoutAndroidPosition
         | DrawerWidth of float
         | KeyboardDismissMode of KeyboardDismissMode
-        | OnDrawerClose of (unit->unit)
-        | OnDrawerOpen of (unit->unit)
-        | OnDrawerSlide of Func<DrawerSlideEvent, unit>
-        | OnDrawerStateChanged of Func<ScrollState, unit>
-        | RenderNavigationView of Func<obj>
+        | OnDrawerClose of (unit -> unit)
+        | OnDrawerOpen of (unit -> unit)
+        | OnDrawerSlide of (DrawerSlideEvent -> unit)
+        | OnDrawerStateChanged of (ScrollState -> unit)
+        | RenderNavigationView of (unit -> obj)
         | StatusBarBackgroundColor of obj
         | Ref of Ref<obj>
         interface IDrawerLayoutAndroidProperties
@@ -883,7 +883,7 @@ module Props =
             interface IPickerProperties
 
         type PickerProperties =
-            | OnValueChange of Func<string, int, unit>
+            | OnValueChange of (string -> int -> unit)
             | SelectedValue of string
             | Style of IStyle list
             | TestId of string
@@ -934,7 +934,7 @@ module Props =
         interface IRefreshControlProperties
 
     type RefreshControlProperties =
-        | OnRefresh of (unit->unit)
+        | OnRefresh of (unit -> unit)
         | Refreshing of bool
         | Ref of Ref<RefreshControl>
         interface IRefreshControlProperties
@@ -953,8 +953,8 @@ module Props =
         | Disabled of bool
         | MaximumValue of float
         | MinimumValue of float
-        | OnSlidingComplete of Func<float, unit>
-        | OnValueChange of Func<float, unit>
+        | OnSlidingComplete of (float -> unit)
+        | OnValueChange of (float -> unit)
         | Step of float
         | Style of IStyle list
         | TestID of string
@@ -968,8 +968,8 @@ module Props =
         | MinimumValue of float
         | MinimumTrackImage of obj
         | MinimumTrackTintColor of string
-        | OnSlidingComplete of (unit->unit)
-        | OnValueChange of Func<float, unit>
+        | OnSlidingComplete of (unit -> unit)
+        | OnValueChange of (float -> unit)
         | Step of float
         | Style of IStyle list
         | Value of float
@@ -979,7 +979,7 @@ module Props =
     type SwitchIOSProperties =
         | Disabled of bool
         | OnTintColor of string
-        | OnValueChange of Func<bool, unit>
+        | OnValueChange of (bool -> unit)
         | ThumbTintColor of string
         | TintColor of string
         | Value of bool
@@ -1021,15 +1021,15 @@ module Props =
         | Accessible of bool
         | CapInsets of Insets
         | DefaultSource of IImageSourceProperties list
-        | OnError of Func<obj, unit>
-        | OnProgress of (unit->unit)
+        | OnError of (obj -> unit)
+        | OnProgress of (unit -> unit)
         interface IImagePropertiesIOS
 
     type ImageProperties =
-        | OnLayout of Func<LayoutChangeEvent, unit>
-        | OnLoad of (unit->unit)
-        | OnLoadEnd of (unit->unit)
-        | OnLoadStart of (unit->unit)
+        | OnLayout of (LayoutChangeEvent -> unit)
+        | OnLoad of (unit -> unit)
+        | OnLoadEnd of (unit -> unit)
+        | OnLoadStart of (unit -> unit)
         | ResizeMode of ResizeMode
         | Source of IImageSourceProperties list
         | Style of IStyle list
@@ -1045,8 +1045,8 @@ module Props =
         | Subtitle of string
         | HasLeftCallout of bool
         | HasRightCallout of bool
-        | OnLeftCalloutPress of (unit->unit)
-        | OnRightCalloutPress of (unit->unit)
+        | OnLeftCalloutPress of (unit -> unit)
+        | OnRightCalloutPress of (unit -> unit)
         | Id of string
 
     type MapViewRegion =
@@ -1078,9 +1078,9 @@ module Props =
         interface IMapViewPropertiesAndroid
 
     type MapViewProperties =
-        | OnAnnotationPress of (unit->unit)
-        | OnRegionChange of Func<MapViewRegion, unit>
-        | OnRegionChangeComplete of Func<MapViewRegion, unit>
+        | OnAnnotationPress of (unit -> unit)
+        | OnRegionChange of (MapViewRegion -> unit)
+        | OnRegionChangeComplete of (MapViewRegion -> unit)
         | PitchEnabled of bool
         | Region of MapViewRegion
         | RotateEnabled of bool
@@ -1096,15 +1096,15 @@ module Props =
         | AnimationType of AnimationType
         | Transparent of bool
         | Visible of bool
-        | OnRequestClose of (unit->unit)
-        | OnShow of Func<NativeSyntheticEvent<obj>, unit>
+        | OnRequestClose of (unit -> unit)
+        | OnShow of (NativeSyntheticEvent<obj> -> unit)
 
     type IButtonProperties =
         interface end
 
     type ButtonProperties =
         | Title of string
-        | OnPress of (unit->unit)
+        | OnPress of (unit -> unit)
         | Disabled of bool
         | Color of string
         | TestID of string
@@ -1148,19 +1148,19 @@ module Props =
         | DelayPressOut of float
         | Disabled of bool
         | HitSlop of obj
-        | OnLayout of Func<LayoutChangeEvent, unit>
-        | OnLongPress of (unit->unit)
-        | OnPress of (unit->unit)
-        | OnPressIn of (unit->unit)
-        | OnPressOut of (unit->unit)
+        | OnLayout of (LayoutChangeEvent -> unit)
+        | OnLongPress of (unit -> unit)
+        | OnPress of (unit -> unit)
+        | OnPressIn of (unit -> unit)
+        | OnPressOut of (unit -> unit)
         | Style of IStyle list
         | PressRetentionOffset of obj
         interface ITouchableWithoutFeedbackProperties
 
     type TouchableHighlightProperties =
         | ActiveOpacity of float
-        | OnHideUnderlay of (unit->unit)
-        | OnShowUnderlay of (unit->unit)
+        | OnHideUnderlay of (unit -> unit)
+        | OnShowUnderlay of (unit -> unit)
         | Style of IStyle list
         | UnderlayColor of string
         interface ITouchableHighlightProperties
@@ -1175,9 +1175,9 @@ module Props =
         interface ITouchableNativeFeedbackProperties
 
     type NavigationBarRouteMapper =
-        | Title of Func<Route, Navigator, float, NavState, React.ReactElement>
-        | LeftButton of Func<Route, Navigator, float, NavState, React.ReactElement>
-        | RightButton of Func<Route, Navigator, float, NavState, React.ReactElement>
+        | Title of (Route -> Navigator -> float -> NavState -> React.ReactElement)
+        | LeftButton of (Route -> Navigator -> float -> NavState -> React.ReactElement)
+        | RightButton of (Route -> Navigator -> float -> NavState -> React.ReactElement)
 
     type NavigationBarProperties =
         | Navigator of Navigator
@@ -1189,14 +1189,14 @@ module Props =
         interface end
 
     type NavigatorProperties =
-        | ConfigureScene of Func<Route, ResizeArray<Route>, SceneConfig>
+        | ConfigureScene of (Route -> ResizeArray<Route> -> SceneConfig)
         | InitialRoute of Route
         | InitialRouteStack of ResizeArray<Route>
         | NavigationBar of React.ReactElement // React.ReactElement option
         | Navigator of Navigator
-        | OnDidFocus of (unit->unit)
-        | OnWillFocus of (unit->unit)
-        | RenderScene of Func<Route, Navigator, React.ReactElement>
+        | OnDidFocus of (unit -> unit)
+        | OnWillFocus of (unit -> unit)
+        | RenderScene of (Route -> Navigator -> React.ReactElement)
         | SceneStyle of ViewStyle list
         | DebugOverlay of bool
         interface INavigatorProperties
@@ -1205,7 +1205,7 @@ module Props =
         type TabBarItemProperties =
             | Badge of U2<string, float>
             | Icon of U2<obj, string>
-            | OnPress of (unit->unit)
+            | OnPress of (unit -> unit)
             | Selected of bool
             | SelectedIcon of U2<obj, string>
             | Style of IStyle list
@@ -1269,8 +1269,8 @@ module Props =
         | IndicatorStyle of IndicatorStyle
         | MaximumZoomScale of float
         | MinimumZoomScale of float
-        | OnRefreshStart of (unit->unit)
-        | OnScrollAnimationEnd of (unit->unit)
+        | OnRefreshStart of (unit -> unit)
+        | OnScrollAnimationEnd of (unit -> unit)
         | ScrollEnabled of bool
         | ScrollEventThrottle of float
         | ScrollIndicatorInsets of Insets
@@ -1300,7 +1300,7 @@ module Props =
         | Horizontal of bool
         | KeyboardDismissMode of string
         | KeyboardShouldPersistTaps of KeyboardShouldPersistTapsProperties
-        | OnScroll of Func<obj, unit>
+        | OnScroll of (obj -> unit)
         | PagingEnabled of bool
         | RemoveClippedSubviews of bool
         | ShowsHorizontalScrollIndicator of bool
@@ -1314,22 +1314,22 @@ module Props =
         | DataSource of ListViewDataSource<'a>
         | EnableEmptySections of bool
         | InitialListSize of float
-        | OnChangeVisibleRows of Func<ResizeArray<obj>, ResizeArray<obj>, unit>
-        | OnEndReached of (unit->unit)
+        | OnChangeVisibleRows of (ResizeArray<obj> -> ResizeArray<obj> -> unit)
+        | OnEndReached of (unit -> unit)
         | OnEndReachedThreshold of float
         | PageSize of float
         | RemoveClippedSubviews of bool
-        | RenderFooter of Func<React.ReactElement>
-        | RenderHeader of Func<React.ReactElement>
-        | RenderRow of Func<'a, U2<string, float>, U2<string, float>, bool, React.ReactElement>
-        | RenderScrollComponent of Func<ScrollViewProperties, React.ReactElement>
-        | RenderSectionHeader of Func<obj, U2<string, float>, React.ReactElement>
-        | RenderSeparator of Func<U2<string, float>, U2<string, float>, bool, React.ReactElement>
+        | RenderFooter of (unit -> React.ReactElement)
+        | RenderHeader of (unit -> React.ReactElement)
+        | RenderRow of ('a -> U2<string, float> -> U2<string, float> -> bool -> React.ReactElement)
+        | RenderScrollComponent of (ScrollViewProperties -> React.ReactElement)
+        | RenderSectionHeader of (obj -> U2<string, float> -> React.ReactElement)
+        | RenderSeparator of (U2<string, float> -> U2<string, float> -> bool -> React.ReactElement)
         | ScrollRenderAheadDistance of float
         | Ref of Ref<obj>
         interface IListViewProperties
 
-    type FlatListRenderItemSeparator = { highlight : Func<unit, unit>; unhighlight : Func<unit, unit> }
+    type FlatListRenderItemSeparator = { highlight : (unit -> unit); unhighlight : (unit -> unit) }
     type FlatListRenderItemInfo<'a> = { item : 'a; index : float; separators : FlatListRenderItemSeparator }
 
     type GetItemLayoutResult = { length : float; offset : float; index : float }
@@ -1346,20 +1346,20 @@ module Props =
         | ListHeaderComponent of (unit -> React.ReactElement)
         | ColumnWrapperStyle of IStyle list
         | ExtraData of obj
-        | GetItemLayout of Func<ResizeArray<'a>, GetItemLayoutResult>
+        | GetItemLayout of (ResizeArray<'a> -> GetItemLayoutResult)
         | Horizontal of bool
         | InitialNumToRender of int
         | InitialScrollIndex of float
-        | KeyExtractor of Func<'a, int, string>
+        | KeyExtractor of ('a -> int -> string)
         | LegacyImplementation of bool
         | NumColumns of int
-        | OnEndReached of Func<float, unit>
+        | OnEndReached of (float -> unit)
         | OnEndReachedThreshold of float
-        | OnRefresh of Func<unit, unit>
-        | OnViewableItemsChanged of Func<OnViewableItemsChangedInfo<'a>, unit>
+        | OnRefresh of (unit -> unit)
+        | OnViewableItemsChanged of (OnViewableItemsChangedInfo<'a> -> unit)
         | Refreshing of bool
         | RemoveClippedSubviews of bool
-        | RenderItem of Func<FlatListRenderItemInfo<'a>, React.ReactElement>
+        | RenderItem of (FlatListRenderItemInfo<'a> -> React.ReactElement)
         | ViewabilityConfig of ViewabilityConfig
         | Ref of Ref<obj>
         interface IFlatListProperties<'a>
@@ -1367,8 +1367,8 @@ module Props =
     type SwipeableListViewProps<'a> =
         | DataSource of SwipeableListViewDataSource<'a> // REQUIRED!
         | MaxSwipeDistance of float
-        | RenderRow of Func<'a, U2<string, float>, U2<string, float>, bool, React.ReactElement> // REQUIRED!
-        | RenderQuickActions of Func<'a, string, string, React.ReactElement> // REQUIRED!
+        | RenderRow of ('a -> U2<string, float> -> U2<string, float> -> bool -> React.ReactElement) // REQUIRED!
+        | RenderQuickActions of ('a -> string -> string -> React.ReactElement) // REQUIRED!
 
     type ActionSheetIOSOptions =
         | Title of string
@@ -1388,18 +1388,18 @@ module Props =
         | MaxDate of U2<DateTime, float>
 
     type PanResponderCallbacks =
-        | OnMoveShouldSetPanResponder of Func<GestureResponderEvent, PanResponderGestureState, bool>
-        | OnStartShouldSetPanResponder of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderGrant of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderMove of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderRelease of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderTerminate of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnMoveShouldSetPanResponderCapture of Func<GestureResponderEvent, PanResponderGestureState, bool>
-        | OnStartShouldSetPanResponderCapture of Func<GestureResponderEvent, PanResponderGestureState, bool>
-        | OnPanResponderReject of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderStart of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderEnd of Func<GestureResponderEvent, PanResponderGestureState, unit>
-        | OnPanResponderTerminationRequest of Func<GestureResponderEvent, PanResponderGestureState, bool>
+        | OnMoveShouldSetPanResponder of (GestureResponderEvent -> PanResponderGestureState -> bool)
+        | OnStartShouldSetPanResponder of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderGrant of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderMove of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderRelease of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderTerminate of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnMoveShouldSetPanResponderCapture of (GestureResponderEvent -> PanResponderGestureState -> bool)
+        | OnStartShouldSetPanResponderCapture of (GestureResponderEvent -> PanResponderGestureState -> bool)
+        | OnPanResponderReject of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderStart of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderEnd of (GestureResponderEvent -> PanResponderGestureState -> unit)
+        | OnPanResponderTerminationRequest of (GestureResponderEvent -> PanResponderGestureState -> bool)
 
     module StatusBar =
         type StatusBarPropertiesIOS =
