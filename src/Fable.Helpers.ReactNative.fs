@@ -26,6 +26,21 @@ module Props =
     | Center
     | [<CompiledName("flex-end")>] FlexEnd
     | Stretch
+    | Baseline
+
+    [<StringEnum; RequireQualifiedAccess>]
+    type ContentAlignment =
+    | [<CompiledName("flex-start")>] FlexStart
+    | Center
+    | [<CompiledName("flex-end")>] FlexEnd
+    | Stretch
+    | [<CompiledName("space-between")>] SpaceBetween
+    | [<CompiledName("space-around")>] SpaceAround
+
+    [<StringEnum; RequireQualifiedAccess>]
+    type Display =
+    | None
+    | Flex
 
     [<StringEnum; RequireQualifiedAccess>]
     type ItemAlignment =
@@ -33,7 +48,8 @@ module Props =
     | Center
     | [<CompiledName("flex-end")>] FlexEnd
     | Stretch
-
+    | Baseline
+    
     [<StringEnum; RequireQualifiedAccess>]
     type TextAlignment =
     | Auto
@@ -57,6 +73,7 @@ module Props =
     | [<CompiledName("flex-end")>] FlexEnd
     | [<CompiledName("space-between")>] SpaceBetween
     | [<CompiledName("space-around")>] SpaceAround
+    | [<CompiledName("space-evenly")>] SpaceEvenly
 
     [<StringEnum; RequireQualifiedAccess>]
     type FlexDirection =
@@ -67,9 +84,7 @@ module Props =
 
     [<StringEnum; RequireQualifiedAccess>]
     type FlexWrap =
-    | Row
-    | [<CompiledName("wrap")>] Wrap
-    | Column
+    | Wrap
     | [<CompiledName("nowrap")>] NoWrap
 
     [<StringEnum; RequireQualifiedAccess>]
@@ -89,11 +104,15 @@ module Props =
     | [<CompiledName("web-search")>] WebSearch
 
     [<StringEnum; RequireQualifiedAccess>]
+    type Overflow =
+    | Visible
+    | Hidden
+    | Scroll
+
+    [<StringEnum; RequireQualifiedAccess>]
     type Position =
-    | Row
-    | [<CompiledName("absolute")>] Absolute
-    | Column
-    | [<CompiledName("relative")>] Relative
+    | Absolute
+    | Relative
 
     [<StringEnum; RequireQualifiedAccess>]
     type ResizeMode =
@@ -136,10 +155,6 @@ module Props =
     | Unlocked
     | [<CompiledName("locked-closed")>] LockedClosed
     | [<CompiledName("locked-open")>] LockedOpen
-
-    [<StringEnum; RequireQualifiedAccess>]
-    type AlignSelf =
-        | Auto
 
     [<StringEnum; RequireQualifiedAccess>]
     type TextDecorationStyle =
@@ -194,7 +209,7 @@ module Props =
         | Solid | Dotted | Dashed
 
     [<StringEnum; RequireQualifiedAccess>]
-    type Overflow =
+    type ImageOverflow =
         | Visible | Hidden
 
     [<StringEnum; RequireQualifiedAccess>]
@@ -264,6 +279,9 @@ module Props =
     [<StringEnum; RequireQualifiedAccess>]
     type Direction =
         | Horizontal | Vertical
+
+    type ISizeUnit =
+        interface end
 
     type IStyle =
         interface end
@@ -424,66 +442,87 @@ module Props =
         interface ITransformsStyle
 
     type FlexStyle =
+        | AlignContent of ContentAlignment
         | AlignItems of ItemAlignment
         | AlignSelf of Alignment
         | AspectRatio of float
         | BorderBottomWidth of float
+        | BorderEndWidth of float
         | BorderLeftWidth of float
         | BorderRightWidth of float
+        | BorderStartWidth of float
         | BorderTopWidth of float
         | BorderWidth of float
-        | Bottom of float
+        | Bottom of ISizeUnit
+        | Display of Display
+        | End of ISizeUnit
         | Flex of float
+        | FlexBasis of ISizeUnit
         | FlexDirection of FlexDirection
+        | FlexGrow of float
+        | FlexShrink of float
         | FlexWrap of FlexWrap
-        | Height of float
+        | Height of ISizeUnit
         | JustifyContent of JustifyContent
-        | Left of float
-        | MinWidth of float
-        | MaxWidth of float
-        | MinHeight of float
-        | MaxHeight of float
-        | Margin of float
-        | MarginBottom of float
-        | MarginHorizontal of float
-        | MarginLeft of float
-        | MarginRight of float
-        | MarginTop of float
-        | MarginVertical of float
-        | Padding of float
-        | PaddingBottom of float
-        | PaddingHorizontal of float
-        | PaddingLeft of float
-        | PaddingRight of float
-        | PaddingTop of float
-        | PaddingVertical of float
+        | Left of ISizeUnit
+        | Margin of ISizeUnit
+        | MarginBottom of ISizeUnit
+        | MarginEnd of ISizeUnit
+        | MarginHorizontal of ISizeUnit
+        | MarginLeft of ISizeUnit
+        | MarginRight of ISizeUnit
+        | MarginStart of ISizeUnit
+        | MarginTop of ISizeUnit
+        | MarginVertical of ISizeUnit
+        | MaxHeight of ISizeUnit
+        | MaxWidth of ISizeUnit
+        | MinHeight of ISizeUnit
+        | MinWidth of ISizeUnit
+        | Overflow of Overflow
+        | Padding of ISizeUnit
+        | PaddingBottom of ISizeUnit
+        | PaddingEnd of ISizeUnit
+        | PaddingHorizontal of ISizeUnit
+        | PaddingLeft of ISizeUnit
+        | PaddingRight of ISizeUnit
+        | PaddingStart of ISizeUnit
+        | PaddingTop of ISizeUnit
+        | PaddingVertical of ISizeUnit
         | Position of Position
-        | Right of float
-        | Top of float
-        | Width of float
+        | Right of ISizeUnit
+        | Start of ISizeUnit
+        | Top of ISizeUnit
+        | Width of ISizeUnit
         | ZIndex of float
         interface IFlexStyle
 
 
     type ViewStyle =
-        | BackfaceVisibility of string
+        | BackfaceVisibility of BackfaceVisibility
         | BackgroundColor of string
         | BorderBottomColor of string
+        | BorderBottomEndRadius of float
         | BorderBottomLeftRadius of float
         | BorderBottomRightRadius of float
+        | BorderBottomStartRadius of float
         | BorderBottomWidth of float
         | BorderColor of string
+        | BorderEndColor of string
         | BorderLeftColor of string
+        | BorderLeftWidth of float
         | BorderRadius of float
         | BorderRightColor of string
         | BorderRightWidth of float
+        | BorderStartColor of string
         | BorderStyle of BorderStyle
         | BorderTopColor of string
+        | BorderTopEndRadius of float
         | BorderTopLeftRadius of float
         | BorderTopRightRadius of float
+        | BorderTopStartRadius of float
         | BorderTopWidth of float
+        | BorderWidth of float
         | Opacity of float
-        | Overflow of Overflow
         | ShadowColor of string
         | ShadowOffset of obj
         | ShadowOpacity of float
@@ -937,11 +976,6 @@ module Props =
         | Ref of Ref<SliderIOS>
         interface ISliderIOSProperties
 
-    type SwitchIOSStyle =
-        | Height of float
-        | Width of float
-        interface ISwitchIOSStyle
-
     type SwitchIOSProperties =
         | Disabled of bool
         | OnTintColor of string
@@ -962,7 +996,7 @@ module Props =
         | BorderRadius of float
         | BorderTopLeftRadius of float
         | BorderTopRightRadius of float
-        | Overflow of Overflow
+        | Overflow of ImageOverflow
         | OverlayColor of string
         | TintColor of string
         | Opacity of float
@@ -1306,10 +1340,10 @@ module Props =
     type ViewabilityConfig = { minimumViewTime : float; viewAreaCoveragePercentThreshold : float; itemVisiblePercentThreshold : float; waitForInteraction : bool }
 
     type FlatListProperties<'a> =
-        | ItemSeparatorComponent of React.ReactElement
-        | ListEmptyComponent of React.ReactElement
-        | ListFooterComponent of React.ReactElement
-        | ListHeaderComponent of React.ReactElement
+        | ItemSeparatorComponent of (unit -> React.ReactElement)
+        | ListEmptyComponent of (unit -> React.ReactElement)
+        | ListFooterComponent of (unit -> React.ReactElement)
+        | ListHeaderComponent of (unit -> React.ReactElement)
         | ColumnWrapperStyle of IStyle list
         | ExtraData of obj
         | GetItemLayout of Func<ResizeArray<'a>, GetItemLayoutResult>
@@ -1442,6 +1476,14 @@ module Props =
 
 open Props
 module R = Fable.Helpers.React
+
+[<Emit("$0")>]
+// density independent pixels
+let Dip (_: float): ISizeUnit = jsNative
+
+[<Emit("$0 + \"%\"")>]
+// percents
+let Pct (_: float): ISizeUnit = jsNative
 
 [<Emit("require($0)")>]
 // Use `require` to load a local image
@@ -1620,10 +1662,11 @@ let inline mapView (props:IMapViewProperties list) (children: React.ReactElement
       props,
       children)
 
-let inline modal (props:ModalProperties list) : React.ReactElement =
+let inline modal (props:ModalProperties list) (children: React.ReactElement list): React.ReactElement =
     createElement(
       RN.Modal,
-      props, [])
+      props,
+      children)
 
 let inline button (props:IButtonProperties list) (children: React.ReactElement list) : React.ReactElement =
     createElement(
@@ -1670,11 +1713,6 @@ let inline viewPagerAndroid (props: IViewPagerAndroidProperties list) (children:
 let inline navigator (props:INavigatorProperties list) : React.ReactElement =
     createElement(
       RN.Navigator,
-      props, [])
-
-let inline styleSheet (props:StyleSheetProperties list) : React.ReactElement =
-    createElement(
-      RN.StyleSheet,
       props, [])
 
 let inline tabBarItem (props:ITabBarItemProperties list) : React.ReactElement =
@@ -1945,3 +1983,14 @@ module Storage =
     let [<PassGenerics>] save<'a> (k:string) (v:'a): JS.Promise<unit> =
         !!Globals.AsyncStorage.setItem(k, toJson v)
 
+module Platform =
+    type OS<'a> =
+        | Ios of 'a
+        | Android of 'a
+        | Macos of 'a
+        | Windows of 'a
+        | Web of 'a
+        | Default of 'a
+
+    let select<'a> (specifics: OS<'a> list): 'a =
+        Globals.Platform.select (keyValueList CaseRules.LowerFirst specifics)

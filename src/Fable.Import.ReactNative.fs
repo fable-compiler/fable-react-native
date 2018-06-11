@@ -319,50 +319,84 @@ module ReactNative =
         abstract Presets: obj with get, set
 
     and [<StringEnum>] FlexAlignType =
-        | ``Flex-start`` | ``Flex-end`` | Center | Stretch
+        | ``Flex-start`` | ``Flex-end`` | Center | Stretch | Baseline
+
+    and [<StringEnum>] FlexAlignSelfType =
+        | Auto | ``Flex-start`` | ``Flex-end`` | Center | Stretch | Baseline
 
     and [<StringEnum>] FlexJustifyType =
-        | ``Flex-start`` | ``Flex-end`` | Center | ``Space-between`` | ``Space-around``
+        | ``Flex-start`` | ``Flex-end`` | Center | ``Space-between`` | ``Space-around`` | ``Space-around``
+
+    and [<StringEnum>] FlexAlignContentType =
+        | ``Flex-start`` | ``Flex-end`` | Center | Stretch | ``Space-between`` | ``Space-around``
+
+    and [<StringEnum>] FlexDisplayType =
+        | None | Flex
+
+    and [<StringEnum>] FlexDirectionType =
+        | Row | ``Row-reverse`` | Column | ``Column-reverse``
+
+    and [<StringEnum>] FlexWrapType =
+        | Wrap | Nowrap
+
+    and [<StringEnum>] FlexOverflowType =
+        | Visible | Hidden | Scroll
+
+    and [<StringEnum>] FlexPositionType =
+        | Absolute | Relative
 
     and FlexStyle =
-
+        abstract alignContent: FlexAlignContentType option with get, set
         abstract alignItems: FlexAlignType option with get, set
-        abstract alignSelf: (* TODO StringEnum auto |  *) string option with get, set
+        abstract alignSelf: FlexAlignSelfType option with get, set
         abstract aspectRatio: float option with get, set
         abstract borderBottomWidth: float option with get, set
+        abstract borderEndWidth: float option with get, set
         abstract borderLeftWidth: float option with get, set
         abstract borderRightWidth: float option with get, set
+        abstract borderStartWidth: float option with get, set
         abstract borderTopWidth: float option with get, set
         abstract borderWidth: float option with get, set
-        abstract bottom: float option with get, set
+        abstract bottom: U2<string, float> option with get, set
+        abstract display: FlexDisplayType option with get, set
+        abstract ``end``: U2<string, float> option with get, set
         abstract flex: float option with get, set
-        abstract flexDirection: (* TODO StringEnum row | column | row-reverse | column-reverse *) string option with get, set
-        abstract flexWrap: (* TODO StringEnum wrap | nowrap *) string option with get, set
-        abstract height: float option with get, set
+        abstract flexBasis: U2<string, float> option with get, set
+        abstract flexDirection: FlexDirectionType option with get, set
+        abstract flexGrow: float option with get, set
+        abstract flexShrink: float option with get, set
+        abstract flexWrap: FlexWrapType option with get, set
+        abstract height: U2<string, float> option with get, set
         abstract justifyContent: FlexJustifyType option with get, set
-        abstract left: float option with get, set
-        abstract minWidth: float option with get, set
-        abstract maxWidth: float option with get, set
-        abstract minHeight: float option with get, set
-        abstract maxHeight: float option with get, set
-        abstract margin: float option with get, set
-        abstract marginBottom: float option with get, set
-        abstract marginHorizontal: float option with get, set
-        abstract marginLeft: float option with get, set
-        abstract marginRight: float option with get, set
-        abstract marginTop: float option with get, set
-        abstract marginVertical: float option with get, set
-        abstract padding: float option with get, set
-        abstract paddingBottom: float option with get, set
-        abstract paddingHorizontal: float option with get, set
-        abstract paddingLeft: float option with get, set
-        abstract paddingRight: float option with get, set
-        abstract paddingTop: float option with get, set
-        abstract paddingVertical: float option with get, set
-        abstract position: (* TODO StringEnum absolute | relative *) string option with get, set
-        abstract right: float option with get, set
-        abstract top: float option with get, set
-        abstract width: float option with get, set
+        abstract left: U2<string, float> option with get, set
+        abstract margin: U2<string, float> option with get, set
+        abstract marginBottom: U2<string, float> option with get, set
+        abstract marginEnd: U2<string, float> option with get, set
+        abstract marginHorizontal: U2<string, float> option with get, set
+        abstract marginLeft: U2<string, float> option with get, set
+        abstract marginRight: U2<string, float> option with get, set
+        abstract marginStart: U2<string, float> option with get, set
+        abstract marginTop: U2<string, float> option with get, set
+        abstract marginVertical: U2<string, float> option with get, set
+        abstract maxHeight: U2<string, float> option with get, set
+        abstract maxWidth: U2<string, float> option with get, set
+        abstract minHeight: U2<string, float> option with get, set
+        abstract minWidth: U2<string, float> option with get, set
+        abstract overflow: FlexOverflowType option with get, set
+        abstract padding: U2<string, float> option with get, set
+        abstract paddingBottom: U2<string, float> option with get, set
+        abstract paddingEnd: U2<string, float> option with get, set
+        abstract paddingHorizontal: U2<string, float> option with get, set
+        abstract paddingLeft: U2<string, float> option with get, set
+        abstract paddingRight: U2<string, float> option with get, set
+        abstract paddingStart: U2<string, float> option with get, set
+        abstract paddingTop: U2<string, float> option with get, set
+        abstract paddingVertical: U2<string, float> option with get, set
+        abstract position: FlexPositionType option with get, set
+        abstract right: U2<string, float> option with get, set
+        abstract start: U2<string, float> option with get, set
+        abstract top: U2<string, float> option with get, set
+        abstract width: U2<string, float> option with get, set
         abstract zIndex: float option with get, set
 
     and ShadowPropTypesIOSStatic =
@@ -543,27 +577,39 @@ module ReactNative =
         abstract onStartShouldSetResponderCapture: Func<GestureResponderEvent, bool> option with get, set
         abstract onMoveShouldSetResponderCapture: Func<unit> option with get, set
 
+    and [<StringEnum>] ViewBackfaceVisibilityType =
+        | Visible | Hidden
+
+    and [<StringEnum>] ViewBorderStyleType =
+        | Solid | Dotted | Dashed
+
     and ViewStyle =
         inherit FlexStyle
         inherit TransformsStyle
-        abstract backfaceVisibility: (* TODO StringEnum visible | hidden *) string option with get, set
+        abstract backfaceVisibility: ViewBackfaceVisibilityType option with get, set
         abstract backgroundColor: string option with get, set
         abstract borderBottomColor: string option with get, set
+        abstract borderBottomEndRadius: float option with get, set
         abstract borderBottomLeftRadius: float option with get, set
         abstract borderBottomRightRadius: float option with get, set
+        abstract borderBottomStartRadius: float option with get, set
         abstract borderBottomWidth: float option with get, set
         abstract borderColor: string option with get, set
+        abstract borderEndColor: string option with get, set
         abstract borderLeftColor: string option with get, set
         abstract borderRadius: float option with get, set
         abstract borderRightColor: string option with get, set
         abstract borderRightWidth: float option with get, set
-        abstract borderStyle: (* TODO StringEnum solid | dotted | dashed *) string option with get, set
+        abstract borderStartColor: string option with get, set
+        abstract borderStyle: ViewBorderStyleType option with get, set
         abstract borderTopColor: string option with get, set
+        abstract borderTopEndRadius: float option with get, set
         abstract borderTopLeftRadius: float option with get, set
         abstract borderTopRightRadius: float option with get, set
+        abstract borderTopStartRadius: float option with get, set
         abstract borderTopWidth: float option with get, set
+        abstract borderWidth: float option with get, set
         abstract opacity: float option with get, set
-        abstract overflow: (* TODO StringEnum visible | hidden *) string option with get, set
         abstract shadowColor: string option with get, set
         abstract shadowOffset: obj option with get, set
         abstract shadowOpacity: float option with get, set
@@ -1410,10 +1456,11 @@ module ReactNative =
         abstract startDetecting: unit -> unit
 
     and [<StringEnum>] PlatformOSType =
-        | Ios | Android
+        | Ios | Android | Macos | Windows | Web
 
     and PlatformStatic =
         abstract OS: PlatformOSType with get, set
+        abstract Version: U2<float, string> with get, set
         abstract select: specifics: obj -> 'T
 
     and DeviceEventSubscriptionStatic =
