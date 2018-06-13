@@ -26,13 +26,13 @@ module Props =
         | PlayWhenInactive of bool
         | IgnoreSilentSwitch of string
         | ProgressUpdateInterval of float
-        | OnLoadStart of Func<unit, unit>
-        | OnLoad of Func<unit, unit>
-        | OnProgress of Func<unit, unit>
-        | OnEnd of Func<unit, unit>
-        | OnError of Func<unit, unit>
-        | OnBuffer of Func<unit, unit>
-        | OnTimedMetadata of Func<unit, unit>
+        | OnLoadStart of (unit->unit)
+        | OnLoad of (unit->unit)
+        | OnProgress of (unit->unit)
+        | OnEnd of (unit->unit)
+        | OnError of (unit->unit)
+        | OnBuffer of (unit->unit)
+        | OnTimedMetadata of (unit->unit)
         | Style of RN.Props.IStyle list
         | Ref of RN.Ref<Video>
             interface IVideoProperties

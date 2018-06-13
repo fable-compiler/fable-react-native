@@ -11,8 +11,8 @@ open Fable.PowerPack
 let getAllKeys() : JS.Promise<string []> =
     Promise.create(fun success fail ->
         Globals.AsyncStorage.getAllKeys
-            (Func<_,_,_>(fun err keys ->
+            (fun err keys ->
                 if err <> null && err.message <> null then
                     fail (unbox err)
                 else
-                    success (unbox keys))) |> ignore)
+                    success (unbox keys)) |> ignore)

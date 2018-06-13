@@ -1,3 +1,6 @@
+### 2.0.0-alpha-001
+* Fixes by @iyegoroff: PR #23
+
 ### 1.7.2
 * Some of FlatList properties are upper case: @iyegoroff
 
