@@ -12,13 +12,13 @@ module ReactNative =
 
     module NativeMethodsMixin =
         type MeasureOnSuccessCallback =
-            Func<float, float, float, float, float, float, unit>
+            (float -> float -> float -> float -> float -> float -> unit)
 
         and MeasureInWindowOnSuccessCallback =
-            Func<float, float, float, float, unit>
+            (float -> float -> float -> float -> unit)
 
         and MeasureLayoutOnSuccessCallback =
-            Func<float, float, float, float, unit>
+            (float -> float -> float -> float -> unit)
 
     module Animated =
         type AnimatedValue =
@@ -48,7 +48,7 @@ module ReactNative =
             obj
 
         and ValueListenerCallback =
-            Func<obj, unit>
+            (obj -> unit)
 
         and [<Import("Animated.Value","react-native")>] Value(value: float) =
             inherit AnimatedWithChildren()
@@ -58,11 +58,11 @@ module ReactNative =
             member __.addListener(callback: ValueListenerCallback): string = jsNative
             member __.removeListener(id: string): unit = jsNative
             member __.removeAllListeners(): unit = jsNative
-            member __.stopAnimation(?callback: Func<float, unit>): unit = jsNative
+            member __.stopAnimation(?callback: (float -> unit)): unit = jsNative
             member __.interpolate(config: InterpolationConfigType): AnimatedInterpolation = jsNative
 
         and ValueXYListenerCallback =
-            Func<obj, unit>
+            (obj -> unit)
 
         and [<Import("Animated.ValueXY","react-native")>] ValueXY(?valueIn: obj) =
             inherit AnimatedWithChildren()
@@ -71,7 +71,7 @@ module ReactNative =
             member __.setValue(value: obj): unit = jsNative
             member __.setOffset(offset: obj): unit = jsNative
             member __.flattenOffset(): unit = jsNative
-            member __.stopAnimation(?callback: Func<float>): unit = jsNative
+            member __.stopAnimation(?callback: (float -> unit)): unit = jsNative
             member __.addListener(callback: ValueXYListenerCallback): string = jsNative
             member __.removeListener(id: string): unit = jsNative
             member __.getLayout(): obj = jsNative
@@ -81,11 +81,11 @@ module ReactNative =
             obj
 
         and EndCallback =
-            Func<EndResult, unit>
+            (EndResult -> unit)
 
         and CompositeAnimation =
-            abstract start: Func<EndCallback, unit> with get, set
-            abstract stop: Func<unit> with get, set
+            abstract start: (EndCallback -> unit) with get, set
+            abstract stop: (unit -> unit) with get, set
 
         and AnimationConfig =
             abstract isInteraction: bool option with get, set
@@ -99,7 +99,7 @@ module ReactNative =
         and TimingAnimationConfig =
             inherit AnimationConfig
             abstract toValue: U4<float, AnimatedValue, obj, AnimatedValueXY> with get, set
-            abstract easing: Func<float, float> option with get, set
+            abstract easing: (float -> float) option with get, set
             abstract duration: float option with get, set
             abstract delay: float option with get, set
 
@@ -137,10 +137,10 @@ module ReactNative =
             abstract listener: Function option with get, set
 
         type [<Import("Animated","react-native")>] Globals =
-            static member timing with get(): Func<U2<AnimatedValue, AnimatedValueXY>, TimingAnimationConfig, CompositeAnimation> = jsNative and set(v: Func<U2<AnimatedValue, AnimatedValueXY>, TimingAnimationConfig, CompositeAnimation>): unit = jsNative
-            static member spring with get(): Func<U2<AnimatedValue, AnimatedValueXY>, SpringAnimationConfig, CompositeAnimation> = jsNative and set(v: Func<U2<AnimatedValue, AnimatedValueXY>, SpringAnimationConfig, CompositeAnimation>): unit = jsNative
-            static member ``parallel`` with get(): Func<ResizeArray<CompositeAnimation>, ParallelConfig, CompositeAnimation> = jsNative and set(v: Func<ResizeArray<CompositeAnimation>, ParallelConfig, CompositeAnimation>): unit = jsNative
-            static member ``event`` with get(): Func<ResizeArray<Mapping>, EventConfig, Func<obj, unit>> = jsNative and set(v: Func<ResizeArray<Mapping>, EventConfig, Func<obj, unit>>): unit = jsNative
+            static member timing with get(): (U2<AnimatedValue, AnimatedValueXY> -> TimingAnimationConfig -> CompositeAnimation) = jsNative and set(v: (U2<AnimatedValue, AnimatedValueXY> -> TimingAnimationConfig -> CompositeAnimation)): unit = jsNative
+            static member spring with get(): (U2<AnimatedValue, AnimatedValueXY> -> SpringAnimationConfig -> CompositeAnimation) = jsNative and set(v: (U2<AnimatedValue, AnimatedValueXY> -> SpringAnimationConfig -> CompositeAnimation)): unit = jsNative
+            static member ``parallel`` with get(): (ResizeArray<CompositeAnimation> -> ParallelConfig -> CompositeAnimation) = jsNative and set(v: (ResizeArray<CompositeAnimation> -> ParallelConfig -> CompositeAnimation)): unit = jsNative
+            static member ``event`` with get(): (ResizeArray<Mapping> -> EventConfig -> (obj -> unit)) = jsNative and set(v: (ResizeArray<Mapping> -> EventConfig -> (obj -> unit))): unit = jsNative
             static member View with get(): obj = jsNative and set(v: obj): unit = jsNative
             static member Image with get(): obj = jsNative and set(v: obj): unit = jsNative
             static member Text with get(): obj = jsNative and set(v: obj): unit = jsNative
@@ -167,9 +167,9 @@ module ReactNative =
             interface end
 
         and NavigationBarRouteMapper =
-            abstract Title: Func<Route, Navigator, float, NavState, React.ReactElement> with get, set
-            abstract LeftButton: Func<Route, Navigator, float, NavState, React.ReactElement> with get, set
-            abstract RightButton: Func<Route, Navigator, float, NavState, React.ReactElement> with get, set
+            abstract Title: (Route -> Navigator -> float -> NavState -> React.ReactElement) with get, set
+            abstract LeftButton: (Route -> Navigator -> float -> NavState -> React.ReactElement) with get, set
+            abstract RightButton: (Route -> Navigator -> float -> NavState -> React.ReactElement) with get, set
 
         and NavigationBarProperties =
             inherit React.Props<NavigationBarStatic>
@@ -189,10 +189,10 @@ module ReactNative =
             interface end
 
         and BreadcrumbNavigationBarRouteMapper =
-            abstract rightContentForRoute: Func<Route, Navigator, React.ReactElement> with get, set
-            abstract titleContentForRoute: Func<Route, Navigator, React.ReactElement> with get, set
-            abstract iconForRoute: Func<Route, Navigator, React.ReactElement> with get, set
-            abstract separatorForRoute: Func<Route, Navigator, React.ReactElement> with get, set
+            abstract rightContentForRoute: (Route -> Navigator -> React.ReactElement) with get, set
+            abstract titleContentForRoute: (Route -> Navigator -> React.ReactElement) with get, set
+            abstract iconForRoute: (Route -> Navigator -> React.ReactElement) with get, set
+            abstract separatorForRoute: (Route -> Navigator -> React.ReactElement) with get, set
 
         and BreadcrumbNavigationBarProperties =
             inherit React.Props<BreadcrumbNavigationBarStatic>
@@ -217,7 +217,7 @@ module ReactNative =
         abstract refs: obj with get, set
         abstract ``measure``: callback: NativeMethodsMixin.MeasureOnSuccessCallback -> unit
         abstract measureInWindow: callback: NativeMethodsMixin.MeasureInWindowOnSuccessCallback -> unit
-        abstract measureLayout: relativeToNativeNode: float * onSuccess: NativeMethodsMixin.MeasureLayoutOnSuccessCallback * onFail: Func<unit> -> unit
+        abstract measureLayout: relativeToNativeNode: float * onSuccess: NativeMethodsMixin.MeasureLayoutOnSuccessCallback * onFail: (unit -> unit)
         abstract setNativeProps: nativeProps: obj -> unit
         abstract focus: unit -> unit
         abstract blur: unit -> unit
@@ -226,7 +226,7 @@ module ReactNative =
         interface end
 
     and Runnable =
-        Func<obj, unit>
+        (obj -> unit)
 
     and NativeSyntheticEvent<'T> =
         abstract bubbles: bool with get, set
@@ -268,18 +268,18 @@ module ReactNative =
         abstract right: float option with get, set
 
     and Touchable =
-        abstract onTouchStart: Func<GestureResponderEvent, unit> option with get, set
-        abstract onTouchMove: Func<GestureResponderEvent, unit> option with get, set
-        abstract onTouchEnd: Func<GestureResponderEvent, unit> option with get, set
-        abstract onTouchCancel: Func<GestureResponderEvent, unit> option with get, set
-        abstract onTouchEndCapture: Func<GestureResponderEvent, unit> option with get, set
+        abstract onTouchStart: (GestureResponderEvent -> unit) option with get, set
+        abstract onTouchMove: (GestureResponderEvent -> unit) option with get, set
+        abstract onTouchEnd: (GestureResponderEvent -> unit) option with get, set
+        abstract onTouchCancel: (GestureResponderEvent -> unit) option with get, set
+        abstract onTouchEndCapture: (GestureResponderEvent -> unit) option with get, set
 
     and AppConfig =
         obj
 
     and [<Import("AppRegistry","react-native")>] AppRegistry() =
         static member registerConfig(config: ResizeArray<AppConfig>): unit = jsNative
-        static member registerComponent(appKey: string, getComponentFunc: Func<React.ComponentClass<obj>>): string = jsNative
+        static member registerComponent(appKey: string, getComponentFunc: (unit -> React.ComponentClass<obj>)): string = jsNative
         static member registerRunnable(appKey: string, func: Runnable): string = jsNative
         static member getAppKeys(): ResizeArray<string> = jsNative
         static member unmountApplicationComponentAtRootTag(rootTag: float): unit = jsNative
@@ -311,58 +311,114 @@ module ReactNative =
         abstract delete: LayoutAnimationAnim option with get, set
 
     and LayoutAnimationStatic =
-        abstract configureNext: Func<LayoutAnimationConfig, Func<unit>, Func<obj, unit>, unit> with get, set
-        abstract create: Func<float, string, string, LayoutAnimationConfig> with get, set
+        abstract configureNext: (LayoutAnimationConfig -> (unit -> unit) -> (obj -> unit) -> unit) with get, set
+        abstract create: (float -> string -> string -> LayoutAnimationConfig) with get, set
         abstract Types: LayoutAnimationTypes with get, set
         abstract Properties: LayoutAnimationProperties with get, set
-        abstract configChecker: Func<obj, string, string, unit> with get, set
+        abstract configChecker: (obj -> string -> string -> unit) with get, set
         abstract Presets: obj with get, set
 
     and [<StringEnum>] FlexAlignType =
-        | ``Flex-start`` | ``Flex-end`` | Center | Stretch
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | Stretch
+        | Baseline
+
+    and [<StringEnum>] FlexAlignSelfType =
+        | Auto
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | Stretch
+        | Baseline
 
     and [<StringEnum>] FlexJustifyType =
-        | ``Flex-start`` | ``Flex-end`` | Center | ``Space-between`` | ``Space-around``
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | [<CompiledName("space-between")>] SpaceBetween
+        | [<CompiledName("space-around")>] SpaceAround
+        | [<CompiledName("space-evenly")>] SpaceEvenly
+
+    and [<StringEnum>] FlexAlignContentType =
+        | [<CompiledName("flex-start")>] FlexStart
+        | [<CompiledName("flex-end")>] FlexEnd
+        | Center
+        | Stretch
+        | [<CompiledName("space-between")>] SpaceBetween
+        | [<CompiledName("space-around")>] SpaceAround
+
+    and [<StringEnum>] FlexDisplayType =
+        | None | Flex
+
+    and [<StringEnum>] FlexDirectionType =
+        | Row
+        | [<CompiledName("row-reverse")>] RowReverse
+        | Column
+        | [<CompiledName("column-reverse")>] ColumnReverse
+
+    and [<StringEnum>] FlexWrapType =
+        | Wrap | Nowrap
+
+    and [<StringEnum>] FlexOverflowType =
+        | Visible | Hidden | Scroll
+
+    and [<StringEnum>] FlexPositionType =
+        | Absolute | Relative
 
     and FlexStyle =
-
+        abstract alignContent: FlexAlignContentType option with get, set
         abstract alignItems: FlexAlignType option with get, set
-        abstract alignSelf: (* TODO StringEnum auto |  *) string option with get, set
+        abstract alignSelf: FlexAlignSelfType option with get, set
         abstract aspectRatio: float option with get, set
         abstract borderBottomWidth: float option with get, set
+        abstract borderEndWidth: float option with get, set
         abstract borderLeftWidth: float option with get, set
         abstract borderRightWidth: float option with get, set
+        abstract borderStartWidth: float option with get, set
         abstract borderTopWidth: float option with get, set
         abstract borderWidth: float option with get, set
-        abstract bottom: float option with get, set
+        abstract bottom: U2<string, float> option with get, set
+        abstract display: FlexDisplayType option with get, set
+        abstract ``end``: U2<string, float> option with get, set
         abstract flex: float option with get, set
-        abstract flexDirection: (* TODO StringEnum row | column | row-reverse | column-reverse *) string option with get, set
-        abstract flexWrap: (* TODO StringEnum wrap | nowrap *) string option with get, set
-        abstract height: float option with get, set
+        abstract flexBasis: U2<string, float> option with get, set
+        abstract flexDirection: FlexDirectionType option with get, set
+        abstract flexGrow: float option with get, set
+        abstract flexShrink: float option with get, set
+        abstract flexWrap: FlexWrapType option with get, set
+        abstract height: U2<string, float> option with get, set
         abstract justifyContent: FlexJustifyType option with get, set
-        abstract left: float option with get, set
-        abstract minWidth: float option with get, set
-        abstract maxWidth: float option with get, set
-        abstract minHeight: float option with get, set
-        abstract maxHeight: float option with get, set
-        abstract margin: float option with get, set
-        abstract marginBottom: float option with get, set
-        abstract marginHorizontal: float option with get, set
-        abstract marginLeft: float option with get, set
-        abstract marginRight: float option with get, set
-        abstract marginTop: float option with get, set
-        abstract marginVertical: float option with get, set
-        abstract padding: float option with get, set
-        abstract paddingBottom: float option with get, set
-        abstract paddingHorizontal: float option with get, set
-        abstract paddingLeft: float option with get, set
-        abstract paddingRight: float option with get, set
-        abstract paddingTop: float option with get, set
-        abstract paddingVertical: float option with get, set
-        abstract position: (* TODO StringEnum absolute | relative *) string option with get, set
-        abstract right: float option with get, set
-        abstract top: float option with get, set
-        abstract width: float option with get, set
+        abstract left: U2<string, float> option with get, set
+        abstract margin: U2<string, float> option with get, set
+        abstract marginBottom: U2<string, float> option with get, set
+        abstract marginEnd: U2<string, float> option with get, set
+        abstract marginHorizontal: U2<string, float> option with get, set
+        abstract marginLeft: U2<string, float> option with get, set
+        abstract marginRight: U2<string, float> option with get, set
+        abstract marginStart: U2<string, float> option with get, set
+        abstract marginTop: U2<string, float> option with get, set
+        abstract marginVertical: U2<string, float> option with get, set
+        abstract maxHeight: U2<string, float> option with get, set
+        abstract maxWidth: U2<string, float> option with get, set
+        abstract minHeight: U2<string, float> option with get, set
+        abstract minWidth: U2<string, float> option with get, set
+        abstract overflow: FlexOverflowType option with get, set
+        abstract padding: U2<string, float> option with get, set
+        abstract paddingBottom: U2<string, float> option with get, set
+        abstract paddingEnd: U2<string, float> option with get, set
+        abstract paddingHorizontal: U2<string, float> option with get, set
+        abstract paddingLeft: U2<string, float> option with get, set
+        abstract paddingRight: U2<string, float> option with get, set
+        abstract paddingStart: U2<string, float> option with get, set
+        abstract paddingTop: U2<string, float> option with get, set
+        abstract paddingVertical: U2<string, float> option with get, set
+        abstract position: FlexPositionType option with get, set
+        abstract right: U2<string, float> option with get, set
+        abstract start: U2<string, float> option with get, set
+        abstract top: U2<string, float> option with get, set
+        abstract width: U2<string, float> option with get, set
         abstract zIndex: float option with get, set
 
     and ShadowPropTypesIOSStatic =
@@ -442,8 +498,8 @@ module ReactNative =
         abstract allowFontScaling: bool option with get, set
         abstract lineBreakMode: (* TODO StringEnum head | middle | tail | clip *) string option with get, set
         abstract numberOfLines: float option with get, set
-        abstract onLayout: Func<LayoutChangeEvent, unit> option with get, set
-        abstract onPress: Func<unit> option with get, set
+        abstract onLayout: (LayoutChangeEvent -> unit) option with get, set
+        abstract onPress: (unit -> unit) option with get, set
         abstract style: TextStyle option with get, set
         abstract testID: string option with get, set
 
@@ -455,7 +511,7 @@ module ReactNative =
         abstract clearButtonMode: string option with get, set
         abstract clearTextOnFocus: bool option with get, set
         abstract enablesReturnKeyAutomatically: bool option with get, set
-        abstract onKeyPress: Func<unit> option with get, set
+        abstract onKeyPress: (obj -> unit) option with get, set
         abstract selectionState: obj option with get, set
 
     and TextInputAndroidProperties =
@@ -478,14 +534,14 @@ module ReactNative =
         abstract keyboardType: (* TODO StringEnum default | email-address | numeric | phone-pad | ascii-capable | numbers-and-punctuation | url | number-pad | name-phone-pad | decimal-pad | twitter | web-search *) string option with get, set
         abstract maxLength: float option with get, set
         abstract multiline: bool option with get, set
-        abstract onBlur: Func<unit> option with get, set
-        abstract onChange: Func<obj, unit> option with get, set
-        abstract onChangeText: Func<string, unit> option with get, set
-        abstract onEndEditing: Func<obj, unit> option with get, set
-        abstract onFocus: Func<unit> option with get, set
-        abstract onLayout: Func<obj, unit> option with get, set
-        abstract onSelectionChange: Func<unit> option with get, set
-        abstract onSubmitEditing: Func<obj, unit> option with get, set
+        abstract onBlur: (obj -> unit) option with get, set
+        abstract onChange: (obj -> unit) option with get, set
+        abstract onChangeText: (string -> unit) option with get, set
+        abstract onEndEditing: (obj -> unit) option with get, set
+        abstract onFocus: (obj -> unit) option with get, set
+        abstract onLayout: (obj -> unit) option with get, set
+        abstract onSelectionChange: (obj -> unit) option with get, set
+        abstract onSubmitEditing: (obj -> unit) option with get, set
         abstract password: bool option with get, set
         abstract placeholder: string option with get, set
         abstract placeholderTextColor: string option with get, set
@@ -500,10 +556,10 @@ module ReactNative =
     and TextInputStatic =
         inherit NativeComponent
         inherit React.ComponentClass<TextInputProperties>
-        abstract isFocused: Func<bool> with get, set
-        abstract clear: Func<unit> with get, set
-        abstract blur: Func<unit> with get, set
-        abstract focus: Func<unit> with get, set
+        abstract isFocused: (unit -> bool) with get, set
+        abstract clear: (unit -> unit) with get, set
+        abstract blur: (unit -> unit) with get, set
+        abstract focus: (unit -> unit) with get, set
 
     and ToolbarAndroidAction =
         obj
@@ -516,8 +572,8 @@ module ReactNative =
         abstract contentInsetStart: float option with get, set
         abstract logo: obj option with get, set
         abstract navIcon: obj option with get, set
-        abstract onActionSelected: Func<float, unit> option with get, set
-        abstract onIconClicked: Func<unit> option with get, set
+        abstract onActionSelected: (float -> unit) option with get, set
+        abstract onIconClicked: (unit -> unit) option with get, set
         abstract overflowIcon: obj option with get, set
         abstract rtl: bool option with get, set
         abstract subtitle: string option with get, set
@@ -532,38 +588,50 @@ module ReactNative =
 
 
     and GestureResponderHandlers =
-        abstract onStartShouldSetResponder: Func<GestureResponderEvent, bool> option with get, set
-        abstract onMoveShouldSetResponder: Func<GestureResponderEvent, bool> option with get, set
-        abstract onResponderGrant: Func<GestureResponderEvent, unit> option with get, set
-        abstract onResponderReject: Func<GestureResponderEvent, unit> option with get, set
-        abstract onResponderMove: Func<GestureResponderEvent, unit> option with get, set
-        abstract onResponderRelease: Func<GestureResponderEvent, unit> option with get, set
-        abstract onResponderTerminationRequest: Func<GestureResponderEvent, bool> option with get, set
-        abstract onResponderTerminate: Func<GestureResponderEvent, unit> option with get, set
-        abstract onStartShouldSetResponderCapture: Func<GestureResponderEvent, bool> option with get, set
-        abstract onMoveShouldSetResponderCapture: Func<unit> option with get, set
+        abstract onStartShouldSetResponder: (GestureResponderEvent -> bool) option with get, set
+        abstract onMoveShouldSetResponder: (GestureResponderEvent -> bool) option with get, set
+        abstract onResponderGrant: (GestureResponderEvent -> unit) option with get, set
+        abstract onResponderReject: (GestureResponderEvent -> unit) option with get, set
+        abstract onResponderMove: (GestureResponderEvent -> unit) option with get, set
+        abstract onResponderRelease: (GestureResponderEvent -> unit) option with get, set
+        abstract onResponderTerminationRequest: (GestureResponderEvent -> bool) option with get, set
+        abstract onResponderTerminate: (GestureResponderEvent -> unit) option with get, set
+        abstract onStartShouldSetResponderCapture: (GestureResponderEvent -> bool) option with get, set
+        abstract onMoveShouldSetResponderCapture: (GestureResponderEvent -> unit) option with get, set
+
+    and [<StringEnum>] ViewBackfaceVisibilityType =
+        | Visible | Hidden
+
+    and [<StringEnum>] ViewBorderStyleType =
+        | Solid | Dotted | Dashed
 
     and ViewStyle =
         inherit FlexStyle
         inherit TransformsStyle
-        abstract backfaceVisibility: (* TODO StringEnum visible | hidden *) string option with get, set
+        abstract backfaceVisibility: ViewBackfaceVisibilityType option with get, set
         abstract backgroundColor: string option with get, set
         abstract borderBottomColor: string option with get, set
+        abstract borderBottomEndRadius: float option with get, set
         abstract borderBottomLeftRadius: float option with get, set
         abstract borderBottomRightRadius: float option with get, set
+        abstract borderBottomStartRadius: float option with get, set
         abstract borderBottomWidth: float option with get, set
         abstract borderColor: string option with get, set
+        abstract borderEndColor: string option with get, set
         abstract borderLeftColor: string option with get, set
         abstract borderRadius: float option with get, set
         abstract borderRightColor: string option with get, set
         abstract borderRightWidth: float option with get, set
-        abstract borderStyle: (* TODO StringEnum solid | dotted | dashed *) string option with get, set
+        abstract borderStartColor: string option with get, set
+        abstract borderStyle: ViewBorderStyleType option with get, set
         abstract borderTopColor: string option with get, set
+        abstract borderTopEndRadius: float option with get, set
         abstract borderTopLeftRadius: float option with get, set
         abstract borderTopRightRadius: float option with get, set
+        abstract borderTopStartRadius: float option with get, set
         abstract borderTopWidth: float option with get, set
+        abstract borderWidth: float option with get, set
         abstract opacity: float option with get, set
-        abstract overflow: (* TODO StringEnum visible | hidden *) string option with get, set
         abstract shadowColor: string option with get, set
         abstract shadowOffset: obj option with get, set
         abstract shadowOpacity: float option with get, set
@@ -584,7 +652,10 @@ module ReactNative =
         abstract renderToHardwareTextureAndroid: bool option with get, set
 
     and [<StringEnum; RequireQualifiedAccess>] PointerEvents =
-        | ``Box-none`` | None | ``Box-only`` | AutoViewStyle
+        | [<CompiledName("box-none")>] BoxNone
+        | None
+        | [<CompiledName("box-only")>] BoxOnly
+        | Auto
 
     and ViewProperties =
         inherit ViewPropertiesAndroid
@@ -595,9 +666,9 @@ module ReactNative =
         abstract accessibilityLabel: string option with get, set
         abstract accessible: bool option with get, set
         abstract hitSlop: obj option with get, set
-        abstract onAcccessibilityTap: Func<unit> option with get, set
-        abstract onLayout: Func<LayoutChangeEvent, unit> option with get, set
-        abstract onMagicTap: Func<unit> option with get, set
+        abstract onAcccessibilityTap: (unit -> unit) option with get, set
+        abstract onLayout: (LayoutChangeEvent -> unit) option with get, set
+        abstract onMagicTap: (unit -> unit) option with get, set
         abstract pointerEvents: PointerEvents option with get, set
         abstract removeClippedSubviews: bool option with get, set
         abstract style: ViewStyle option with get, set
@@ -619,17 +690,17 @@ module ReactNative =
         inherit ViewProperties
         abstract initialPage: float option with get, set
         abstract scrollEnabled: bool option with get, set
-        abstract onPageScroll: Func<NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData>, unit> option with get, set
-        abstract onPageSelected: Func<NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData>, unit> option with get, set
-        abstract onPageScrollStateChanged: Func<(* TODO StringEnum Idle | Dragging | Settling *) string, unit> option with get, set
+        abstract onPageScroll: (NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> -> unit) option with get, set
+        abstract onPageSelected: (NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> -> unit) option with get, set
+        abstract onPageScrollStateChanged: ((* TODO StringEnum Idle | Dragging | Settling *) string -> unit) option with get, set
         abstract keyboardDismissMode: (* TODO StringEnum none | on-drag *) string option with get, set
         abstract pageMargin: float option with get, set
 
     and ViewPagerAndroidStatic =
         inherit NativeComponent
         inherit React.ComponentClass<ViewPagerAndroidProperties>
-        abstract setPage: Func<float, unit> with get, set
-        abstract setPageWithoutAnimation: Func<float, unit> with get, set
+        abstract setPage: (float -> unit) with get, set
+        abstract setPageWithoutAnimation: (float -> unit) with get, set
 
     and KeyboardAvoidingViewStatic =
         inherit React.ComponentClass<KeyboardAvoidingViewProps>
@@ -668,7 +739,7 @@ module ReactNative =
         abstract allowsInlineMediaPlayback: bool option with get, set
         abstract bounces: bool option with get, set
         abstract decelerationRate: (* TODO StringEnum normal | fast |  *) string option with get, set
-        abstract onShouldStartLoadWithRequest: Func<WebViewIOSLoadRequestEvent, bool> option with get, set
+        abstract onShouldStartLoadWithRequest: (WebViewIOSLoadRequestEvent -> bool) option with get, set
         abstract scrollEnabled: bool option with get, set
 
     and WebViewUriSource =
@@ -691,14 +762,14 @@ module ReactNative =
         abstract contentInset: Insets option with get, set
         abstract html: string option with get, set
         abstract injectedJavaScript: string option with get, set
-        abstract onError: Func<NavState, unit> option with get, set
-        abstract onLoad: Func<NavState, unit> option with get, set
-        abstract onLoadEnd: Func<NavState, unit> option with get, set
-        abstract onLoadStart: Func<NavState, unit> option with get, set
-        abstract onNavigationStateChange: Func<NavState, unit> option with get, set
-        abstract onShouldStartLoadWithRequest: Func<bool> option with get, set
-        abstract renderError: Func<React.ReactElement> option with get, set
-        abstract renderLoading: Func<React.ReactElement> option with get, set
+        abstract onError: (NavState -> unit) option with get, set
+        abstract onLoad: (NavState -> unit) option with get, set
+        abstract onLoadEnd: (NavState -> unit) option with get, set
+        abstract onLoadStart: (NavState -> unit) option with get, set
+        abstract onNavigationStateChange: (NavState -> unit) option with get, set
+        abstract onShouldStartLoadWithRequest: (obj -> bool) option with get, set
+        abstract renderError: (unit ->React.ReactElement) option with get, set
+        abstract renderLoading: (unit ->React.ReactElement) option with get, set
         abstract scrollEnabled: bool option with get, set
         abstract startInLoadingState: bool option with get, set
         abstract style: ViewStyle option with get, set
@@ -710,10 +781,10 @@ module ReactNative =
 
     and WebViewStatic =
         inherit React.ComponentClass<WebViewProperties>
-        abstract goBack: Func<unit> with get, set
-        abstract goForward: Func<unit> with get, set
-        abstract reload: Func<unit> with get, set
-        abstract getWebViewHandle: Func<obj> with get, set
+        abstract goBack: (unit -> unit) with get, set
+        abstract goForward: (unit -> unit) with get, set
+        abstract reload: (unit -> unit) with get, set
+        abstract getWebViewHandle: (unit -> obj) with get, set
 
     and NativeSegmentedControlIOSChangeEvent =
         abstract value: string with get, set
@@ -725,8 +796,8 @@ module ReactNative =
         inherit React.Props<SegmentedControlIOSStatic>
         abstract enabled: bool option with get, set
         abstract momentary: bool option with get, set
-        abstract onChange: Func<NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>, unit> option with get, set
-        abstract onValueChange: Func<string, unit> option with get, set
+        abstract onChange: (NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent> -> unit) option with get, set
+        abstract onValueChange: (string -> unit) option with get, set
         abstract selectedIndex: float option with get, set
         abstract tintColor: string option with get, set
         abstract values: ResizeArray<string> option with get, set
@@ -749,13 +820,13 @@ module ReactNative =
         abstract style: ViewStyle option with get, set
 
     and NavigationIOS =
-        abstract push: Func<Route, unit> with get, set
-        abstract pop: Func<unit> with get, set
-        abstract popN: Func<float, unit> with get, set
-        abstract replace: Func<Route, unit> with get, set
-        abstract replacePrevious: Func<Route, unit> with get, set
-        abstract replacePreviousAndPop: Func<Route, unit> with get, set
-        abstract resetTo: Func<Route, unit> with get, set
+        abstract push: (Route -> unit) with get, set
+        abstract pop: (unit -> unit) with get, set
+        abstract popN: (float -> unit) with get, set
+        abstract replace: (Route -> unit) with get, set
+        abstract replacePrevious: (Route -> unit) with get, set
+        abstract replacePreviousAndPop: (Route -> unit) with get, set
+        abstract resetTo: (Route -> unit) with get, set
         abstract popToRoute: route: Route -> unit
         abstract popToTop: unit -> unit
 
@@ -784,7 +855,7 @@ module ReactNative =
         abstract animating: bool option with get, set
         abstract color: string option with get, set
         abstract hidesWhenStopped: bool option with get, set
-        abstract onLayout: Func<obj, unit> option with get, set
+        abstract onLayout: (obj -> unit) option with get, set
         abstract size: (* TODO StringEnum small | large *) string option with get, set
         abstract style: ViewStyle option with get, set
         abstract ref: Ref<ActivityIndicatorIOSStatic> option with get, set
@@ -801,7 +872,7 @@ module ReactNative =
         abstract minimumDate: DateTime option with get, set
         abstract minuteInterval: float option with get, set
         abstract mode: (* TODO StringEnum date | time | datetime *) string option with get, set
-        abstract onDateChange: Func<DateTime, unit> option with get, set
+        abstract onDateChange: (DateTime -> unit) option with get, set
         abstract timeZoneOffsetInMinutes: float option with get, set
         abstract ref: Ref<DatePickerIOSStatic> option with get, set
 
@@ -827,19 +898,19 @@ module ReactNative =
         abstract drawerPosition: obj option with get, set
         abstract drawerWidth: float option with get, set
         abstract keyboardDismissMode: (* TODO StringEnum none | on-drag *) string option with get, set
-        abstract onDrawerClose: Func<unit> option with get, set
-        abstract onDrawerOpen: Func<unit> option with get, set
-        abstract onDrawerSlide: Func<DrawerSlideEvent, unit> option with get, set
-        abstract onDrawerStateChanged: Func<(* TODO StringEnum Idle | Dragging | Settling *) string, unit> option with get, set
-        abstract renderNavigationView: Func<JSX.Element> option with get, set
+        abstract onDrawerClose: (unit -> unit) option with get, set
+        abstract onDrawerOpen: (unit -> unit) option with get, set
+        abstract onDrawerSlide: (DrawerSlideEvent -> unit) option with get, set
+        abstract onDrawerStateChanged: ((* TODO StringEnum Idle | Dragging | Settling *) string -> unit) option with get, set
+        abstract renderNavigationView: (unit -> JSX.Element) option with get, set
         abstract statusBarBackgroundColor: obj option with get, set
         abstract ref: Ref<obj> option with get, set
 
     and DrawerLayoutAndroidStatic =
         inherit React.ComponentClass<DrawerLayoutAndroidProperties>
         abstract positions: obj with get, set
-        abstract openDrawer: unit -> unit
-        abstract closeDrawer: unit -> unit
+        abstract openDrawer: (unit -> unit)
+        abstract closeDrawer: (unit -> unit)
 
     and PickerIOSItemProperties =
         inherit React.Props<PickerIOSItemStatic>
@@ -879,7 +950,7 @@ module ReactNative =
         inherit PickerPropertiesIOS
         inherit PickerPropertiesAndroid
         inherit React.Props<PickerStatic>
-        abstract onValueChange: Func<obj, float, unit> option with get, set
+        abstract onValueChange: (obj -> float -> unit) option with get, set
         abstract selectedValue: obj option with get, set
         abstract style: ViewStyle option with get, set
         abstract testId: string option with get, set
@@ -950,7 +1021,7 @@ module ReactNative =
         inherit RefreshControlPropertiesIOS
         inherit RefreshControlPropertiesAndroid
         inherit React.Props<RefreshControl>
-        abstract onRefresh: Func<unit> option with get, set
+        abstract onRefresh: (unit -> unit) option with get, set
         abstract refreshing: bool option with get, set
         abstract ref: Ref<RefreshControlStatic> option with get, set
 
@@ -975,8 +1046,8 @@ module ReactNative =
         abstract disabled: bool option with get, set
         abstract maximumValue: float option with get, set
         abstract minimumValue: float option with get, set
-        abstract onSlidingComplete: Func<float, unit> option with get, set
-        abstract onValueChange: Func<float, unit> option with get, set
+        abstract onSlidingComplete: (float -> unit) option with get, set
+        abstract onValueChange: (float -> unit) option with get, set
         abstract step: float option with get, set
         abstract style: ViewStyle option with get, set
         abstract testID: string option with get, set
@@ -995,8 +1066,8 @@ module ReactNative =
         abstract minimumValue: float option with get, set
         abstract minimumTrackImage: obj option with get, set
         abstract minimumTrackTintColor: string option with get, set
-        abstract onSlidingComplete: Func<unit> option with get, set
-        abstract onValueChange: Func<float, unit> option with get, set
+        abstract onSlidingComplete: (unit -> unit) option with get, set
+        abstract onValueChange: (float -> unit) option with get, set
         abstract step: float option with get, set
         abstract style: ViewStyle option with get, set
         abstract value: float option with get, set
@@ -1015,7 +1086,7 @@ module ReactNative =
         inherit React.Props<SwitchIOSStatic>
         abstract disabled: bool option with get, set
         abstract onTintColor: string option with get, set
-        abstract onValueChange: Func<bool, unit> option with get, set
+        abstract onValueChange: (bool -> unit) option with get, set
         abstract thumbTintColor: string option with get, set
         abstract tintColor: string option with get, set
         abstract value: bool option with get, set
@@ -1053,16 +1124,16 @@ module ReactNative =
         abstract accessible: bool option with get, set
         abstract capInsets: Insets option with get, set
         abstract defaultSource: U2<obj, float> option with get, set
-        abstract onError: Func<obj, unit> option with get, set
-        abstract onProgress: Func<unit> option with get, set
+        abstract onError: (obj -> unit) option with get, set
+        abstract onProgress: (unit -> unit) option with get, set
 
     and ImageProperties =
         inherit ImagePropertiesIOS
         inherit React.Props<Image>
-        abstract onLayout: Func<LayoutChangeEvent, unit> option with get, set
-        abstract onLoad: Func<unit> option with get, set
-        abstract onLoadEnd: Func<unit> option with get, set
-        abstract onLoadStart: Func<unit> option with get, set
+        abstract onLayout: (LayoutChangeEvent -> unit) option with get, set
+        abstract onLoad: (unit -> unit) option with get, set
+        abstract onLoadEnd: (unit -> unit) option with get, set
+        abstract onLoadStart: (unit -> unit) option with get, set
         abstract resizeMode: (* TODO StringEnum cover | contain | stretch *) string option with get, set
         abstract source: U2<obj, string> with get, set
         abstract style: ImageStyle option with get, set
@@ -1072,7 +1143,7 @@ module ReactNative =
         inherit React.ComponentClass<ImageProperties>
         abstract uri: string with get, set
         abstract resizeMode: ImageResizeModeStatic with get, set
-        abstract getSize: uri: string * success: Func<float, float, unit> * failure: Func<obj, unit> -> obj
+        abstract getSize: uri: string * success: (float -> float -> unit) * failure: (obj -> unit) -> obj
         abstract prefetch: url: string -> obj
 
     and ListViewProperties<'a> =
@@ -1081,17 +1152,17 @@ module ReactNative =
         abstract dataSource: ListViewDataSource<'a> option with get, set
         abstract enableEmptySections: bool option with get, set
         abstract initialListSize: float option with get, set
-        abstract onChangeVisibleRows: Func<ResizeArray<obj>, ResizeArray<obj>, unit> option with get, set
-        abstract onEndReached: Func<unit> option with get, set
+        abstract onChangeVisibleRows: (ResizeArray<obj> -> ResizeArray<obj> -> unit) option with get, set
+        abstract onEndReached: (unit -> unit) option with get, set
         abstract onEndReachedThreshold: float option with get, set
         abstract pageSize: float option with get, set
         abstract removeClippedSubviews: bool option with get, set
-        abstract renderFooter: Func<React.ReactElement> option with get, set
-        abstract renderHeader: Func<React.ReactElement> option with get, set
-        abstract renderRow: Func<obj, U2<string, float>, U2<string, float>, bool, React.ReactElement> option with get, set
-        abstract renderScrollComponent: Func<ScrollViewProperties, React.ReactElement> option with get, set
-        abstract renderSectionHeader: Func<obj, U2<string, float>, React.ReactElement> option with get, set
-        abstract renderSeparator: Func<U2<string, float>, U2<string, float>, bool, React.ReactElement> option with get, set
+        abstract renderFooter: (unit -> React.ReactElement) option with get, set
+        abstract renderHeader: (unit -> React.ReactElement) option with get, set
+        abstract renderRow: (obj -> U2<string, float> -> U2<string, float> -> bool -> React.ReactElement) option with get, set
+        abstract renderScrollComponent: (ScrollViewProperties -> React.ReactElement) option with get, set
+        abstract renderSectionHeader: (obj -> U2<string, float> -> React.ReactElement) option with get, set
+        abstract renderSeparator: (U2<string, float> -> U2<string, float> -> bool -> React.ReactElement) option with get, set
         abstract scrollRenderAheadDistance: float option with get, set
         abstract ref: Ref<obj> option with get, set
 
@@ -1116,8 +1187,8 @@ module ReactNative =
         abstract subtitle: string option with get, set
         abstract hasLeftCallout: bool option with get, set
         abstract hasRightCallout: bool option with get, set
-        abstract onLeftCalloutPress: Func<unit> option with get, set
-        abstract onRightCalloutPress: Func<unit> option with get, set
+        abstract onLeftCalloutPress: (unit -> unit) option with get, set
+        abstract onRightCalloutPress: (unit -> unit) option with get, set
         abstract id: string option with get, set
 
     and MapViewRegion =
@@ -1153,9 +1224,9 @@ module ReactNative =
         inherit Touchable
         inherit ViewProperties
         inherit React.Props<MapViewStatic>
-        abstract onAnnotationPress: Func<unit> option with get, set
-        abstract onRegionChange: Func<MapViewRegion, unit> option with get, set
-        abstract onRegionChangeComplete: Func<MapViewRegion, unit> option with get, set
+        abstract onAnnotationPress: (unit -> unit) option with get, set
+        abstract onRegionChange: (MapViewRegion -> unit) option with get, set
+        abstract onRegionChangeComplete: (MapViewRegion -> unit) option with get, set
         abstract pitchEnabled: bool option with get, set
         abstract region: MapViewRegion option with get, set
         abstract rotateEnabled: bool option with get, set
@@ -1175,8 +1246,8 @@ module ReactNative =
         abstract animationType: (* TODO StringEnum none | slide | fade *) string option with get, set
         abstract transparent: bool option with get, set
         abstract visible: bool option with get, set
-        abstract onRequestClose: Func<unit> option with get, set
-        abstract onShow: Func<NativeSyntheticEvent<obj>, unit> option with get, set
+        abstract onRequestClose: (unit -> unit) option with get, set
+        abstract onShow: (NativeSyntheticEvent<obj> -> unit) option with get, set
 
     and ModalStatic =
         inherit React.ComponentClass<ModalProperties>
@@ -1197,11 +1268,11 @@ module ReactNative =
         abstract delayPressOut: float option with get, set
         abstract disabled: bool option with get, set
         abstract hitSlop: obj option with get, set
-        abstract onLayout: Func<LayoutChangeEvent, unit> option with get, set
-        abstract onLongPress: Func<unit> option with get, set
-        abstract onPress: Func<unit> option with get, set
-        abstract onPressIn: Func<unit> option with get, set
-        abstract onPressOut: Func<unit> option with get, set
+        abstract onLayout: (LayoutChangeEvent -> unit) option with get, set
+        abstract onLongPress: (unit -> unit) option with get, set
+        abstract onPress: (unit -> unit) option with get, set
+        abstract onPressIn: (unit -> unit) option with get, set
+        abstract onPressOut: (unit -> unit) option with get, set
         abstract style: ViewStyle option with get, set
         abstract pressRetentionOffset: obj option with get, set
 
@@ -1218,15 +1289,15 @@ module ReactNative =
         inherit TouchableWithoutFeedbackProperties
         inherit React.Props<TouchableHighlightStatic>
         abstract activeOpacity: float option with get, set
-        abstract onHideUnderlay: Func<unit> option with get, set
-        abstract onShowUnderlay: Func<unit> option with get, set
+        abstract onHideUnderlay: (unit -> unit) option with get, set
+        abstract onShowUnderlay: (unit -> unit) option with get, set
         abstract style: ViewStyle option with get, set
         abstract underlayColor: string option with get, set
 
     and ButtonProperties =
         inherit React.Props<ButtonStatic>
         abstract title: string option with get, set
-        abstract onPress: Func<unit> option with get, set
+        abstract onPress: (unit -> unit) option with get, set
         abstract accessibilityLabel: string option with get, set
         abstract color: string option with get, set
         abstract disabled: bool option with get, set
@@ -1248,7 +1319,7 @@ module ReactNative =
 
     and TouchableOpacityStatic =
         inherit React.ComponentClass<TouchableOpacityProperties>
-        abstract setOpacityTo: Func<float, unit> with get, set
+        abstract setOpacityTo: (float -> unit) with get, set
 
     and TouchableNativeFeedbackProperties =
         inherit TouchableWithoutFeedbackProperties
@@ -1257,9 +1328,9 @@ module ReactNative =
 
     and TouchableNativeFeedbackStatic =
         inherit React.ComponentClass<TouchableNativeFeedbackProperties>
-        abstract SelectableBackground: Func<TouchableNativeFeedbackStatic> with get, set
-        abstract SelectableBackgroundBorderless: Func<TouchableNativeFeedbackStatic> with get, set
-        abstract Ripple: Func<string, bool, TouchableNativeFeedbackStatic> with get, set
+        abstract SelectableBackground: (unit -> TouchableNativeFeedbackStatic) with get, set
+        abstract SelectableBackgroundBorderless: (unit -> TouchableNativeFeedbackStatic) with get, set
+        abstract Ripple: (string -> bool -> TouchableNativeFeedbackStatic) with get, set
 
     and LeftToRightGesture =
         interface end
@@ -1296,21 +1367,21 @@ module ReactNative =
         abstract content: string option with get, set
         abstract message: string option with get, set
         abstract index: int option with get, set
-        abstract onRightButtonPress: Func<unit> option with get, set
+        abstract onRightButtonPress: (unit -> unit) option with get, set
         abstract rightButtonTitle: string option with get, set
         abstract sceneConfig: SceneConfig option with get, set
         abstract wrapperStyle: obj option with get, set
 
     and NavigatorProperties =
         inherit React.Props<Navigator>
-        abstract configureScene: Func<Route, ResizeArray<Route>, SceneConfig> option with get, set
+        abstract configureScene: (Route -> ResizeArray<Route> -> SceneConfig) option with get, set
         abstract initialRoute: Route option with get, set
         abstract initialRouteStack: ResizeArray<Route> option with get, set
         abstract navigationBar: React.ReactElement option with get, set
         abstract navigator: Navigator option with get, set
         abstract onDidFocus: Function option with get, set
         abstract onWillFocus: Function option with get, set
-        abstract renderScene: Func<Route, Navigator, React.ReactElement> option with get, set
+        abstract renderScene: (Route -> Navigator -> React.ReactElement) option with get, set
         abstract sceneStyle: ViewStyle option with get, set
         abstract debugOverlay: bool option with get, set
 
@@ -1319,8 +1390,8 @@ module ReactNative =
         abstract top: NavigationContext with get, set
         abstract currentRoute: obj with get, set
         abstract appendChild: childContext: NavigationContext -> unit
-        abstract addListener: eventType: string * listener: Func<unit> * ?useCapture: bool -> NativeEventSubscription
-        abstract emit: eventType: string * data: obj * ?didEmitCallback: Func<unit> -> unit
+        abstract addListener: eventType: string * listener: (unit -> unit) * ?useCapture: bool -> NativeEventSubscription
+        abstract emit: eventType: string * data: obj * ?didEmitCallback: (unit -> unit) -> unit
         abstract dispose: unit -> unit
 
     and NavigatorStatic =
@@ -1354,10 +1425,10 @@ module ReactNative =
         abstract flatten: style: obj -> obj
 
     and DataSourceAssetCallback =
-        abstract rowHasChanged: Func<obj, obj, bool> option with get, set
-        abstract sectionHeaderHasChanged: Func<obj, obj, bool> option with get, set
-        abstract getRowData: Func<obj, U2<float, string>, U2<float, string>, 'T> option with get, set
-        abstract getSectionHeaderData: Func<obj, U2<float, string>, 'T> option with get, set
+        abstract rowHasChanged: (obj -> obj -> bool) option with get, set
+        abstract sectionHeaderHasChanged: (obj -> obj -> bool) option with get, set
+        abstract getRowData: (obj -> U2<float, string> -> U2<float, string> -> 'T) option with get, set
+        abstract getSectionHeaderData: (obj -> U2<float, string> -> 'T) option with get, set
 
     and ListViewDataSource<'a> =
         [<Emit("new $0($1...)")>] abstract Create: onAsset: DataSourceAssetCallback -> ListViewDataSource<'a>
@@ -1376,7 +1447,7 @@ module ReactNative =
         inherit React.Props<TabBarItemStatic>
         abstract badge: U2<string, float> option with get, set
         abstract icon: U2<obj, string> option with get, set
-        abstract onPress: Func<unit> option with get, set
+        abstract onPress: (unit -> unit) option with get, set
         abstract selected: bool option with get, set
         abstract selectedIcon: U2<obj, string> option with get, set
         abstract style: ViewStyle option with get, set
@@ -1410,17 +1481,18 @@ module ReactNative =
         abstract startDetecting: unit -> unit
 
     and [<StringEnum>] PlatformOSType =
-        | Ios | Android
+        | Ios | Android | Macos | Windows | Web
 
     and PlatformStatic =
         abstract OS: PlatformOSType with get, set
+        abstract Version: U2<float, string> with get, set
         abstract select: specifics: obj -> 'T
 
     and DeviceEventSubscriptionStatic =
         abstract remove: unit -> unit
 
     and DeviceEventEmitterStatic =
-        abstract addListener: ``type``: string * onReceived: Func<'T, unit> -> DeviceEventSubscription
+        abstract addListener: ``type``: string * onReceived: ('T -> unit) -> DeviceEventSubscription
         abstract removeListener: eventType: string * listener: Function -> unit
 
     and ScaledSize =
@@ -1440,7 +1512,7 @@ module ReactNative =
         float
 
     and InteractionManagerStatic =
-        abstract runAfterInteractions: fn: Func<U2<unit, PromiseTask>> -> obj
+        abstract runAfterInteractions: fn: (unit -> U2<unit, PromiseTask>) -> obj
         abstract createInteractionHandle: unit -> Handle
         abstract clearInteractionHandle: handle: Handle -> unit
         abstract setDeadline: deadline: float -> unit
@@ -1489,8 +1561,8 @@ module ReactNative =
         abstract indicatorStyle: (* TODO StringEnum default | black | white *) string option with get, set
         abstract maximumZoomScale: float option with get, set
         abstract minimumZoomScale: float option with get, set
-        abstract onRefreshStart: Func<unit> option with get, set
-        abstract onScrollAnimationEnd: Func<unit> option with get, set
+        abstract onRefreshStart: (unit -> unit) option with get, set
+        abstract onScrollAnimationEnd: (unit -> unit) option with get, set
         abstract scrollEnabled: bool option with get, set
         abstract scrollEventThrottle: float option with get, set
         abstract scrollIndicatorInsets: Insets option with get, set
@@ -1514,7 +1586,7 @@ module ReactNative =
         abstract horizontal: bool option with get, set
         abstract keyboardDismissMode: string option with get, set
         abstract keyboardShouldPersistTaps: bool option with get, set
-        abstract onScroll: Func<obj, unit> option with get, set
+        abstract onScroll: (obj -> unit) option with get, set
         abstract pagingEnabled: bool option with get, set
         abstract removeClippedSubviews: bool option with get, set
         abstract showsHorizontalScrollIndicator: bool option with get, set
@@ -1530,8 +1602,8 @@ module ReactNative =
 
     and ScrollViewStatic =
         inherit React.ComponentClass<ScrollViewProps>
-        abstract endRefreshing: Func<unit> option with get, set
-        abstract scrollWithoutAnimationTo: Func<float, float, unit> option with get, set
+        abstract endRefreshing: (unit -> unit) option with get, set
+        abstract scrollWithoutAnimationTo: (float -> float -> unit) option with get, set
         abstract scrollTo: ?y: U2<float, obj> * ?x: float * ?animated: bool -> unit
         abstract getScrollResponder: unit -> JSX.Element
         abstract getInnerViewNode: unit -> obj
@@ -1567,7 +1639,7 @@ module ReactNative =
         inherit React.Props<SwipeableListViewStatic<'a>>
         abstract dataSource: SwipeableListViewDataSource<'a> with get, set
         abstract maxSwipeDistance: float option with get, set
-        abstract renderRow: Func<obj, U2<string, float>, U2<string, float>, bool, React.ReactElement> with get, set
+        abstract renderRow: (obj -> U2<string, float> -> U2<string, float> -> bool -> React.ReactElement) with get, set
         abstract renderQuickActions: rowData: obj * sectionID: string * rowID: string -> React.ReactElement
 
     and SwipeableListViewStatic<'a> =
@@ -1586,29 +1658,29 @@ module ReactNative =
         abstract url: string option with get, set
 
     and ActionSheetIOSStatic =
-        abstract showActionSheetWithOptions: Func<ActionSheetIOSOptions, Func<float, unit>, unit> with get, set
-        abstract showShareActionSheetWithOptions: Func<ShareActionSheetIOSOptions, Func<Error, unit>, Func<bool, string, unit>, unit> with get, set
+        abstract showActionSheetWithOptions: (ActionSheetIOSOptions -> (float -> unit) -> unit) with get, set
+        abstract showShareActionSheetWithOptions: (ShareActionSheetIOSOptions -> (Error -> unit) -> (bool -> string -> unit) -> unit) with get, set
 
     and AlertButton =
         abstract text: string option with get, set
-        abstract onPress: Func<unit> option with get, set
+        abstract onPress: (unit -> unit) option with get, set
         abstract style: (* TODO StringEnum default | cancel | destructive *) string option with get, set
 
     and AlertStatic =
-        abstract alert: Func<string, string, ResizeArray<AlertButton>, string, unit> with get, set
+        abstract alert: (string -> string -> ResizeArray<AlertButton> -> string -> unit) with get, set
 
     and AdSupportIOSStatic =
-        abstract getAdvertisingId: Func<Func<string, unit>, Func<Error, unit>, unit> with get, set
-        abstract getAdvertisingTrackingEnabled: Func<Func<bool, unit>, Func<Error, unit>, unit> with get, set
+        abstract getAdvertisingId: ((string -> unit) -> (Error -> unit) -> unit) with get, set
+        abstract getAdvertisingTrackingEnabled: ((bool -> unit) -> (Error -> unit) -> unit) with get, set
 
     and AlertIOSButton =
         abstract text: string with get, set
-        abstract onPress: Func<unit> option with get, set
+        abstract onPress: (unit -> unit) option with get, set
         abstract style: (* TODO StringEnum default | cancel | destructive *) string option with get, set
 
     and AlertIOSStatic =
-        abstract alert: Func<string, string, Func<string, U2<unit, ResizeArray<AlertIOSButton>>>, string, unit> with get, set
-        abstract prompt: Func<string, string, Func<string, U2<unit, ResizeArray<AlertIOSButton>>>, string, string, unit> with get, set
+        abstract alert: (string -> string -> (string -> U2<unit, ResizeArray<AlertIOSButton>>) -> string -> unit) with get, set
+        abstract prompt: (string -> string -> (string -> U2<unit, ResizeArray<AlertIOSButton>>) -> string -> string -> unit) with get, set
 
     and [<StringEnum>] AppStateEvent =
         | Change | MemoryWarning
@@ -1618,25 +1690,25 @@ module ReactNative =
 
     and AppStateStatic =
         abstract currentState: string with get, set
-        abstract addEventListener: ``type``: AppStateEvent * listener: Func<AppStateStatus, unit> -> unit
-        abstract removeEventListener: ``type``: AppStateEvent * listener: Func<AppStateStatus, unit> -> unit
+        abstract addEventListener: ``type``: AppStateEvent * listener: (AppStateStatus -> unit) -> unit
+        abstract removeEventListener: ``type``: AppStateEvent * listener: (AppStateStatus -> unit) -> unit
 
     and AsyncStorageStatic =
-        abstract getItem: key: string * ?callback: Func<Error, string, unit> -> Promise<string>
-        abstract setItem: key: string * value: string * ?callback: Func<Error, unit> -> Promise<string>
-        abstract removeItem: key: string * ?callback: Func<Error, unit> -> Promise<string>
-        abstract mergeItem: key: string * value: string * ?callback: Func<Error, unit> -> Promise<string>
-        abstract clear: ?callback: Func<Error, unit> -> Promise<string>
-        abstract getAllKeys: ?callback: Func<Error, ResizeArray<string>, unit> -> Promise<string>
-        abstract multiGet: keys: ResizeArray<string> * ?callback: Func<ResizeArray<Error>, ResizeArray<ResizeArray<string>>, unit> -> Promise<string>
-        abstract multiSet: keyValuePairs: ResizeArray<ResizeArray<string>> * ?callback: Func<ResizeArray<Error>, unit> -> Promise<string>
-        abstract multiRemove: keys: ResizeArray<string> * ?callback: Func<ResizeArray<Error>, unit> -> Promise<string>
-        abstract multiMerge: keyValuePairs: ResizeArray<ResizeArray<string>> * ?callback: Func<ResizeArray<Error>, unit> -> Promise<string>
+        abstract getItem: key: string * ?callback: (Error -> string -> unit) -> Promise<string>
+        abstract setItem: key: string * value: string * ?callback: (Error -> unit) -> Promise<string>
+        abstract removeItem: key: string * ?callback: (Error -> unit) -> Promise<string>
+        abstract mergeItem: key: string * value: string * ?callback: (Error -> unit) -> Promise<string>
+        abstract clear: ?callback: (Error -> unit) -> Promise<string>
+        abstract getAllKeys: ?callback: (Error -> ResizeArray<string> -> unit) -> Promise<string>
+        abstract multiGet: keys: ResizeArray<string> * ?callback: (ResizeArray<Error> -> ResizeArray<ResizeArray<string>> -> unit) -> Promise<string>
+        abstract multiSet: keyValuePairs: ResizeArray<ResizeArray<string>> * ?callback: (ResizeArray<Error> -> unit) -> Promise<string>
+        abstract multiRemove: keys: ResizeArray<string> * ?callback: (ResizeArray<Error> -> unit) -> Promise<string>
+        abstract multiMerge: keyValuePairs: ResizeArray<ResizeArray<string>> * ?callback: (ResizeArray<Error> -> unit) -> Promise<string>
 
     and BackAndroidStatic =
         abstract exitApp: unit -> unit
-        abstract addEventListener: eventName: string * handler: Func<unit> -> unit
-        abstract removeEventListener: eventName: string * handler: Func<unit> -> unit
+        abstract addEventListener: eventName: string * handler: (unit -> unit) -> unit
+        abstract removeEventListener: eventName: string * handler: (unit -> unit) -> unit
 
     and CameraRollFetchParams =
         abstract first: float with get, set
@@ -1697,27 +1769,27 @@ module ReactNative =
         abstract ``open``: ?options: DatePickerAndroidOpenOption -> Promise<DatePickerAndroidOpenReturn>
 
     and FetchableListenable<'T> =
-        abstract fetch: Func<Promise<'T>> with get, set
-        abstract addEventListener: Func<string, Func<'T, unit>, unit> with get, set
-        abstract removeEventListener: Func<string, Func<'T, unit>, unit> with get, set
+        abstract fetch: (unit -> Promise<'T>) with get, set
+        abstract addEventListener: (string -> ('T -> unit) -> unit) with get, set
+        abstract removeEventListener: (string -> ('T -> unit) -> unit) with get, set
 
     and IntentAndroidStatic =
         abstract openURL: url: string -> unit
-        abstract canOpenURL: url: string * callback: Func<bool, unit> -> unit
-        abstract getInitialURL: callback: Func<string, unit> -> unit
+        abstract canOpenURL: url: string * callback: (bool -> unit) -> unit
+        abstract getInitialURL: callback: (string -> unit) -> unit
 
     and LinkingStatic =
-        abstract addEventListener: ``type``: string * handler: Func<obj, unit> -> unit
-        abstract removeEventListener: ``type``: string * handler: Func<obj, unit> -> unit
+        abstract addEventListener: ``type``: string * handler: (obj -> unit) -> unit
+        abstract removeEventListener: ``type``: string * handler: (obj -> unit) -> unit
         abstract openURL: url: string -> Promise<bool>
         abstract canOpenURL: url: string -> Promise<bool>
         abstract getInitialURL: unit -> Promise<string>
 
     and LinkingIOSStatic =
-        abstract addEventListener: ``type``: string * handler: Func<obj, unit> -> unit
-        abstract removeEventListener: ``type``: string * handler: Func<obj, unit> -> unit
+        abstract addEventListener: ``type``: string * handler: (obj -> unit) -> unit
+        abstract removeEventListener: ``type``: string * handler: (obj -> unit) -> unit
         abstract openURL: url: string -> unit
-        abstract canOpenURL: url: string * callback: Func<bool, unit> -> unit
+        abstract canOpenURL: url: string * callback: (bool -> unit) -> unit
         abstract popInitialURL: unit -> string
 
     and [<StringEnum; RequireQualifiedAccess>] NetInfoReturnType =
@@ -1742,18 +1814,18 @@ module ReactNative =
         abstract _accountsForMovesUpTo: float with get, set
 
     and PanResponderCallbacks =
-        abstract onMoveShouldSetPanResponder: Func<GestureResponderEvent, PanResponderGestureState, bool> option with get, set
-        abstract onStartShouldSetPanResponder: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderGrant: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderMove: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderRelease: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderTerminate: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onMoveShouldSetPanResponderCapture: Func<GestureResponderEvent, PanResponderGestureState, bool> option with get, set
-        abstract onStartShouldSetPanResponderCapture: Func<GestureResponderEvent, PanResponderGestureState, bool> option with get, set
-        abstract onPanResponderReject: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderStart: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderEnd: Func<GestureResponderEvent, PanResponderGestureState, unit> option with get, set
-        abstract onPanResponderTerminationRequest: Func<GestureResponderEvent, PanResponderGestureState, bool> option with get, set
+        abstract onMoveShouldSetPanResponder: (GestureResponderEvent -> PanResponderGestureState -> bool) option with get, set
+        abstract onStartShouldSetPanResponder: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderGrant: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderMove: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderRelease: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderTerminate: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onMoveShouldSetPanResponderCapture: (GestureResponderEvent -> PanResponderGestureState -> bool) option with get, set
+        abstract onStartShouldSetPanResponderCapture: (GestureResponderEvent -> PanResponderGestureState -> bool) option with get, set
+        abstract onPanResponderReject: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderStart: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderEnd: (GestureResponderEvent -> PanResponderGestureState -> unit) option with get, set
+        abstract onPanResponderTerminationRequest: (GestureResponderEvent -> PanResponderGestureState -> bool) option with get, set
 
     and PanResponderInstance =
         abstract panHandlers: GestureResponderHandlers with get, set
@@ -1785,16 +1857,18 @@ module ReactNative =
         abstract cancelAllLocalNotifications: unit -> unit
         abstract cancelLocalNotifications: userInfo: obj -> unit
         abstract setApplicationIconBadgeNumber: number: float -> unit
-        abstract getApplicationIconBadgeNumber: callback: Func<float, unit> -> unit
-        abstract addEventListener: ``type``: string * handler: Func<PushNotification, unit> -> unit
+        abstract getApplicationIconBadgeNumber: callback: (float -> unit) -> unit
+        abstract addEventListener: ``type``: string * handler: (PushNotification -> unit) -> unit
         abstract requestPermissions: ?permissions: ResizeArray<PushNotificationPermissions> -> Promise<PushNotificationPermissions>
         abstract abandonPermissions: unit -> unit
-        abstract checkPermissions: callback: Func<PushNotificationPermissions, unit> -> unit
-        abstract removeEventListener: ``type``: string * handler: Func<PushNotification, unit> -> unit
+        abstract checkPermissions: callback: (PushNotificationPermissions -> unit) -> unit
+        abstract removeEventListener: ``type``: string * handler: (PushNotification -> unit) -> unit
         abstract popInitialNotification: unit -> PushNotification
 
     and [<StringEnum>] StatusBarStyle =
-        | Default | ``Light-content``
+        | Default
+        | [<CompiledName("light-content")>] LightContent
+        | [<CompiledName("dark-content")>] DarkContent
 
     and [<StringEnum; RequireQualifiedAccess>] StatusBarAnimation =
         | None | Fade | Slide
@@ -1819,11 +1893,11 @@ module ReactNative =
 
     and StatusBarStatic =
         inherit React.ComponentClass<StatusBarProperties>
-        abstract setHidden: Func<bool, StatusBarAnimation, unit> with get, set
-        abstract setBarStyle: Func<StatusBarStyle, bool, unit> with get, set
-        abstract setNetworkActivityIndicatorVisible: Func<bool, unit> with get, set
-        abstract setBackgroundColor: Func<string, bool, unit> with get, set
-        abstract setTranslucent: Func<bool, unit> with get, set
+        abstract setHidden: (bool -> StatusBarAnimation -> unit) with get, set
+        abstract setBarStyle: (StatusBarStyle -> bool -> unit) with get, set
+        abstract setNetworkActivityIndicatorVisible: (bool -> unit) with get, set
+        abstract setBackgroundColor: (string -> bool -> unit) with get, set
+        abstract setTranslucent: (bool -> unit) with get, set
 
     and StatusBarIOSStatic =
         interface end
@@ -1854,7 +1928,7 @@ module ReactNative =
         inherit ViewProperties
         inherit React.Props<SwitchStatic>
         abstract disabled: bool option with get, set
-        abstract onValueChange: Func<bool, unit> option with get, set
+        abstract onValueChange: (bool -> unit) option with get, set
         abstract testID: string option with get, set
         abstract value: bool option with get, set
         abstract style: ViewStyle option with get, set
@@ -1872,7 +1946,7 @@ module ReactNative =
         abstract cancel: unit -> unit
 
     and EasingFunction =
-        Func<float, float>
+        (float -> float)
 
     and EasingStatic =
         abstract step0: EasingFunction with get, set
@@ -1894,19 +1968,19 @@ module ReactNative =
         abstract inOut: easing: EasingFunction -> EasingFunction
 
     and GeolocationStatic =
-        abstract getCurrentPosition: geo_success: Func<GeolocationReturnType, unit> * ?geo_error: Func<Error, unit> * ?geo_options: GetCurrentPositionOptions -> unit
-        abstract watchPosition: success: Func<Geolocation, unit> * ?error: Func<Error, unit> * ?options: WatchPositionOptions -> unit
+        abstract getCurrentPosition: geo_success: (GeolocationReturnType -> unit) * ?geo_error: (Error -> unit) * ?geo_options: GetCurrentPositionOptions -> unit
+        abstract watchPosition: success: (Geolocation -> unit) * ?error: (Error -> unit) * ?options: WatchPositionOptions -> unit
         abstract clearWatch: watchID: float -> unit
         abstract stopObserving: unit -> unit
 
     and fetch =
-        Func<string, obj, Promise<obj>>
+        (string -> obj -> Promise<obj>)
 
     and timedScheduler =
-        Func<U2<string, Function>, float, float>
+        (U2<string, Function> -> float -> float)
 
     and untimedScheduler =
-        Func<U2<string, Function>, float>
+        (U2<string, Function> -> float)
 
     and setTimeout =
         timedScheduler
@@ -1921,7 +1995,7 @@ module ReactNative =
         untimedScheduler
 
     and schedulerCanceller =
-        Func<float, unit>
+        (float -> unit)
 
     and clearTimeout =
         schedulerCanceller
@@ -1939,7 +2013,7 @@ module ReactNative =
         abstract JumpToAction: index: float -> obj
 
     and TabsReducerFunction =
-        Func<obj, obj>
+        (obj -> obj)
 
     and NavigationReducerStatic =
         abstract TabsReducer: obj with get, set
@@ -1985,7 +2059,7 @@ module ReactNative =
         abstract gestureResponseDistance: float option with get,set
 
     and NavigationRenderer =
-        Func<NavigationState, Func<NavigationAction, bool>, JSX.Element>
+        (NavigationState -> (NavigationAction -> bool) -> JSX.Element)
 
     and NavigationAnimatedViewStaticProps =
         abstract route: obj option with get, set
@@ -2061,7 +2135,7 @@ module ReactNative =
         abstract remove: unit -> unit
 
     and NativeAppEventEmitterStatic =
-        abstract addListener: ``event``: string * handler: Func<obj, unit> -> NativeEventSubscription
+        abstract addListener: ``event``: string * handler: (obj -> unit) -> NativeEventSubscription
 
     and ActivityIndicator =
         ActivityIndicatorStatic
@@ -2273,7 +2347,7 @@ module ReactNative =
         GeolocationStatic
 
     and GlobalStatic =
-        abstract requestAnimationFrame: fn: Func<unit> -> unit
+        abstract requestAnimationFrame: fn: (unit -> unit) -> unit
 
     type Globals =
         [<Import("ActivityIndicator", "react-native")>] static member ActivityIndicator with get(): ActivityIndicatorStatic = jsNative and set(v: ActivityIndicatorStatic): unit = jsNative
@@ -2358,9 +2432,9 @@ module ReactNative =
 
     module addons =
         type TestModuleStatic =
-            abstract verifySnapshot: Func<Func<obj, unit>, unit> with get, set
-            abstract markTestPassed: Func<obj, unit> with get, set
-            abstract markTestCompleted: Func<unit> with get, set
+            abstract verifySnapshot: ((obj -> unit) -> unit) with get, set
+            abstract markTestPassed: (obj -> unit) with get, set
+            abstract markTestCompleted: (unit -> unit) with get, set
 
         and TestModule =
             TestModuleStatic
