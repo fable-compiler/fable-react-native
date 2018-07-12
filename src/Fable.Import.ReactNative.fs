@@ -443,7 +443,7 @@ module ReactNative =
 
     and GeolocationReturnType =
         abstract coords: PositionCoordinates with get
-        abstract timestamp: long with get
+        abstract timestamp: int64 with get
 
     and TransformsStyle =
         abstract transform: obj * obj * obj * obj * obj * obj * obj * obj * obj * obj * obj * obj option with get, set
@@ -1314,8 +1314,8 @@ module ReactNative =
         abstract hasTVPreferredFocus: Boolean option with get, set
 
     and ButtonStatic =
-        inherit React.ComponentClass<ButtonProperties>        
-        
+        inherit React.ComponentClass<ButtonProperties>
+
 
     and TouchableHighlightStatic =
         inherit React.ComponentClass<TouchableHighlightProperties>

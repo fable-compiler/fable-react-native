@@ -1,3 +1,7 @@
+### 2.0.0-alpha-002
+* Adds currentHeight to StatusBar #29
+* Adds Geotype #30
+
 ### 2.0.0-alpha-001
 * Fixes by @iyegoroff: PR #23
 

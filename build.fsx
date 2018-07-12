@@ -4,6 +4,7 @@
 #load "paket-files/build/fsharp/FAKE/modules/Octokit/Octokit.fsx"
 #load "paket-files/build/fable-compiler/fake-helpers/Fable.FakeHelpers.fs"
 
+open System.IO
 open Fake
 open Fable.FakeHelpers
 open Octokit
@@ -16,13 +17,16 @@ System.Console.OutputEncoding <- System.Text.Encoding.UTF8
 let project = "fable-react-native"
 let gitOwner = "fable-compiler"
 
-let dotnetcliVersion = "2.1.4"
 let mutable dotnetExePath = environVarOrDefault "DOTNET" "dotnet"
 
 let CWD = __SOURCE_DIRECTORY__
 
 // Clean and install dotnet SDK
 Target "Bootstrap" (fun () ->
+    let dotnetcliVersion =
+        Path.Combine(__SOURCE_DIRECTORY__, "global.json")
+        |> findLineAndGetGroupValue "\"version\": \"(.*?)\"" 1
+
     !! "src/bin" ++ "src/obj" |> CleanDirs
     dotnetExePath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
 )
