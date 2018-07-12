@@ -1898,7 +1898,8 @@ module ReactNative =
         abstract setNetworkActivityIndicatorVisible: (bool -> unit) with get, set
         abstract setBackgroundColor: (string -> bool -> unit) with get, set
         abstract setTranslucent: (bool -> unit) with get, set
-        abstract currentHeight: float with get // Only available for Android
+        /// Only available for Android
+        abstract currentHeight: float with get
 
     and StatusBarIOSStatic =
         interface end
