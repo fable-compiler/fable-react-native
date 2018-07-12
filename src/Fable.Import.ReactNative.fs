@@ -433,8 +433,17 @@ module ReactNative =
     and WatchPositionOptions =
         obj
 
+    and PositionCoordinates =
+        abstract latitude: float with get
+        abstract longitude: float with get
+        abstract altitude: float option with get
+        abstract accuracy: float with get
+        abstract heading: float option with get
+        abstract speed: float option with get
+
     and GeolocationReturnType =
-        obj
+        abstract coords: PositionCoordinates with get
+        abstract timestamp: long with get
 
     and TransformsStyle =
         abstract transform: obj * obj * obj * obj * obj * obj * obj * obj * obj * obj * obj * obj option with get, set
