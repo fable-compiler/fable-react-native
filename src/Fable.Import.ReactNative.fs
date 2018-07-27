@@ -349,7 +349,7 @@ module ReactNative =
         | [<CompiledName("space-between")>] SpaceBetween
         | [<CompiledName("space-around")>] SpaceAround
 
-    and [<StringEnum>] FlexDisplayType =
+    and [<StringEnum; RequireQualifiedAccess>] FlexDisplayType =
         | None | Flex
 
     and [<StringEnum>] FlexDirectionType =
@@ -797,7 +797,7 @@ module ReactNative =
 
     and NativeSegmentedControlIOSChangeEvent =
         abstract value: string with get, set
-        abstract selectedSegmentIndex: float with get, set
+        abstract selectedSegmentIndex: int with get, set
         abstract target: float with get, set
 
     and SegmentedControlIOSProperties =
@@ -1038,72 +1038,35 @@ module ReactNative =
         inherit React.ComponentClass<RefreshControlProperties>
         abstract SIZE: obj with get, set
 
-    and SliderPropertiesIOS =
-        inherit ViewProperties
-        inherit React.Props<SliderStatic>
-        abstract maximumTrackImage: obj option with get, set
-        abstract maximumTrackTintColor: string option with get, set
-        abstract minimumTrackImage: string option with get, set
-        abstract minimumTrackTintColor: string option with get, set
-        abstract thumbImage: obj option with get, set
+    and SliderIOSProperties =
         abstract trackImage: obj option with get, set
-        abstract ref: Ref<SliderStatic> option with get, set
+        abstract minimumTrackImage: obj option with get, set
+        abstract maximumTrackImage: obj option with get, set
+        abstract thumbImage: obj option with get, set
+
+    and SliderAndroidProperties =
+        abstract thumbTintColor: string option with get, set
 
     and SliderProperties =
-        inherit SliderPropertiesIOS
+        inherit ViewProperties
+        inherit SliderIOSProperties
+        inherit SliderAndroidProperties
         inherit React.Props<SliderStatic>
-        abstract disabled: bool option with get, set
-        abstract maximumValue: float option with get, set
-        abstract minimumValue: float option with get, set
-        abstract onSlidingComplete: (float -> unit) option with get, set
-        abstract onValueChange: (float -> unit) option with get, set
-        abstract step: float option with get, set
         abstract style: ViewStyle option with get, set
-        abstract testID: string option with get, set
         abstract value: float option with get, set
+        abstract step: float option with get, set
+        abstract minimumValue: float option with get, set
+        abstract maximumValue: float option with get, set
+        abstract minimumTrackTintColor: string option with get, set
+        abstract maximumTrackTintColor: string option with get, set
+        abstract disabled: bool option with get, set
+        abstract onValueChange: (float -> unit) option with get, set
+        abstract onSlidingComplete: (float -> unit) option with get, set
+        abstract testID: string option with get, set
+        abstract ref: Ref<SliderStatic> option with get, set
 
     and SliderStatic =
         inherit React.ComponentClass<SliderProperties>
-
-
-    and SliderIOSProperties =
-        inherit ViewProperties
-        inherit React.Props<SliderIOSStatic>
-        abstract disabled: bool option with get, set
-        abstract maximumValue: float option with get, set
-        abstract maximumTrackTintColor: string option with get, set
-        abstract minimumValue: float option with get, set
-        abstract minimumTrackImage: obj option with get, set
-        abstract minimumTrackTintColor: string option with get, set
-        abstract onSlidingComplete: (unit -> unit) option with get, set
-        abstract onValueChange: (float -> unit) option with get, set
-        abstract step: float option with get, set
-        abstract style: ViewStyle option with get, set
-        abstract value: float option with get, set
-        abstract ref: Ref<SliderIOSStatic> option with get, set
-
-    and SliderIOSStatic =
-        inherit React.ComponentClass<SliderIOSProperties>
-
-
-    and SwitchIOSStyle =
-        inherit ViewStyle
-        abstract height: float option with get, set
-        abstract width: float option with get, set
-
-    and SwitchIOSProperties =
-        inherit React.Props<SwitchIOSStatic>
-        abstract disabled: bool option with get, set
-        abstract onTintColor: string option with get, set
-        abstract onValueChange: (bool -> unit) option with get, set
-        abstract thumbTintColor: string option with get, set
-        abstract tintColor: string option with get, set
-        abstract value: bool option with get, set
-        abstract style: SwitchIOSStyle option with get, set
-
-    and SwitchIOSStatic =
-        inherit React.ComponentClass<SwitchIOSProperties>
-
 
     and ImageResizeModeStatic =
         abstract contain: string with get, set
@@ -1139,6 +1102,7 @@ module ReactNative =
     and ImageProperties =
         inherit ImagePropertiesIOS
         inherit React.Props<Image>
+        abstract blurRadius: float option with get, set
         abstract onLayout: (LayoutChangeEvent -> unit) option with get, set
         abstract onLoad: (unit -> unit) option with get, set
         abstract onLoadEnd: (unit -> unit) option with get, set
@@ -1596,6 +1560,10 @@ module ReactNative =
         abstract keyboardDismissMode: string option with get, set
         abstract keyboardShouldPersistTaps: bool option with get, set
         abstract onScroll: (obj -> unit) option with get, set
+        abstract onScrollBeginDrag: (obj -> unit) option with get, set
+        abstract onScrollEndDrag: (obj -> unit) option with get, set
+        abstract onMomentumScrollBegin: (obj -> unit) option with get, set
+        abstract onMomentumScrollEnd: (obj -> unit) option with get, set
         abstract pagingEnabled: bool option with get, set
         abstract removeClippedSubviews: bool option with get, set
         abstract showsHorizontalScrollIndicator: bool option with get, set
@@ -1927,22 +1895,16 @@ module ReactNative =
         abstract show: message: string * duration: float -> unit
         abstract showWithGravity: message: string * duration: float * gravity: float -> unit
 
-    and SwitchPropertiesIOS =
-        inherit ViewProperties
-        inherit React.Props<SwitchStatic>
-        abstract onTintColor: string option with get, set
-        abstract thumbTintColor: string option with get, set
-        abstract tintColor: string option with get, set
-        abstract ref: Ref<SwitchStatic> option with get, set
-
     and SwitchProperties =
         inherit ViewProperties
         inherit React.Props<SwitchStatic>
+        abstract value: bool option with get, set
         abstract disabled: bool option with get, set
         abstract onValueChange: (bool -> unit) option with get, set
         abstract testID: string option with get, set
-        abstract value: bool option with get, set
-        abstract style: ViewStyle option with get, set
+        abstract tintColor: string option with get, set
+        abstract onTintColor: string option with get, set
+        abstract thumbTintColor: string option with get, set
         abstract ref: Ref<SwitchStatic> option with get, set
 
     and SwitchStatic =
@@ -2200,10 +2162,7 @@ module ReactNative =
         RefreshControlStatic
 
     and Slider =
-        SliderIOS
-
-    and SliderIOS =
-        SliderIOSStatic
+        SliderStatic
 
     and StatusBar =
         StatusBarStatic
@@ -2219,9 +2178,6 @@ module ReactNative =
 
     and Switch =
         SwitchStatic
-
-    and SwitchIOS =
-        SwitchIOSStatic
 
     and TabBarIOS =
         TabBarIOSStatic
@@ -2378,14 +2334,12 @@ module ReactNative =
         [<Import("ProgressBarAndroid", "react-native")>] static member ProgressBarAndroid with get(): ProgressBarAndroidStatic = jsNative and set(v: ProgressBarAndroidStatic): unit = jsNative
         [<Import("ProgressViewIOS", "react-native")>] static member ProgressViewIOS with get(): ProgressViewIOSStatic = jsNative and set(v: ProgressViewIOSStatic): unit = jsNative
         [<Import("RefreshControl", "react-native")>] static member RefreshControl with get(): RefreshControlStatic = jsNative and set(v: RefreshControlStatic): unit = jsNative
-        [<Import("Slider", "react-native")>] static member Slider with get(): SliderIOS = jsNative and set(v: SliderIOS): unit = jsNative
-        [<Import("SliderIOS", "react-native")>] static member SliderIOS with get(): SliderIOSStatic = jsNative and set(v: SliderIOSStatic): unit = jsNative
+        [<Import("Slider", "react-native")>] static member Slider with get(): SliderStatic = jsNative and set(v: SliderStatic): unit = jsNative
         [<Import("StatusBar", "react-native")>] static member StatusBar with get(): StatusBarStatic = jsNative and set(v: StatusBarStatic): unit = jsNative
         [<Import("ScrollView", "react-native")>] static member ScrollView with get(): ScrollViewStatic = jsNative and set(v: ScrollViewStatic): unit = jsNative
         [<Import("StyleSheet", "react-native")>] static member StyleSheet with get(): StyleSheetStatic = jsNative and set(v: StyleSheetStatic): unit = jsNative
         [<Import("SwipeableListView", "react-native")>] static member SwipeableListView with get(): SwipeableListViewStatic<obj> = jsNative and set(v: SwipeableListViewStatic<obj>): unit = jsNative
         [<Import("Switch", "react-native")>] static member Switch with get(): SwitchStatic = jsNative and set(v: SwitchStatic): unit = jsNative
-        [<Import("SwitchIOS", "react-native")>] static member SwitchIOS with get(): SwitchIOSStatic = jsNative and set(v: SwitchIOSStatic): unit = jsNative
         [<Import("TabBarIOS", "react-native")>] static member TabBarIOS with get(): TabBarIOSStatic = jsNative and set(v: TabBarIOSStatic): unit = jsNative
         [<Import("Text", "react-native")>] static member Text with get(): TextStatic = jsNative and set(v: TextStatic): unit = jsNative
         [<Import("TextInput", "react-native")>] static member TextInput with get(): TextInputStatic = jsNative and set(v: TextInputStatic): unit = jsNative
