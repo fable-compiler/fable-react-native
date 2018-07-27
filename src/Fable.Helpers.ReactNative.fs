@@ -500,11 +500,6 @@ module Props =
         | Height of float
         | Scale of float
 
-    type ImageSource =
-        | Remote of ImageURISourceProperties list
-        | Local of string
-        | RemoteList of ImageURISourceProperties list list
-
     type ITouchable =
         inherit IScrollViewProperties
         inherit IMapViewProperties
