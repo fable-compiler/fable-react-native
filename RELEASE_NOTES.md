@@ -1,3 +1,17 @@
+### 2.0.0-alpha-003
+Various fixes by @iyegoroff:
+
+- changed `IImageSourceProperties list` to `IImageSource` and added functions for fetching remote images `remoteImage` and `remoteImages`:
+https://github.com/iyegoroff/fable-react-native/blob/ea8bf8ff51a1d702edb9db44620fb13a35194cfe/src/Fable.Helpers.ReactNative.fs#L1497-L1501
+- updated `Switch` and `Slider` components;
+- removed deprecated `SwitchIOS` and `SliderIOS` components;
+- updated `FlatListProperties` and added `IFlatListProperties` interface to `ScrollViewProperties`;
+- updated `ScrollViewProperties`;
+- renamed function `Dip` to `dip` and `Pct` to `pct` to conform other function's naming style;
+- put `WebViewBundleSource` above `ImageURISourceProperties`, so now `Uri` is inferred as `ImageURISourceProperties.Uri` which is more commonly used than `WebViewBundleSource.Uri`;
+- added `RequireQualifiedAccess` to `FlexDisplayType` to prevent conflict with `Option.None`;
+- several fixed typos & minor fixes;
+
 ### 2.0.0-alpha-002
 * Adds currentHeight to StatusBar #29
 * Adds Geotype #30
