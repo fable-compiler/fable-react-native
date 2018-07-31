@@ -13,7 +13,6 @@ type Ref<'t> = ('t -> unit)
 
 module Props =
 
-    [<Pojo>]
     type ShadowOffset =
       { width: float
         height: float }
