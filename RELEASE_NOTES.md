@@ -1,3 +1,9 @@
+### 2.0.0-alpha-004
+Various fixes by @iyegoroff:
+- updated `ImageProperties` type;
+- removed `ScrollViewStyle` type, `ScrollView` uses just `ViewStyle`;
+- added `ShadowOffset` type.
+
 ### 2.0.0-alpha-003
 Various fixes by @iyegoroff:
 
