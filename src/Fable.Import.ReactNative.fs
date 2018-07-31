@@ -367,6 +367,9 @@ module ReactNative =
     and [<StringEnum>] FlexPositionType =
         | Absolute | Relative
 
+    and [<StringEnum; RequireQualifiedAccess>] ResizeMethodType =
+        | Auto | Resize | Scale
+
     and FlexStyle =
         abstract alignContent: FlexAlignContentType option with get, set
         abstract alignItems: FlexAlignType option with get, set
@@ -464,8 +467,18 @@ module ReactNative =
         abstract width: float with get, set
         abstract height: float with get, set
 
-    and LayoutChangeEvent =
-        abstract nativeEvent: obj with get, set
+    and LayoutChange =
+        abstract layout: LayoutRectangle with get, set
+
+    and LayoutChangeEvent = NativeSyntheticEvent<LayoutChange>
+
+    and ImageProgressChange =
+        abstract loaded: float with get, set
+        abstract total: float with get, set
+
+    and ImageProgressChangeEvent = NativeSyntheticEvent<ImageProgressChange>
+
+    and ImageErrorEvent = NativeSyntheticEvent<obj>
 
     and TextStyleIOS =
         inherit ViewStyle
@@ -1096,19 +1109,26 @@ module ReactNative =
         abstract accessible: bool option with get, set
         abstract capInsets: Insets option with get, set
         abstract defaultSource: U2<obj, float> option with get, set
-        abstract onError: (obj -> unit) option with get, set
-        abstract onProgress: (unit -> unit) option with get, set
+        abstract onPartialLoad: (unit -> unit) option with get, set
+        abstract onProgress: (ImageProgressChangeEvent -> unit) option with get, set
 
+    and ImagePropertiesAndroid =
+        abstract resizeMethod: ResizeMethodType option with get, set
+        abstract fadeDuration: float option with get, set
+        
     and ImageProperties =
         inherit ImagePropertiesIOS
+        inherit ImagePropertiesAndroid
         inherit React.Props<Image>
         abstract blurRadius: float option with get, set
+        abstract loadingIndicatorSource: U2<obj, float> with get, set
         abstract onLayout: (LayoutChangeEvent -> unit) option with get, set
         abstract onLoad: (unit -> unit) option with get, set
         abstract onLoadEnd: (unit -> unit) option with get, set
         abstract onLoadStart: (unit -> unit) option with get, set
+        abstract onError: (ImageErrorEvent -> unit) option with get, set
         abstract resizeMode: (* TODO StringEnum cover | contain | stretch *) string option with get, set
-        abstract source: U2<obj, string> with get, set
+        abstract source: U2<obj, float> with get, set
         abstract style: ImageStyle option with get, set
         abstract testID: string option with get, set
 
@@ -1419,10 +1439,10 @@ module ReactNative =
         inherit ViewProperties
         inherit React.Props<TabBarItemStatic>
         abstract badge: U2<string, float> option with get, set
-        abstract icon: U2<obj, string> option with get, set
+        abstract icon: U2<obj, float> option with get, set
         abstract onPress: (unit -> unit) option with get, set
         abstract selected: bool option with get, set
-        abstract selectedIcon: U2<obj, string> option with get, set
+        abstract selectedIcon: U2<obj, float> option with get, set
         abstract style: ViewStyle option with get, set
         abstract systemIcon: (* TODO StringEnum bookmarks | contacts | downloads | favorites | featured | history | more | most-recent | most-viewed | recents | search | top-rated *) string with get, set
         abstract title: string option with get, set
@@ -1490,35 +1510,6 @@ module ReactNative =
         abstract clearInteractionHandle: handle: Handle -> unit
         abstract setDeadline: deadline: float -> unit
 
-    and ScrollViewStyle =
-        inherit FlexStyle
-        inherit TransformsStyle
-        abstract backfaceVisibility: (* TODO StringEnum visible | hidden *) string option with get, set
-        abstract backgroundColor: string option with get, set
-        abstract borderColor: string option with get, set
-        abstract borderTopColor: string option with get, set
-        abstract borderRightColor: string option with get, set
-        abstract borderBottomColor: string option with get, set
-        abstract borderLeftColor: string option with get, set
-        abstract borderRadius: float option with get, set
-        abstract borderTopLeftRadius: float option with get, set
-        abstract borderTopRightRadius: float option with get, set
-        abstract borderBottomLeftRadius: float option with get, set
-        abstract borderBottomRightRadius: float option with get, set
-        abstract borderStyle: (* TODO StringEnum solid | dotted | dashed *) string option with get, set
-        abstract borderWidth: float option with get, set
-        abstract borderTopWidth: float option with get, set
-        abstract borderRightWidth: float option with get, set
-        abstract borderBottomWidth: float option with get, set
-        abstract borderLeftWidth: float option with get, set
-        abstract opacity: float option with get, set
-        abstract overflow: (* TODO StringEnum visible | hidden *) string option with get, set
-        abstract shadowColor: string option with get, set
-        abstract shadowOffset: obj option with get, set
-        abstract shadowOpacity: float option with get, set
-        abstract shadowRadius: float option with get, set
-        abstract elevation: float option with get, set
-
     and ScrollViewPropertiesIOS =
         abstract alwaysBounceHorizontal: bool option with get, set
         abstract alwaysBounceVertical: bool option with get, set
@@ -1568,7 +1559,7 @@ module ReactNative =
         abstract removeClippedSubviews: bool option with get, set
         abstract showsHorizontalScrollIndicator: bool option with get, set
         abstract showsVerticalScrollIndicator: bool option with get, set
-        abstract style: ScrollViewStyle option with get, set
+        abstract style: ViewStyle option with get, set
         abstract refreshControl: React.ReactElement option with get, set
         abstract ref: Ref<obj> option with get, set
 
