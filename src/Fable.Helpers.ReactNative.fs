@@ -13,6 +13,11 @@ type Ref<'t> = ('t -> unit)
 
 module Props =
 
+    [<Pojo>]
+    type ShadowOffset =
+      { width: float
+        height: float }
+
     [<StringEnum; RequireQualifiedAccess>]
     type ToolbarActionShowStatus =
     | IfRoom
@@ -299,6 +304,9 @@ module Props =
     type Direction =
         | Horizontal | Vertical
 
+    type [<StringEnum; RequireQualifiedAccess>] ResizeMethod =
+        | Auto | Resize | Scale
+
     type IImageSource =
         interface end
 
@@ -307,9 +315,6 @@ module Props =
 
     type IStyle =
         interface end
-
-    type IScrollViewStyle =
-        inherit IStyle
 
     type ITextStyle =
         inherit IStyle
@@ -598,7 +603,7 @@ module Props =
         | BorderWidth of float
         | Opacity of float
         | ShadowColor of string
-        | ShadowOffset of obj
+        | ShadowOffset of ShadowOffset
         | ShadowOpacity of float
         | ShadowRadius of float
         | Elevation of float
@@ -1020,27 +1025,31 @@ module Props =
         | Opacity of float
         interface IImageStyle
 
-    type IImagePropertiesIOS =
-        interface end
-
     type IImageProperties =
-        inherit IImagePropertiesIOS
+        interface end
 
     type ImagePropertiesIOS =
         | AccessibilityLabel of string
         | Accessible of bool
         | CapInsets of Insets
         | DefaultSource of IImageSource
-        | OnError of (obj -> unit)
-        | OnProgress of (unit -> unit)
-        interface IImagePropertiesIOS
+        | OnPartialLoad of (unit -> unit)
+        | OnProgress of (ImageProgressChangeEvent -> unit)
+        interface IImageProperties
+
+    type ImagePropertiesAndroid =
+        | ResizeMethod of ResizeMethod
+        | FadeDuration of float
+        interface IImageProperties
 
     type ImageProperties =
         | BlurRadius of float
+        | LoadingIndicatorSource of IImageSource
         | OnLayout of (LayoutChangeEvent -> unit)
         | OnLoad of (unit -> unit)
         | OnLoadEnd of (unit -> unit)
         | OnLoadStart of (unit -> unit)
+        | OnError of (ImageErrorEvent -> unit)
         | ResizeMode of ResizeMode
         | Source of IImageSource
         | Style of IStyle list
@@ -1233,34 +1242,6 @@ module Props =
             | UnselectedTintColor of string
             | Ref of Ref<obj>
             interface IViewProperties
-
-    type ScrollViewStyle =
-        | BackfaceVisibility of BackfaceVisibility
-        | BackgroundColor of string
-        | BorderColor of string
-        | BorderTopColor of string
-        | BorderRightColor of string
-        | BorderBottomColor of string
-        | BorderLeftColor of string
-        | BorderRadius of float
-        | BorderTopLeftRadius of float
-        | BorderTopRightRadius of float
-        | BorderBottomLeftRadius of float
-        | BorderBottomRightRadius of float
-        | BorderStyle of BorderStyle
-        | BorderWidth of float
-        | BorderTopWidth of float
-        | BorderRightWidth of float
-        | BorderBottomWidth of float
-        | BorderLeftWidth of float
-        | Opacity of float
-        | Overflow of Overflow
-        | ShadowColor of string
-        | ShadowOffset of obj
-        | ShadowOpacity of float
-        | ShadowRadius of float
-        | Elevation of float
-        interface IScrollViewStyle
 
     type IScrollViewPropertiesIOS =
         inherit IScrollViewProperties
