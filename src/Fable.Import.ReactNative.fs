@@ -309,14 +309,29 @@ module ReactNative =
         abstract create: LayoutAnimationAnim option with get, set
         abstract update: LayoutAnimationAnim option with get, set
         abstract delete: LayoutAnimationAnim option with get, set
+        
+    and LayoutAnimationPresets =
+        abstract easeInEaseOut: LayoutAnimationConfig with get, set
+        abstract linear: LayoutAnimationConfig with get, set
+        abstract spring: LayoutAnimationConfig with get, set
 
     and LayoutAnimationStatic =
-        abstract configureNext: (LayoutAnimationConfig -> (unit -> unit) -> (obj -> unit) -> unit) with get, set
+        abstract configureNext: (LayoutAnimationConfig -> (unit -> unit) -> unit) with get, set
         abstract create: (float -> string -> string -> LayoutAnimationConfig) with get, set
         abstract Types: LayoutAnimationTypes with get, set
         abstract Properties: LayoutAnimationProperties with get, set
         abstract configChecker: (obj -> string -> string -> unit) with get, set
-        abstract Presets: obj with get, set
+        abstract Presets: LayoutAnimationPresets with get, set
+        abstract easeInEaseOut: ((unit -> unit) -> unit) with get, set
+        abstract linear: ((unit -> unit) -> unit) with get, set
+        abstract spring: ((unit -> unit) -> unit) with get, set
+
+    and UIManagerStatic =
+        abstract takeSnapshot: (U3<string, React.ReactElement, float> -> obj -> Promise<string>) with get, set
+        abstract ``measure``: node: float * callback: NativeMethodsMixin.MeasureOnSuccessCallback -> unit
+        abstract measureInWindow: node: float * callback: NativeMethodsMixin.MeasureInWindowOnSuccessCallback -> unit
+        abstract measureLayout: node: float * relativeToNativeNode: float * onFail: (unit -> unit) * onSuccess: NativeMethodsMixin.MeasureLayoutOnSuccessCallback -> unit
+        abstract setLayoutAnimationEnabledExperimental: (bool -> unit) option with get, set
 
     and [<StringEnum>] FlexAlignType =
         | [<CompiledName("flex-start")>] FlexStart
@@ -2182,6 +2197,9 @@ module ReactNative =
     and ToolbarAndroid =
         ToolbarAndroidStatic
 
+    and UIManager =
+        UIManagerStatic
+
     and Button =
         ButtonStatic
 
@@ -2340,6 +2358,7 @@ module ReactNative =
         [<Import("TouchableNativeFeedback", "react-native")>] static member TouchableNativeFeedback with get(): TouchableNativeFeedbackStatic = jsNative and set(v: TouchableNativeFeedbackStatic): unit = jsNative
         [<Import("TouchableOpacity", "react-native")>] static member TouchableOpacity with get(): TouchableOpacityStatic = jsNative and set(v: TouchableOpacityStatic): unit = jsNative
         [<Import("TouchableWithoutFeedback", "react-native")>] static member TouchableWithoutFeedback with get(): TouchableWithoutFeedbackStatic = jsNative and set(v: TouchableWithoutFeedbackStatic): unit = jsNative
+        [<Import("UIManager", "react-native")>] static member UIManager with get(): UIManagerStatic = jsNative and set(v: UIManagerStatic): unit = jsNative
         [<Import("View", "react-native")>] static member View with get(): ViewStatic = jsNative and set(v: ViewStatic): unit = jsNative
         [<Import("ViewPagerAndroid", "react-native")>] static member ViewPagerAndroid with get(): ViewPagerAndroidStatic = jsNative and set(v: ViewPagerAndroidStatic): unit = jsNative
         [<Import("WebView", "react-native")>] static member WebView with get(): WebViewStatic = jsNative and set(v: WebViewStatic): unit = jsNative
