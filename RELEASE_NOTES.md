@@ -1,3 +1,8 @@
+### 2.0.0-alpha-005
+Various fixes by @iyegoroff:
+- added UIManager;
+- updated LayoutAnimationStatic.
+
 ### 2.0.0-alpha-004
 Various fixes by @iyegoroff:
 - updated `ImageProperties` type;
