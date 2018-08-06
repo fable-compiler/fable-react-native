@@ -445,6 +445,37 @@ module Props =
         inherit ISwitchProperties
         inherit IMapViewProperties
 
+    type CommonProps<'a> =
+        | Key of string
+        interface IViewProperties
+        interface IToolbarAndroidProperties
+        interface ISegmentedControlIOSProperties
+        interface IWebViewProperties
+        interface IWebViewPropertiesAndroid
+        interface IWebViewPropertiesIOS
+        interface IDatePickerIOSProperties
+        interface IDrawerLayoutAndroidProperties
+        interface IPickerProperties
+        interface IProgressBarAndroidProperties
+        interface IProgressViewIOSProperties
+        interface IRefreshControlProperties
+        interface ISliderProperties
+        interface ITabBarItemProperties
+        interface ITabBarIOSProperties
+        interface IListViewProperties
+        interface IFlatListProperties<'a>
+        interface IScrollViewProperties
+        interface IStatusBarProperties
+        interface ISwitchProperties
+        interface IKeyboardAvoidingViewProps
+        interface IActivityIndicatorProperties
+        interface IActivityIndicatorIOSProperties
+        interface IMapViewProperties 
+        interface IMapViewPropertiesAndroid 
+        interface IViewPropertiesIOS
+        interface IViewPropertiesAndroid
+        interface IViewPagerAndroidProperties
+
     type WebViewPropertiesAndroid =
         | JavaScriptEnabled of bool
         | DomStorageEnabled of bool
@@ -1812,15 +1843,22 @@ module Alert =
     [<Import("Alert","react-native")>]
     let private Alert = obj()
 
+    type Options =
+        | Cancelable of bool
+        | OnDismiss of (unit -> unit)
+
     let private createButton(label:string,callback:unit -> unit) =
         createObj [
             "text" ==> label
             "onPress" ==> callback
         ]
 
+    let alertWithOptions (title:string,message:string,buttons: (string * (unit -> unit)) seq, options: Options list) : unit =
+        Alert?alert( title, message, Seq.map createButton buttons |> Seq.toArray, keyValueList CaseRules.LowerFirst options ) |> ignore
+
     /// Shows an alert with many buttons
     let alert (title:string,message:string,buttons: (string * (unit -> unit)) seq) : unit =
-        Alert?alert( title, message, Seq.map createButton buttons |> Seq.toArray ) |> ignore
+        alertWithOptions( title, message, buttons, [])
 
     /// Shows an alert button with one button
     let alertWithOneButton (title:string,message:string,okText:string,onOk:unit -> unit) : unit =
