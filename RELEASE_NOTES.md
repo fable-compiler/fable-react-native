@@ -1,3 +1,8 @@
+### 2.0.0-alpha-006
+Various fixes by @iyegoroff:
+- added CommonProps with Key prop;
+- added Alert.Options type and Alert.alertWithOptions function.
+
 ### 2.0.0-alpha-005
 Various fixes by @iyegoroff:
 - added UIManager;
