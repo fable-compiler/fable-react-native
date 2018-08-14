@@ -390,6 +390,9 @@ module Props =
     type IScrollViewProperties =
         inherit IListViewProperties
 
+    type IAnimatedScrollViewProperties =
+        inherit IScrollViewProperties
+
     type IStatusBarProperties =
         interface end
 
@@ -445,6 +448,9 @@ module Props =
         inherit ISwitchProperties
         inherit IMapViewProperties
 
+    type IAnimatedViewProperties =
+        inherit IViewProperties
+
     type CommonProps<'a> =
         | Key of string
         interface IViewProperties
@@ -465,6 +471,7 @@ module Props =
         interface IListViewProperties
         interface IFlatListProperties<'a>
         interface IScrollViewProperties
+        interface IAnimatedScrollViewProperties
         interface IStatusBarProperties
         interface ISwitchProperties
         interface IKeyboardAvoidingViewProps
@@ -703,6 +710,9 @@ module Props =
     type ITextProperties =
         inherit ITextPropertiesIOS
 
+    type IAnimatedTextProperties =
+        inherit ITextProperties
+
     type TextPropertiesIOS =
         | AllowFontScaling of bool // REQUIRED!
         | SuppressHighlighting of bool
@@ -717,6 +727,7 @@ module Props =
         | Style of IStyle list
         | TestID of string
         interface ITextProperties
+        interface IAnimatedTextProperties
 
     type ITextInputIOSProperties =
         interface end
@@ -1058,6 +1069,9 @@ module Props =
     type IImageProperties =
         interface end
 
+    type IAnimatedImageProperties =
+        inherit IImageProperties
+
     type ImagePropertiesIOS =
         | AccessibilityLabel of string
         | Accessible of bool
@@ -1066,11 +1080,13 @@ module Props =
         | OnPartialLoad of (unit -> unit)
         | OnProgress of (ImageProgressChangeEvent -> unit)
         interface IImageProperties
+        interface IAnimatedImageProperties
 
     type ImagePropertiesAndroid =
         | ResizeMethod of ResizeMethod
         | FadeDuration of float
         interface IImageProperties
+        interface IAnimatedImageProperties
 
     type ImageProperties =
         | BlurRadius of float
@@ -1085,6 +1101,7 @@ module Props =
         | Style of IStyle list
         | TestID of string
         interface IImageProperties
+        interface IAnimatedImageProperties
 
 
     type MapViewAnnotation =
@@ -1335,6 +1352,7 @@ module Props =
         | RefreshControl of React.ReactElement
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
+        interface IAnimatedScrollViewProperties
         interface IFlatListProperties<'a>
 
     type ListViewProperties<'a> =
@@ -1810,6 +1828,30 @@ let inline newDataSource<'a> (elements:'a []) =
 
 let inline updateDataSource<'a> (data:'a []) (dataSource : ListViewDataSource<'a>) : ListViewDataSource<'a> =
     dataSource.cloneWithRows(!!data)
+
+let inline animatedView (props: IAnimatedViewProperties list) (children: React.ReactElement list): React.ReactElement =
+    createElement(
+        Animated.Globals.View,
+        props,
+        children)
+
+let inline animatedScrollView (props: IAnimatedScrollViewProperties list) (children: React.ReactElement list): React.ReactElement =
+    createElement(
+        Animated.Globals.ScrollView,
+        props,
+        children)
+
+let inline animatedImage (props: IAnimatedImageProperties list) (children: React.ReactElement list): React.ReactElement =
+    createElement(
+        Animated.Globals.Image,
+        props,
+        children)
+
+let inline animatedText (props: IAnimatedTextProperties list) (children: React.ReactElement list): React.ReactElement =
+    createElement(
+        Animated.Globals.Text,
+        props,
+        children)
 
 [<Import("Buffer","buffer")>]
 [<Emit("$0.from($1).toString($2)")>]
