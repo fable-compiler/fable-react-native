@@ -46,11 +46,11 @@ module rec ReactNative =
 
         and InterpolationConfigType =
             member __.easing(value: float): float = jsNative
-            member __.extrapolate with get(): ExtrapolateType and set(v: ExtrapolateType): unit = jsNative
-            member __.extrapolateLeft with get(): ExtrapolateType and set(v: ExtrapolateType): unit = jsNative
-            member __.extrapolateRight with get(): ExtrapolateType and set(v: ExtrapolateType): unit = jsNative
-            member __.inputRange with get() : ResizeArray<float> and set(v: ResizeArray<float>): unit = jsNative
-            member __.outputRange with get() : U2<ResizeArray<float>, ResizeArray<string>> and set(v: U2<ResizeArray<float>, ResizeArray<string>>): unit = jsNative
+            member __.extrapolate with get(): ExtrapolateType = jsNative and set(v: ExtrapolateType): unit = jsNative
+            member __.extrapolateLeft with get(): ExtrapolateType = jsNative and set(v: ExtrapolateType): unit = jsNative
+            member __.extrapolateRight with get(): ExtrapolateType = jsNative and set(v: ExtrapolateType): unit = jsNative
+            member __.inputRange with get() : ResizeArray<float> = jsNative and set(v: ResizeArray<float>): unit = jsNative
+            member __.outputRange with get() : U2<ResizeArray<float>, ResizeArray<string>> = jsNative and set(v: U2<ResizeArray<float>, ResizeArray<string>>): unit = jsNative
 
         and ValueListenerCallback =
             (obj -> unit)
