@@ -387,6 +387,9 @@ module Props =
     type IFlatListProperties<'a> =
         interface end
 
+    type ISectionListProperties<'a> =
+        interface end
+
     type IScrollViewProperties =
         inherit IListViewProperties
 
@@ -1318,7 +1321,7 @@ module Props =
     | Handled
 
     type ScrollViewProperties<'a> =
-        | ContentContainerStyle of ViewStyle list
+        | ContentContainerStyle of IStyle list
         | Horizontal of bool
         | KeyboardDismissMode of string
         | KeyboardShouldPersistTaps of KeyboardShouldPersistTapsProperties
@@ -1332,10 +1335,12 @@ module Props =
         | ShowsHorizontalScrollIndicator of bool
         | ShowsVerticalScrollIndicator of bool
         | Style of IStyle list
+        | ScrollEnabled of bool
         | RefreshControl of React.ReactElement
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
         interface IFlatListProperties<'a>
+        interface ISectionListProperties<'a>
 
     type ListViewProperties<'a> =
         | DataSource of ListViewDataSource<'a>
@@ -1366,13 +1371,54 @@ module Props =
 
     type ViewabilityConfig = { minimumViewTime : float; viewAreaCoveragePercentThreshold : float; itemVisiblePercentThreshold : float; waitForInteraction : bool }
 
+    type DistanceFromEnd = { distanceFromEnd: float }
+
+    type SectionListRenderItemInfo<'a> =
+        { item : 'a
+          index : float
+          separators : FlatListRenderItemSeparator
+          section : SectionListData<'a> }
+
+    type SectionListRenderInfo<'a> = { section : SectionListData<'a> }
+
+    type SectionListDataProps<'a> =
+        | Key of string
+        | RenderItem of (SectionListRenderItemInfo<'a> -> React.ReactElement)
+        | ItemSeparatorComponent of (unit -> React.ReactElement)
+        | KeyExtractor of ('a -> float -> string)
+
+    type SectionListProperties<'a> =
+        | ItemSeparatorComponent of (unit -> React.ReactElement)
+        | ListEmptyComponent of (unit -> React.ReactElement)
+        | ListFooterComponent of (unit -> React.ReactElement)
+        | ListHeaderComponent of (unit -> React.ReactElement)
+        | SectionSeparatorComponent of (unit -> React.ReactElement)
+        | ExtraData of obj
+        | GetItemLayout of (ResizeArray<SectionListData<'a>> -> float -> GetItemLayoutResult)
+        | InitialNumToRender of int
+        | Inverted of bool
+        | KeyExtractor of ('a -> int -> string)
+        | LegacyImplementation of bool
+        | OnEndReached of (DistanceFromEnd -> unit)
+        | OnEndReachedThreshold of float
+        | OnRefresh of (unit -> unit)
+        | OnViewableItemsChanged of (OnViewableItemsChangedInfo<'a> -> unit)
+        | Refreshing of bool
+        | RemoveClippedSubviews of bool
+        | RenderItem of (SectionListRenderItemInfo<'a> -> React.ReactElement)
+        | StickySectionHeadersEnabled of bool
+        | RenderSectionHeader of (SectionListRenderInfo<'a> -> React.ReactElement)
+        | RenderSectionFooter of (SectionListRenderInfo<'a> -> React.ReactElement)
+        | RenderScrollComponent of (ScrollViewProperties -> React.ReactElement)
+        | Ref of Ref<obj>
+        interface ISectionListProperties<'a>
+
     type FlatListProperties<'a> =
         | ItemSeparatorComponent of (unit -> React.ReactElement)
         | ListEmptyComponent of (unit -> React.ReactElement)
         | ListFooterComponent of (unit -> React.ReactElement)
         | ListHeaderComponent of (unit -> React.ReactElement)
         | ColumnWrapperStyle of IStyle list
-        | ContentContainerStyle of IStyle list
         | ExtraData of obj
         | GetItemLayout of (ResizeArray<'a> -> GetItemLayoutResult)
         | Horizontal of bool
@@ -1381,15 +1427,13 @@ module Props =
         | KeyExtractor of ('a -> int -> string)
         | LegacyImplementation of bool
         | NumColumns of int
-        | OnEndReached of (float -> unit)
+        | OnEndReached of (DistanceFromEnd -> unit)
         | OnEndReachedThreshold of float
         | OnRefresh of (unit -> unit)
         | OnViewableItemsChanged of (OnViewableItemsChangedInfo<'a> -> unit)
         | Refreshing of bool
         | RemoveClippedSubviews of bool
         | RenderItem of (FlatListRenderItemInfo<'a> -> React.ReactElement)
-        | ScrollEnabled of bool
-        | Style of IStyle list
         | ViewabilityConfig of ViewabilityConfig
         | Ref of Ref<obj>
         interface IFlatListProperties<'a>
@@ -1510,6 +1554,21 @@ let inline remoteImage (source: ImageURISourceProperties list) =
 
 let inline remoteImages (sources: ImageURISourceProperties list array) =
   unbox<IImageSource> (Array.map remoteImage sources)
+
+let inline section<'a> (data: 'a []) (props: SectionListDataProps<'a> list) (custom: obj): SectionListData<'a> =
+    let pascalCaseProps, camelCaseProps =
+      List.partition (function
+                      | SectionListDataProps.ItemSeparatorComponent _ -> true
+                      | _ -> false)
+                      props
+
+    unbox<SectionListData<'a>>
+      (JS.Object.assign(
+        createObj ["data" ==> data],
+        keyValueList CaseRules.LowerFirst camelCaseProps,
+        keyValueList CaseRules.None pascalCaseProps,
+        custom
+      ))
 
 let inline createElement(c: React.ComponentClass<'T>, props: 'P list, children: React.ReactElement list) =
     R.createElement (c, keyValueList CaseRules.LowerFirst props, children)
@@ -1657,7 +1716,7 @@ let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewPro
 let inline flatList<'a> (data:'a []) (props: IFlatListProperties<'a> list)  : React.ReactElement =
     // Some of FlatList properties are upper case:
     // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-native/index.d.ts#L3608-L3623
-    let pascalCaseProps, camelCaseProps =
+    let pascalCaseProps, _ =
       List.partition (function
                       | ItemSeparatorComponent _ -> true
                       | ListEmptyComponent _ -> true
@@ -1670,7 +1729,25 @@ let inline flatList<'a> (data:'a []) (props: IFlatListProperties<'a> list)  : Re
       RN.FlatList,
       !!JS.Object.assign(
             createObj ["data" ==> data],
-            keyValueList CaseRules.LowerFirst camelCaseProps,
+            keyValueList CaseRules.LowerFirst props,
+            keyValueList CaseRules.None pascalCaseProps), [])
+
+let inline sectionList<'a> (sections: SectionListData<'a> []) (props: ISectionListProperties<'a> list)  : React.ReactElement =
+    let pascalCaseProps, _ =
+      List.partition (function
+                      | SectionListProperties.ItemSeparatorComponent _ -> true
+                      | SectionListProperties.ListEmptyComponent _ -> true
+                      | SectionListProperties.ListFooterComponent _ -> true
+                      | SectionListProperties.ListHeaderComponent _ -> true
+                      | SectionSeparatorComponent _ -> true
+                      | _ -> false)
+                      (unbox<SectionListProperties<'a> list> props)
+
+    createElementWithObjProps(
+      RN.SectionList,
+      !!JS.Object.assign(
+            createObj ["sections" ==> sections],
+            keyValueList CaseRules.LowerFirst props,
             keyValueList CaseRules.None pascalCaseProps), [])
 
 let inline mapView (props:IMapViewProperties list) (children: React.ReactElement list): React.ReactElement =
