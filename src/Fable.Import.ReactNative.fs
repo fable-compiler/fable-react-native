@@ -1187,6 +1187,23 @@ module ReactNative =
     and FlatListStatic<'a> =
         inherit React.ComponentClass<FlatListProperties<'a>>
 
+    and SectionListData<'a> =
+        abstract data: ResizeArray<'a> with get, set
+        abstract key: string option with get, set
+        abstract renderItem: (obj -> React.ReactElement) option with get, set
+        abstract ItemSeparatorComponent: (unit -> React.ReactElement) option with get, set
+        abstract keyExtractor: ('a -> float -> string) option with get, set
+        [<Emit "$0[$1]{{=$2}}">] abstract item: (string -> obj) with get, set
+    
+    and SectionListProperties<'a> =
+        inherit ScrollViewProperties
+        inherit React.Props<SectionListStatic<'a>>
+        abstract ref: Ref<obj> option with get, set
+
+    and SectionListStatic<'a> =
+        inherit React.ComponentClass<SectionListProperties<'a>>
+        abstract scrollToLocation: (obj -> unit)
+
     and MapViewAnnotation =
         abstract latitude: float option with get, set
         abstract longitude: float option with get, set
@@ -2334,6 +2351,7 @@ module ReactNative =
         [<Import("LayoutAnimation", "react-native")>] static member LayoutAnimation with get(): LayoutAnimationStatic = jsNative and set(v: LayoutAnimationStatic): unit = jsNative
         [<Import("ListView", "react-native")>] static member ListView with get(): ListViewStatic<obj> = jsNative and set(v: ListViewStatic<obj>): unit = jsNative
         [<Import("FlatList", "react-native")>] static member FlatList with get(): FlatListStatic<obj> = jsNative and set(v: FlatListStatic<obj>): unit = jsNative
+        [<Import("SectionList", "react-native")>] static member SectionList with get(): SectionListStatic<obj> = jsNative and set(v: SectionListStatic<obj>): unit = jsNative
         [<Import("MapView", "react-native")>] static member MapView with get(): MapViewStatic = jsNative and set(v: MapViewStatic): unit = jsNative
         [<Import("Modal", "react-native")>] static member Modal with get(): ModalStatic = jsNative and set(v: ModalStatic): unit = jsNative
         [<Import("Navigator", "react-native")>] static member Navigator with get(): NavigatorStatic = jsNative and set(v: NavigatorStatic): unit = jsNative
