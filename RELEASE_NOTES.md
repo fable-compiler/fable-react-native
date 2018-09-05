@@ -1,3 +1,7 @@
+### 2.0.0-alpha-007
+- fixed `FlatList` prop case conversion;
+- added `SectionList`.
+
 ### 2.0.0-alpha-006
 Various fixes by @iyegoroff:
 - added CommonProps with Key prop;
