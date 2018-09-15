@@ -1,3 +1,7 @@
+### 2.0.0-alpha-011
+- updated `textInput`;
+- added `textInputWithChild`.
+
 ### 2.0.0-alpha-010
 - put `CommonProps` under `SectionListDataProps`, so `Key` is inferred as `CommonProps.Key`.
 
