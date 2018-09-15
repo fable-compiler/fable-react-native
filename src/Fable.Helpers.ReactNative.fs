@@ -423,6 +423,40 @@ module Props =
     type IViewPagerAndroidProperties =
         interface end
 
+    type IButtonProperties =
+        interface end
+
+    type IImageProperties =
+        interface end
+
+    type ITouchableHighlightProperties =
+        interface end
+
+    type ITouchableOpacityProperties =
+        interface end
+
+    type ITouchableNativeFeedbackProperties =
+        interface end
+
+    type ITouchableWithoutFeedbackIOSProperties =
+        interface end
+
+    type ITouchableWithoutFeedbackAndroidProperties =
+        interface end
+
+    type ITouchableWithoutFeedbackProperties =
+        inherit ITouchableWithoutFeedbackAndroidProperties
+        inherit ITouchableWithoutFeedbackIOSProperties
+        inherit ITouchableNativeFeedbackProperties
+        inherit ITouchableOpacityProperties
+        inherit ITouchableHighlightProperties
+
+    type ITextPropertiesIOS =
+        interface end
+
+    type ITextProperties =
+        inherit ITextPropertiesIOS
+
     type IViewProperties =
         inherit IViewPropertiesAndroid
         inherit IViewPropertiesIOS
@@ -479,6 +513,13 @@ module Props =
         interface IViewPropertiesAndroid
         interface IViewPagerAndroidProperties
         interface ISectionListProperties<'a>
+        interface IButtonProperties
+        interface IImageProperties
+        interface ITouchableHighlightProperties
+        interface ITouchableWithoutFeedbackProperties
+        interface ITouchableNativeFeedbackProperties
+        interface ITouchableOpacityProperties
+        interface ITextProperties
 
     type WebViewPropertiesAndroid =
         | JavaScriptEnabled of bool
@@ -700,12 +741,6 @@ module Props =
         | TextShadowRadius of float
         | TestID of string
         interface ITextStyle
-
-    type ITextPropertiesIOS =
-        interface end
-
-    type ITextProperties =
-        inherit ITextPropertiesIOS
 
     type TextPropertiesIOS =
         | AllowFontScaling of bool // REQUIRED!
@@ -1060,9 +1095,6 @@ module Props =
         | Opacity of float
         interface IImageStyle
 
-    type IImageProperties =
-        interface end
-
     type ImagePropertiesIOS =
         | AccessibilityLabel of string
         | Accessible of bool
@@ -1156,9 +1188,6 @@ module Props =
         | OnShow of (NativeSyntheticEvent<obj> -> unit)
         | Ref of Ref<Modal>
 
-    type IButtonProperties =
-        interface end
-
     type ButtonProperties =
         | Title of string
         | OnPress of (unit -> unit)
@@ -1168,28 +1197,6 @@ module Props =
         | HasTVPreferredFocus of bool
         | Ref of Ref<Button>
         interface IButtonProperties
-
-    type ITouchableHighlightProperties =
-        interface end
-
-    type ITouchableOpacityProperties =
-        interface end
-
-    type ITouchableNativeFeedbackProperties =
-        interface end
-
-    type ITouchableWithoutFeedbackIOSProperties =
-        interface end
-
-    type ITouchableWithoutFeedbackAndroidProperties =
-        interface end
-
-    type ITouchableWithoutFeedbackProperties =
-        inherit ITouchableWithoutFeedbackAndroidProperties
-        inherit ITouchableWithoutFeedbackIOSProperties
-        inherit ITouchableNativeFeedbackProperties
-        inherit ITouchableOpacityProperties
-        inherit ITouchableHighlightProperties
 
     type TouchableWithoutFeedbackAndroidProperties =
         | AccessibilityComponentType of string
