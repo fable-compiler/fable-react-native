@@ -451,12 +451,12 @@ module Props =
         inherit ITouchableOpacityProperties
         inherit ITouchableHighlightProperties
 
-    type ITextPropertiesIOS =
+    type ITextProperties =
         interface end
 
-    type ITextProperties =
-        inherit ITextPropertiesIOS
-
+    type ITextInputProperties =
+        interface end
+        
     type IViewProperties =
         inherit IViewPropertiesAndroid
         inherit IViewPropertiesIOS
@@ -706,7 +706,7 @@ module Props =
     type TextPropertiesIOS =
         | AllowFontScaling of bool // REQUIRED!
         | SuppressHighlighting of bool
-        interface ITextPropertiesIOS
+        interface ITextProperties
 
     type TextProperties =
         | AllowFontScaling of bool
@@ -719,16 +719,6 @@ module Props =
         | Ref of Ref<Text>
         interface ITextProperties
 
-    type ITextInputIOSProperties =
-        interface end
-
-    type ITextInputAndroidProperties =
-        interface end
-
-    type ITextInputProperties =
-        inherit ITextInputIOSProperties
-        inherit ITextInputAndroidProperties
-
     module TextInput =
         type TextInputIOSProperties =
             | ClearButtonMode of string
@@ -736,7 +726,7 @@ module Props =
             | EnablesReturnKeyAutomatically of bool
             | OnKeyPress of (unit -> unit)
             | SelectionState of obj
-            interface ITextInputIOSProperties
+            interface ITextInputProperties
 
         type TextInputAndroidProperties =
             | NumberOfLines of float
@@ -744,7 +734,7 @@ module Props =
             | TextAlign of string
             | TextAlignVertical of string
             | UnderlineColorAndroid of string
-            interface ITextInputAndroidProperties
+            interface ITextInputProperties
 
         type TextInputProperties =
             | AutoCapitalize of AutoCapitalize
@@ -1549,6 +1539,7 @@ module Props =
         interface ITouchableNativeFeedbackProperties
         interface ITouchableOpacityProperties
         interface ITextProperties
+        interface ITextInputProperties
 
 open Props
 module R = Fable.Helpers.React
@@ -1592,12 +1583,14 @@ let inline createElement(c: React.ComponentClass<'T>, props: 'P list, children: 
 let inline internal createElementWithObjProps(c: React.ComponentClass<'T>, props: obj, children: React.ReactElement list) =
     R.createElement (c, props, children)
 
-let inline text (props:TextProperties list) (text:string): React.ReactElement =
+let inline text (props:ITextProperties list) (text:string): React.ReactElement =
     createElement(RN.Text, props, [React.str text])
 
-let inline textInput (props: ITextInputProperties list) (text:string): React.ReactElement =
-    let valueProp = TextInput.TextInputProperties.Value text :> ITextInputProperties
-    createElement(RN.TextInput, valueProp :: props, [])
+let inline textInput (props: ITextInputProperties list): React.ReactElement =
+    createElement(RN.TextInput, props, [])
+
+let inline textInputWithChild (props: ITextInputProperties list) (text: string): React.ReactElement =
+    createElement(RN.TextInput, props, [React.str text])
 
 let inline createToolbarAction(title:string,showStatus:ToolbarActionShowStatus) : ToolbarAndroidAction =
     createObj [
