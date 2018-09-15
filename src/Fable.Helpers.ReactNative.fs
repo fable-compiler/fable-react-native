@@ -482,45 +482,6 @@ module Props =
         inherit ISwitchProperties
         inherit IMapViewProperties
 
-    type CommonProps<'a> =
-        | Key of string
-        interface IViewProperties
-        interface IToolbarAndroidProperties
-        interface ISegmentedControlIOSProperties
-        interface IWebViewProperties
-        interface IWebViewPropertiesAndroid
-        interface IWebViewPropertiesIOS
-        interface IDatePickerIOSProperties
-        interface IDrawerLayoutAndroidProperties
-        interface IPickerProperties
-        interface IProgressBarAndroidProperties
-        interface IProgressViewIOSProperties
-        interface IRefreshControlProperties
-        interface ISliderProperties
-        interface ITabBarItemProperties
-        interface ITabBarIOSProperties
-        interface IListViewProperties
-        interface IFlatListProperties<'a>
-        interface IScrollViewProperties
-        interface IStatusBarProperties
-        interface ISwitchProperties
-        interface IKeyboardAvoidingViewProps
-        interface IActivityIndicatorProperties
-        interface IActivityIndicatorIOSProperties
-        interface IMapViewProperties 
-        interface IMapViewPropertiesAndroid 
-        interface IViewPropertiesIOS
-        interface IViewPropertiesAndroid
-        interface IViewPagerAndroidProperties
-        interface ISectionListProperties<'a>
-        interface IButtonProperties
-        interface IImageProperties
-        interface ITouchableHighlightProperties
-        interface ITouchableWithoutFeedbackProperties
-        interface ITouchableNativeFeedbackProperties
-        interface ITouchableOpacityProperties
-        interface ITextProperties
-
     type WebViewPropertiesAndroid =
         | JavaScriptEnabled of bool
         | DomStorageEnabled of bool
@@ -1549,6 +1510,45 @@ module Props =
         | NavState of NavState
         | Style of IStyle list
         interface IBreadcrumbNavigationBarProperties
+
+    type CommonProps<'a> =
+        | Key of string
+        interface IViewProperties
+        interface IToolbarAndroidProperties
+        interface ISegmentedControlIOSProperties
+        interface IWebViewProperties
+        interface IWebViewPropertiesAndroid
+        interface IWebViewPropertiesIOS
+        interface IDatePickerIOSProperties
+        interface IDrawerLayoutAndroidProperties
+        interface IPickerProperties
+        interface IProgressBarAndroidProperties
+        interface IProgressViewIOSProperties
+        interface IRefreshControlProperties
+        interface ISliderProperties
+        interface ITabBarItemProperties
+        interface ITabBarIOSProperties
+        interface IListViewProperties
+        interface IFlatListProperties<'a>
+        interface IScrollViewProperties
+        interface IStatusBarProperties
+        interface ISwitchProperties
+        interface IKeyboardAvoidingViewProps
+        interface IActivityIndicatorProperties
+        interface IActivityIndicatorIOSProperties
+        interface IMapViewProperties 
+        interface IMapViewPropertiesAndroid 
+        interface IViewPropertiesIOS
+        interface IViewPropertiesAndroid
+        interface IViewPagerAndroidProperties
+        interface ISectionListProperties<'a>
+        interface IButtonProperties
+        interface IImageProperties
+        interface ITouchableHighlightProperties
+        interface ITouchableWithoutFeedbackProperties
+        interface ITouchableNativeFeedbackProperties
+        interface ITouchableOpacityProperties
+        interface ITextProperties
 
 open Props
 module R = Fable.Helpers.React

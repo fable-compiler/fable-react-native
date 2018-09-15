@@ -1,3 +1,6 @@
+### 2.0.0-alpha-010
+- put `CommonProps` under `SectionListDataProps`, so `Key` is inferred as `CommonProps.Key`.
+
 ### 2.0.0-alpha-009
 - updated `CommonProps` type.
 
