@@ -1,3 +1,6 @@
+### 2.0.0-alpha-009
+- updated `CommonProps` type.
+
 ### 2.0.0-alpha-008
 - fixed refs;
 - `SectionList` minor fixes.
