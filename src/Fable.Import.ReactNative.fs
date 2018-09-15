@@ -2184,6 +2184,9 @@ module ReactNative =
     and RefreshControl =
         RefreshControlStatic
 
+    and SectionList<'a> =
+        SectionListStatic<'a>
+
     and Slider =
         SliderStatic
 

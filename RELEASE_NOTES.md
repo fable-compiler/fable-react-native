@@ -1,3 +1,7 @@
+### 2.0.0-alpha-008
+- fixed refs;
+- `SectionList` minor fixes.
+
 ### 2.0.0-alpha-007
 - fixed `FlatList` prop case conversion;
 - added `SectionList`.

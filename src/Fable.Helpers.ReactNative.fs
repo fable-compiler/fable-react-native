@@ -478,6 +478,7 @@ module Props =
         interface IViewPropertiesIOS
         interface IViewPropertiesAndroid
         interface IViewPagerAndroidProperties
+        interface ISectionListProperties<'a>
 
     type WebViewPropertiesAndroid =
         | JavaScriptEnabled of bool
@@ -524,7 +525,7 @@ module Props =
         | Source of U3<WebViewUriSource, WebViewHtmlSource, float>
         | MediaPlaybackRequiresUserAction of bool
         | ScalesPageToFit of bool
-        | Ref of Ref<obj>
+        | Ref of Ref<WebView>
         interface IWebViewProperties
 
     type ImageURISourceProperties =
@@ -719,6 +720,7 @@ module Props =
         | OnPress of (unit -> unit)
         | Style of IStyle list
         | TestID of string
+        | Ref of Ref<Text>
         interface ITextProperties
 
     type ITextInputIOSProperties =
@@ -776,6 +778,7 @@ module Props =
             | Style of IStyle list
             | TestID of string
             | Value of string
+            | Ref of Ref<TextInput>
             interface ITextInputProperties
 
     module Toolbar =
@@ -835,6 +838,7 @@ module Props =
         | RemoveClippedSubviews of bool
         | Style of IStyle list
         | TestID of string
+        | Ref of Ref<View>
         interface IViewProperties
 
     type ViewPagerAndroidProperties =
@@ -846,13 +850,13 @@ module Props =
         | KeyboardDismissMode of KeyboardDismissMode
         | PageMargin of float
         | Style of IStyle list
-        | Ref of Ref<obj>
+        | Ref of Ref<ViewPagerAndroid>
         interface IViewPagerAndroidProperties
 
     type KeyboardAvoidingViewProps =
         | Behavior of Behavior
         | KeyboardVerticalOffset of float // REQUIRED!
-        | Ref of Ref<obj>
+        | Ref of Ref<KeyboardAvoidingView>
         interface IKeyboardAvoidingViewProps
 
     type SegmentedControlIOSProperties =
@@ -876,6 +880,7 @@ module Props =
         | TitleTextColor of string
         | Translucent of bool
         | Style of IStyle list
+        | Ref of Ref<NavigatorIOS>
 
     module ActivityIndicator =
         type ActivityIndicatorProperties =
@@ -921,7 +926,7 @@ module Props =
         | OnDrawerStateChanged of (ScrollState -> unit)
         | RenderNavigationView of (unit -> obj)
         | StatusBarBackgroundColor of obj
-        | Ref of Ref<obj>
+        | Ref of Ref<DrawerLayoutAndroid>
         interface IDrawerLayoutAndroidProperties
 
     module Picker =
@@ -937,14 +942,12 @@ module Props =
 
         type PickerPropertiesIOS =
             | ItemStyle of IStyle list
-            | Ref of Ref<obj>
             interface IPickerProperties
 
         type PickerPropertiesAndroid =
             | Enabled of bool
             | Mode of Mode
             | Prompt of string
-            | Ref of Ref<obj>
             interface IPickerProperties
 
         type PickerProperties =
@@ -957,6 +960,7 @@ module Props =
 
         type PickerIOSProperties =
             | ItemStyle of ViewStyle list
+            | Ref of Ref<PickerIOS>
             interface IPickerProperties
 
     module ProgressBar =
@@ -985,7 +989,6 @@ module Props =
         | TintColor of string
         | Title of string
         | TitleColor of string
-        | Ref of Ref<obj>
         interface IRefreshControlProperties
 
 
@@ -995,7 +998,6 @@ module Props =
         | ProgressBackgroundColor of string
         | Size of float
         | ProgressViewOffset of float
-        | Ref of Ref<obj>
         interface IRefreshControlProperties
 
     type RefreshControlProperties =
@@ -1087,6 +1089,7 @@ module Props =
         | Source of IImageSource
         | Style of IStyle list
         | TestID of string
+        | Ref of Ref<Image>
         interface IImageProperties
 
 
@@ -1141,7 +1144,7 @@ module Props =
         | ShowsUserLocation of bool
         | Style of IStyle list
         | ZoomEnabled of bool
-        | Ref of Ref<obj>
+        | Ref of Ref<MapView>
         interface IMapViewProperties
 
     type ModalProperties =
@@ -1151,6 +1154,7 @@ module Props =
         | Visible of bool
         | OnRequestClose of (unit -> unit)
         | OnShow of (NativeSyntheticEvent<obj> -> unit)
+        | Ref of Ref<Modal>
 
     type IButtonProperties =
         interface end
@@ -1162,6 +1166,7 @@ module Props =
         | Color of string
         | TestID of string
         | HasTVPreferredFocus of bool
+        | Ref of Ref<Button>
         interface IButtonProperties
 
     type ITouchableHighlightProperties =
@@ -1208,6 +1213,7 @@ module Props =
         | OnPressOut of (unit -> unit)
         | Style of IStyle list
         | PressRetentionOffset of obj
+        | Ref of Ref<TouchableWithoutFeedback>
         interface ITouchableWithoutFeedbackProperties
 
     type TouchableHighlightProperties =
@@ -1216,15 +1222,18 @@ module Props =
         | OnShowUnderlay of (unit -> unit)
         | Style of IStyle list
         | UnderlayColor of string
+        | Ref of Ref<TouchableHighlight>
         interface ITouchableHighlightProperties
 
     type TouchableOpacityProperties =
         | ActiveOpacity of float
+        | Ref of Ref<TouchableOpacity>
         interface ITouchableOpacityProperties
 
 
     type TouchableNativeFeedbackProperties =
         | Background of obj
+        | Ref of Ref<TouchableNativeFeedback>
         interface ITouchableNativeFeedbackProperties
 
     type NavigationBarRouteMapper =
@@ -1264,7 +1273,7 @@ module Props =
             | Style of IStyle list
             | SystemIcon of SystemIcon
             | Title of string
-            | Ref of Ref<obj>
+            | Ref of Ref<TabBarItemStatic>
             interface IViewProperties
 
         type TabBarIOSProperties =
@@ -1273,7 +1282,7 @@ module Props =
             | TintColor of string
             | Translucent of bool
             | UnselectedTintColor of string
-            | Ref of Ref<obj>
+            | Ref of Ref<TabBarIOS>
             interface IViewProperties
 
     type IScrollViewPropertiesIOS =
@@ -1358,7 +1367,7 @@ module Props =
         | RenderSectionHeader of (obj -> U2<string, float> -> React.ReactElement)
         | RenderSeparator of (U2<string, float> -> U2<string, float> -> bool -> React.ReactElement)
         | ScrollRenderAheadDistance of float
-        | Ref of Ref<obj>
+        | Ref of Ref<ListView<'a>>
         interface IListViewProperties
 
     type FlatListRenderItemSeparator = { highlight : (unit -> unit); unhighlight : (unit -> unit) }
@@ -1410,7 +1419,7 @@ module Props =
         | RenderSectionHeader of (SectionListRenderInfo<'a> -> React.ReactElement)
         | RenderSectionFooter of (SectionListRenderInfo<'a> -> React.ReactElement)
         | RenderScrollComponent of (ScrollViewProperties -> React.ReactElement)
-        | Ref of Ref<obj>
+        | Ref of Ref<SectionList<'a>>
         interface ISectionListProperties<'a>
 
     type FlatListProperties<'a> =
@@ -1435,7 +1444,7 @@ module Props =
         | RemoveClippedSubviews of bool
         | RenderItem of (FlatListRenderItemInfo<'a> -> React.ReactElement)
         | ViewabilityConfig of ViewabilityConfig
-        | Ref of Ref<obj>
+        | Ref of Ref<FlatList<'a>>
         interface IFlatListProperties<'a>
 
     type SwipeableListViewProps<'a> =
