@@ -312,6 +312,9 @@ module Props =
     type ISizeUnit =
         interface end
 
+    type IAngle =
+        interface end
+
     type IStyle =
         interface end
 
@@ -546,8 +549,59 @@ module Props =
         inherit IMapViewProperties
         inherit IViewProperties
 
+    type ITransform =
+      interface end
+
+    type PerpectiveTransform =
+        { perspective: float }
+        interface ITransform
+
+    type RotateTransform =
+        { rotate: IAngle }
+        interface ITransform
+
+    type RotateXTransform =
+        { rotateX: IAngle }
+        interface ITransform
+
+    type RotateYTransform =
+        { rotateY: IAngle }
+        interface ITransform
+
+    type RotateZTransform =
+        { rotateZ: IAngle }
+        interface ITransform
+
+    type ScaleTransform =
+        { scale: float }
+        interface ITransform
+
+    type ScaleXTransform =
+        { scaleX: float }
+        interface ITransform
+
+    type ScaleYTransform =
+        { scaleY: float }
+        interface ITransform
+
+    type TranslateXTransform =
+        { translateX: float }
+        interface ITransform
+
+    type TranslateYTransform =
+        { translateY: float }
+        interface ITransform
+
+    type SkewXTransform =
+        { skewX: IAngle }
+        interface ITransform
+
+    type SkewYTransform =
+        { skewY: IAngle }
+        interface ITransform
+
     type TransformsStyle =
-        | Transform of obj * obj * obj * obj * obj * obj * obj * obj * obj * obj * obj * obj
+        | Transform of ITransform array
         | TransformMatrix of ResizeArray<float>
         | Rotation of float
         | ScaleX of float
@@ -1551,6 +1605,12 @@ let dip (_: float): ISizeUnit = jsNative
 [<Emit("$0 + \"%\"")>]
 // percents
 let pct (_: float): ISizeUnit = jsNative
+
+[<Emit("$0 + \"deg\"")>]
+let deg (_: float): IAngle = jsNative
+
+[<Emit("$0 + \"rad\"")>]
+let rad (_: float): IAngle = jsNative
 
 [<Emit("require($0)")>]
 // Use `require` to load a local image

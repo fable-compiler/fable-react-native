@@ -1,3 +1,7 @@
+### 2.0.0-alpha-012
+- fixed `TransformsStyle.Transform`;
+- added `deg` & `rad` functions to create values of `IAngle` type.
+
 ### 2.0.0-alpha-011
 - updated `textInput`;
 - added `textInputWithChild`.
