@@ -1725,9 +1725,7 @@ let inline pickerIOSItem (props:Picker.PickerIOSItemProperties list) : React.Rea
       props, [])
 
 let inline pickerItem<'a> (props:Picker.PickerItemProperties<'a> list) : IPickerItem<'a> =
-    createElement(
-      RN.Picker.Item,
-      props, [])
+    unbox<IPickerItem<'a>> (createElement(RN.Picker.Item, props, []))
 
 let inline picker (props:IPickerProperties<'a> list) (children:IPickerItem<'a> list): React.ReactElement =
     createElement(

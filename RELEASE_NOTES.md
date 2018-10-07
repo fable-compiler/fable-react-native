@@ -1,3 +1,6 @@
+### 2.0.0-alpha-014
+- fixed `pickerItem` function.
+
 ### 2.0.0-alpha-013
 - added generic values support for `Picker` & `PickerItem`.
 
