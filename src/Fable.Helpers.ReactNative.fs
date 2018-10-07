@@ -315,6 +315,9 @@ module Props =
     type IAngle =
         interface end
 
+    type IPickerItem<'a> =
+        inherit React.ReactElement
+
     type IStyle =
         interface end
 
@@ -363,7 +366,7 @@ module Props =
     type IDrawerLayoutAndroidProperties =
         interface end
 
-    type IPickerProperties =
+    type IPickerProperties<'a> =
         interface end
 
     type IProgressBarAndroidProperties =
@@ -473,7 +476,6 @@ module Props =
         inherit IActivityIndicatorIOSProperties
         inherit IDatePickerIOSProperties
         inherit IDrawerLayoutAndroidProperties
-        inherit IPickerProperties
         inherit IProgressBarAndroidProperties
         inherit IProgressViewIOSProperties
         inherit IRefreshControlProperties
@@ -974,34 +976,34 @@ module Props =
             | Value of U2<string, int>
             | Label of string
 
-        type PickerItemProperties =
+        type PickerItemProperties<'a> =
             | Label of string // REQUIRED!
-            | Value of string
+            | Value of 'a
             | Color of string
             | TestID of string
 
-        type PickerPropertiesIOS =
+        type PickerPropertiesIOS<'a> =
             | ItemStyle of IStyle list
-            interface IPickerProperties
+            interface IPickerProperties<'a>
 
-        type PickerPropertiesAndroid =
+        type PickerPropertiesAndroid<'a> =
             | Enabled of bool
             | Mode of Mode
             | Prompt of string
-            interface IPickerProperties
+            interface IPickerProperties<'a>
 
-        type PickerProperties =
-            | OnValueChange of (string -> int -> unit)
-            | SelectedValue of string
+        type PickerProperties<'a> =
+            | OnValueChange of ('a -> int -> unit)
+            | SelectedValue of 'a
             | Style of IStyle list
             | TestId of string
             | Ref of Ref<Picker>
-            interface IPickerProperties
+            interface IPickerProperties<'a>
 
-        type PickerIOSProperties =
+        type PickerIOSProperties<'a> =
             | ItemStyle of ViewStyle list
             | Ref of Ref<PickerIOS>
-            interface IPickerProperties
+            interface IPickerProperties<'a>
 
     module ProgressBar =
         type ProgressBarAndroidProperties =
@@ -1565,7 +1567,7 @@ module Props =
         interface IWebViewPropertiesIOS
         interface IDatePickerIOSProperties
         interface IDrawerLayoutAndroidProperties
-        interface IPickerProperties
+        interface IPickerProperties<'a>
         interface IProgressBarAndroidProperties
         interface IProgressViewIOSProperties
         interface IRefreshControlProperties
@@ -1722,18 +1724,18 @@ let inline pickerIOSItem (props:Picker.PickerIOSItemProperties list) : React.Rea
       RN.PickerIOS.Item,
       props, [])
 
-let inline pickerItem (props:Picker.PickerItemProperties list) : React.ReactElement =
+let inline pickerItem<'a> (props:Picker.PickerItemProperties<'a> list) : IPickerItem<'a> =
     createElement(
       RN.Picker.Item,
       props, [])
 
-let inline picker (props:IPickerProperties list) (children:React.ReactElement list): React.ReactElement =
+let inline picker (props:IPickerProperties<'a> list) (children:IPickerItem<'a> list): React.ReactElement =
     createElement(
       RN.Picker,
       props,
-      children)
+      unbox<React.ReactElement list> children)
 
-let inline pickerIOS (props:Picker.PickerIOSProperties list) (children:React.ReactElement list): React.ReactElement =
+let inline pickerIOS (props:Picker.PickerIOSProperties<'a> list) (children:React.ReactElement list): React.ReactElement =
     createElement(
       RN.PickerIOS,
       props,

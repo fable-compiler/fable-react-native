@@ -1,3 +1,6 @@
+### 2.0.0-alpha-013
+- added generic values support for `Picker` & `PickerItem`.
+
 ### 2.0.0-alpha-012
 - fixed `TransformsStyle.Transform`;
 - added `deg` & `rad` functions to create values of `IAngle` type.
