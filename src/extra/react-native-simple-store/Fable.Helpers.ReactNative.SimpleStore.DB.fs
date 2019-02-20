@@ -10,7 +10,6 @@ open Thoth.Json
 
 let inline toJsonWithTypeInfo value = Encode.Auto.toString(0, value)
 
-let inline ofJsonWithTypeInfo<'a> (json : string) = Decode.Auto.unsafeFromString<'a> json
 
 [<Literal>]
 let private modelsKey = "models/"
@@ -29,11 +28,11 @@ let inline clear<'a>() =
     setItem(key,s)
 
 /// Gets or creates a new model.
-let private getModel<'a> (key) : JS.Promise<Table<'a>> =
+let inline private getModel<'a> (key) : JS.Promise<Table<'a>> =
     Globals.AsyncStorage.getItem (key)
     |> Promise.map (function
         | null -> [||]
-        | v -> ofJsonWithTypeInfo<Table<'a>> v)
+        | v -> Decode.Auto.unsafeFromString v)
 
 /// Adds a row to a model
 let inline add<'a> (data:'a) =
