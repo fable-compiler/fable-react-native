@@ -6,6 +6,7 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
 open Fable.PowerPack
+open Thoth.Json
 
 type RN = ReactNative.Globals
 
@@ -53,7 +54,7 @@ module Props =
     | [<CompiledName("flex-end")>] FlexEnd
     | Stretch
     | Baseline
-    
+
     [<StringEnum; RequireQualifiedAccess>]
     type TextAlignment =
     | Auto
@@ -262,7 +263,7 @@ module Props =
         | Contacts
         | Downloads
         | Favorites
-        | Featured 
+        | Featured
         | History
         | More
         | [<CompiledName("most-recent")>] MostRecent
@@ -462,7 +463,7 @@ module Props =
 
     type ITextInputProperties =
         interface end
-        
+
     type IViewProperties =
         inherit IViewPropertiesAndroid
         inherit IViewPropertiesIOS
@@ -1582,8 +1583,8 @@ module Props =
         interface IKeyboardAvoidingViewProps
         interface IActivityIndicatorProperties
         interface IActivityIndicatorIOSProperties
-        interface IMapViewProperties 
-        interface IMapViewPropertiesAndroid 
+        interface IMapViewProperties
+        interface IMapViewPropertiesAndroid
         interface IViewPropertiesIOS
         interface IViewPropertiesAndroid
         interface IViewPagerAndroidProperties
@@ -2131,19 +2132,19 @@ module Storage =
 
     /// Loads a value with the given key from the local device storage.
     /// Returns None if the key is not found.
-    let [<PassGenerics>] load<'a> (key:string) : JS.Promise<'a option> =
+    let load<'a> (key:string) : JS.Promise<'a option> =
         Globals.AsyncStorage.getItem key
         |> Promise.map (function
             | null -> Option.None
-            | v -> Some (ofJson v))
+            | v -> Some (Decode.Auto.unsafeFromString v))
 
     /// Saves a value with the given key to the local device storage.
     let setItem (k:string) (v:string): JS.Promise<unit> =
         !!Globals.AsyncStorage.setItem(k,v)
 
     /// Saves a value with the given key to the local device storage.
-    let [<PassGenerics>] save<'a> (k:string) (v:'a): JS.Promise<unit> =
-        !!Globals.AsyncStorage.setItem(k, toJson v)
+    let save<'a> (k:string) (v:'a): JS.Promise<unit> =
+        !!Globals.AsyncStorage.setItem(k, Encode.Auto.toString(0, v))
 
 module Platform =
     type OS<'a> =

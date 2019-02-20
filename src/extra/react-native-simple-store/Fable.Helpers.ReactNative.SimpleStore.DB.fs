@@ -6,6 +6,10 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
 open Fable.PowerPack
+open Thoth.Json
+
+let inline toJsonWithTypeInfo value = Encode.Auto.toString(0, value)
+let inline ofJsonWithTypeInfo<'T> (json : string) = Decode.Auto.unsafeFromString<'T> json
 
 [<Literal>]
 let private modelsKey = "models/"
@@ -18,20 +22,20 @@ let inline private removeItem(key): JS.Promise<unit> =
     unbox(Globals.AsyncStorage.removeItem key)
 
 /// Removes all rows from the model.
-let [<PassGenerics>] clear<'a>() =
+let clear<'a>() =
     let key = modelsKey + typeof<'a>.FullName
     let s:string = [||] |> toJsonWithTypeInfo
     setItem(key,s)
 
 /// Gets or creates a new model.
-let [<PassGenerics>] private getModel<'a> (key) : JS.Promise<Table<'a>> =
+let private getModel<'a> (key) : JS.Promise<Table<'a>> =
     Globals.AsyncStorage.getItem (key)
     |> Promise.map (function
         | null -> [||]
-        | v -> ofJsonWithTypeInfo v)
+        | v -> ofJsonWithTypeInfo<Table<'a>> v)
 
 /// Adds a row to a model
-let [<PassGenerics>] add<'a>(data:'a) =
+let add<'a> (data:'a) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -39,7 +43,7 @@ let [<PassGenerics>] add<'a>(data:'a) =
         setItem(key,newModel))
 
 /// Updates a row in a model
-let [<PassGenerics>] update<'a>(index, data:'a) =
+let update<'a>(index, data:'a) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -48,7 +52,7 @@ let [<PassGenerics>] update<'a>(index, data:'a) =
         setItem(key,newModel))
 
 /// Deletes a row from a model
-let [<PassGenerics>] delete<'a>(index) =
+let delete<'a>(index) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -61,7 +65,7 @@ let [<PassGenerics>] delete<'a>(index) =
         setItem(key,newModel))
 
 /// Updates multiple rows in a model
-let [<PassGenerics>] updateMultiple<'a>(values) =
+let updateMultiple<'a>(values) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -71,7 +75,7 @@ let [<PassGenerics>] updateMultiple<'a>(values) =
         setItem(key,newModel))
 
 ///  Update data by an update function.
-let [<PassGenerics>] updateWithFunction<'a>(updateF: 'a[] -> 'a[]) =
+let updateWithFunction<'a>(updateF: 'a[] -> 'a[]) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -80,7 +84,7 @@ let [<PassGenerics>] updateWithFunction<'a>(updateF: 'a[] -> 'a[]) =
         setItem(key,newModel))
 
 ///  Update data by an update function.
-let [<PassGenerics>] updateWithFunctionAndKey<'a>(updateF: 'a[] -> 'a[],key) =
+let updateWithFunctionAndKey<'a>(updateF: 'a[] -> 'a[],key) =
     let key = modelsKey + typeof<'a>.FullName + "/" + key
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -89,7 +93,7 @@ let [<PassGenerics>] updateWithFunctionAndKey<'a>(updateF: 'a[] -> 'a[],key) =
         setItem(key,newModel))
 
 /// Adds multiple rows to a model
-let [<PassGenerics>] addMultiple<'a>(data:'a []) =
+let addMultiple<'a>(data:'a []) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -97,40 +101,40 @@ let [<PassGenerics>] addMultiple<'a>(data:'a []) =
         setItem(key,newModel))
 
 /// Replaces all rows of a model
-let [<PassGenerics>] replaceWithKey<'a>(key,data:'a []) =
+let replaceWithKey<'a>(key,data:'a []) =
     let modelKey = modelsKey + typeof<'a>.FullName + "/" + key
     let newModel : string = data |> toJsonWithTypeInfo
     setItem(modelKey,newModel)
 
 /// Deletes all rows of a model
-let [<PassGenerics>] deleteWithKey<'a>(key) =
+let deleteWithKey<'a>(key) =
     let modelKey = modelsKey + typeof<'a>.FullName + "/" + key
-    removeItem(modelKey)    
+    removeItem(modelKey)
 
 /// Replaces all rows of a model
-let [<PassGenerics>] replace<'a>(data:'a []) =
+let replace<'a>(data:'a []) =
     let modelKey = modelsKey + typeof<'a>.FullName
     let newModel : string = data |> toJsonWithTypeInfo
     setItem(modelKey,newModel)
 
 /// Gets a row from the model
-let [<PassGenerics>] get<'a>(index:int) =
+let get<'a>(index:int) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.map (fun model -> model.[index])
 
 /// Gets all rows from the model
-let [<PassGenerics>] getAll<'a>() =
+let getAll<'a>() =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
 
 /// Gets all rows from the model
-let [<PassGenerics>] getAllWithKey<'a>(key) =
+let getAllWithKey<'a>(key) =
     let key = modelsKey + typeof<'a>.FullName + "/" + key
     getModel<'a> key
 
 /// Gets the row count from the model
-let [<PassGenerics>] count<'a>() =
+let count<'a>() =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.map (fun model -> model.Length)
