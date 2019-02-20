@@ -6,6 +6,7 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
 open Fable.PowerPack
+open Thoth.Json
 
 type RN = ReactNative.Globals
 
@@ -53,7 +54,7 @@ module Props =
     | [<CompiledName("flex-end")>] FlexEnd
     | Stretch
     | Baseline
-    
+
     [<StringEnum; RequireQualifiedAccess>]
     type TextAlignment =
     | Auto
@@ -262,7 +263,7 @@ module Props =
         | Contacts
         | Downloads
         | Favorites
-        | Featured 
+        | Featured
         | History
         | More
         | [<CompiledName("most-recent")>] MostRecent
@@ -462,7 +463,7 @@ module Props =
 
     type ITextInputProperties =
         interface end
-        
+
     type IViewProperties =
         inherit IViewPropertiesAndroid
         inherit IViewPropertiesIOS
@@ -1582,8 +1583,8 @@ module Props =
         interface IKeyboardAvoidingViewProps
         interface IActivityIndicatorProperties
         interface IActivityIndicatorIOSProperties
-        interface IMapViewProperties 
-        interface IMapViewPropertiesAndroid 
+        interface IMapViewProperties
+        interface IMapViewPropertiesAndroid
         interface IViewPropertiesIOS
         interface IViewPropertiesAndroid
         interface IViewPagerAndroidProperties
@@ -1639,10 +1640,10 @@ let inline section<'a> (data: 'a []) (props: SectionListDataProps<'a> list) (cus
         custom
       ))
 
-let inline createElement(c: React.ComponentClass<'T>, props: 'P list, children: React.ReactElement list) =
+let inline createElement(c: React.ComponentClass<'T>, props: 'P list, children: React.ReactElement seq) =
     R.createElement (c, keyValueList CaseRules.LowerFirst props, children)
 
-let inline internal createElementWithObjProps(c: React.ComponentClass<'T>, props: obj, children: React.ReactElement list) =
+let inline internal createElementWithObjProps(c: React.ComponentClass<'T>, props: obj, children: React.ReactElement seq) =
     R.createElement (c, props, children)
 
 let inline text (props:ITextProperties list) (text:string): React.ReactElement =
@@ -1674,13 +1675,13 @@ let inline toolbarAndroid (props:IToolbarAndroidProperties list) (onActionSelect
             createObj ["onActionSelected" ==> onActionSelected],
             keyValueList CaseRules.LowerFirst props), [])
 
-let inline keyboardAvoidingView (props:IKeyboardAvoidingViewProps list) (children: React.ReactElement list): React.ReactElement =
+let inline keyboardAvoidingView (props:IKeyboardAvoidingViewProps list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
       RN.KeyboardAvoidingView,
       props,
       children)
 
-let inline view (props: IViewProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline view (props: IViewProperties list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
         RN.View,
         props,
@@ -1711,7 +1712,7 @@ let inline datePickerIOS (props:IDatePickerIOSProperties list) : React.ReactElem
       RN.DatePickerIOS,
       props, [])
 
-let inline drawerLayoutAndroid (props:IDrawerLayoutAndroidProperties list) (renderNavigationView: unit -> React.ReactElement) (children: React.ReactElement list): React.ReactElement =
+let inline drawerLayoutAndroid (props:IDrawerLayoutAndroidProperties list) (renderNavigationView: unit -> React.ReactElement) (children: React.ReactElement seq): React.ReactElement =
     createElementWithObjProps(
       RN.DrawerLayoutAndroid,
       !!JS.Object.assign(
@@ -1727,13 +1728,13 @@ let inline pickerIOSItem (props:Picker.PickerIOSItemProperties list) : React.Rea
 let inline pickerItem<'a> (props:Picker.PickerItemProperties<'a> list) : IPickerItem<'a> =
     unbox<IPickerItem<'a>> (createElement(RN.Picker.Item, props, []))
 
-let inline picker (props:IPickerProperties<'a> list) (children:IPickerItem<'a> list): React.ReactElement =
+let inline picker (props:IPickerProperties<'a> list) (children:IPickerItem<'a> seq): React.ReactElement =
     createElement(
       RN.Picker,
       props,
-      unbox<React.ReactElement list> children)
+      unbox<React.ReactElement seq> children)
 
-let inline pickerIOS (props:Picker.PickerIOSProperties<'a> list) (children:React.ReactElement list): React.ReactElement =
+let inline pickerIOS (props:Picker.PickerIOSProperties<'a> list) (children:React.ReactElement seq): React.ReactElement =
     createElement(
       RN.PickerIOS,
       props,
@@ -1819,31 +1820,31 @@ let inline sectionList<'a> (sections: SectionListData<'a> []) (props: ISectionLi
             keyValueList CaseRules.LowerFirst props,
             keyValueList CaseRules.None pascalCaseProps), [])
 
-let inline mapView (props:IMapViewProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline mapView (props:IMapViewProperties list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
       RN.MapView,
       props,
       children)
 
-let inline modal (props:ModalProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline modal (props:ModalProperties list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
       RN.Modal,
       props,
       children)
 
-let inline button (props:IButtonProperties list) (children: React.ReactElement list) : React.ReactElement =
+let inline button (props:IButtonProperties list) (children: React.ReactElement seq) : React.ReactElement =
     createElement(
       RN.Button,
       props,
       children)
 
-let inline touchableWithoutFeedback (props:ITouchableWithoutFeedbackProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline touchableWithoutFeedback (props:ITouchableWithoutFeedbackProperties list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
       RN.TouchableWithoutFeedback,
       props,
       children)
 
-let inline touchableHighlight (props:ITouchableHighlightProperties list) (children: React.ReactElement list) : React.ReactElement =
+let inline touchableHighlight (props:ITouchableHighlightProperties list) (children: React.ReactElement seq) : React.ReactElement =
     createElement(
       RN.TouchableHighlight,
       props,
@@ -1855,19 +1856,19 @@ let inline touchableHighlightWithChild (props:ITouchableHighlightProperties list
       props,
       [child])
 
-let inline touchableOpacity (props:ITouchableOpacityProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline touchableOpacity (props:ITouchableOpacityProperties list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
       RN.TouchableOpacity,
       props,
       children)
 
-let inline touchableNativeFeedback (props:ITouchableNativeFeedbackProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline touchableNativeFeedback (props:ITouchableNativeFeedbackProperties list) (children: React.ReactElement seq): React.ReactElement =
     createElement(
       RN.TouchableNativeFeedback,
       props,
       children)
 
-let inline viewPagerAndroid (props: IViewPagerAndroidProperties list) (children: React.ReactElement list) : React.ReactElement =
+let inline viewPagerAndroid (props: IViewPagerAndroidProperties list) (children: React.ReactElement seq) : React.ReactElement =
     createElement(
         RN.ViewPagerAndroid,
         props,
@@ -1888,7 +1889,7 @@ let inline tabBarIOS (props:ITabBarIOSProperties list) : React.ReactElement =
       RN.TabBarIOS,
       props, [])
 
-let inline scrollView (props:IScrollViewProperties list) (children: React.ReactElement list) : React.ReactElement =
+let inline scrollView (props:IScrollViewProperties list) (children: React.ReactElement seq) : React.ReactElement =
     createElement(
       RN.ScrollView,
       props,
@@ -2131,19 +2132,19 @@ module Storage =
 
     /// Loads a value with the given key from the local device storage.
     /// Returns None if the key is not found.
-    let [<PassGenerics>] load<'a> (key:string) : JS.Promise<'a option> =
+    let load<'a> (key:string) : JS.Promise<'a option> =
         Globals.AsyncStorage.getItem key
         |> Promise.map (function
             | null -> Option.None
-            | v -> Some (ofJson v))
+            | v -> Some (Decode.Auto.unsafeFromString v))
 
     /// Saves a value with the given key to the local device storage.
     let setItem (k:string) (v:string): JS.Promise<unit> =
         !!Globals.AsyncStorage.setItem(k,v)
 
     /// Saves a value with the given key to the local device storage.
-    let [<PassGenerics>] save<'a> (k:string) (v:'a): JS.Promise<unit> =
-        !!Globals.AsyncStorage.setItem(k, toJson v)
+    let save<'a> (k:string) (v:'a): JS.Promise<unit> =
+        !!Globals.AsyncStorage.setItem(k, Encode.Auto.toString(0, v))
 
 module Platform =
     type OS<'a> =

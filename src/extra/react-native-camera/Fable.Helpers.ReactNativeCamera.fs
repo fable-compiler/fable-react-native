@@ -63,7 +63,7 @@ type CameraRef() =
 
 
 // Allows barcode reading
-let barcodeScanner (props:ICameraProperties list) (ref:CameraRef) (onBarcodeRead: Barcode -> unit) (children: React.ReactElement list) : React.ReactElement =
+let barcodeScanner (props:ICameraProperties seq) (ref:CameraRef) (onBarcodeRead: Barcode -> unit) (children: React.ReactElement seq) : React.ReactElement =
     let additionalProps =
         createObj [
             "onBarCodeRead" ==> onBarcodeRead 

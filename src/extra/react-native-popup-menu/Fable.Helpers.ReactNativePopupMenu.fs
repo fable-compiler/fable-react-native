@@ -49,7 +49,7 @@ module Props =
 open Props
 
 /// Creates a MenuContext element
-let inline menuContext (props:IMenuContextProperties list) (onBackdropPress: unit -> unit) (children: React.ReactElement list): React.ReactElement =
+let inline menuContext (props:IMenuContextProperties list) (onBackdropPress: unit -> unit) (children: React.ReactElement seq): React.ReactElement =
     RN.createElementWithObjProps(
         BPM.MenuContext,
         !!JS.Object.assign(
@@ -57,7 +57,7 @@ let inline menuContext (props:IMenuContextProperties list) (onBackdropPress: uni
             keyValueList CaseRules.LowerFirst props), children)
 
 /// Creates a Menu element
-let inline menu (props:IMenuProperties list) (onSelect: obj -> unit) (children: React.ReactElement list): React.ReactElement =
+let inline menu (props:IMenuProperties list) (onSelect: obj -> unit) (children: React.ReactElement seq): React.ReactElement =
     RN.createElementWithObjProps(
         BPM.Menu,
         !!JS.Object.assign(
@@ -66,7 +66,7 @@ let inline menu (props:IMenuProperties list) (onSelect: obj -> unit) (children: 
 
 
 /// Creates a MenuTrigger element
-let inline menuTrigger (props:IMenuTriggerProperties list) (onPress: unit -> unit) (children: React.ReactElement list): React.ReactElement =
+let inline menuTrigger (props:IMenuTriggerProperties list) (onPress: unit -> unit) (children: React.ReactElement seq): React.ReactElement =
     RN.createElementWithObjProps(
         BPM.MenuTrigger,
         !!JS.Object.assign(
@@ -74,7 +74,7 @@ let inline menuTrigger (props:IMenuTriggerProperties list) (onPress: unit -> uni
             keyValueList CaseRules.LowerFirst props), children)
 
 /// Creates a MenuOptions element
-let inline menuOptions (props:IMenuOptionsProperties list) (children: React.ReactElement list): React.ReactElement =
+let inline menuOptions (props:IMenuOptionsProperties list) (children: React.ReactElement seq): React.ReactElement =
     RN.createElement(BPM.MenuOptions, props, children)
 
 /// Creates a MenuOption element
