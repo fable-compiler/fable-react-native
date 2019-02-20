@@ -1,3 +1,6 @@
+### 2.0.0-beta-001
+- Convert to Fable 2
+
 ### 2.0.0-alpha-014
 - fixed `pickerItem` function.
 
