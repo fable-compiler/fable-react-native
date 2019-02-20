@@ -1,3 +1,6 @@
+### 2.0.0-beta-002
+- Fix Fable.Helpers.ReactNative.SimpleStore.DB.fs
+
 ### 2.0.0-beta-001
 - Convert to Fable 2
 
