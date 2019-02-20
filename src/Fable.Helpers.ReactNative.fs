@@ -2132,7 +2132,7 @@ module Storage =
 
     /// Loads a value with the given key from the local device storage.
     /// Returns None if the key is not found.
-    let load<'a> (key:string) : JS.Promise<'a option> =
+    let inline load<'a> (key:string) : JS.Promise<'a option> =
         Globals.AsyncStorage.getItem key
         |> Promise.map (function
             | null -> Option.None

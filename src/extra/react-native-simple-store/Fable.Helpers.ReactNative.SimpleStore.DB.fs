@@ -9,7 +9,7 @@ open Fable.PowerPack
 open Thoth.Json
 
 let inline toJsonWithTypeInfo value = Encode.Auto.toString(0, value)
-let inline ofJsonWithTypeInfo<'T> (json : string) = Decode.Auto.unsafeFromString<'T> json
+
 
 [<Literal>]
 let private modelsKey = "models/"
@@ -22,20 +22,20 @@ let inline private removeItem(key): JS.Promise<unit> =
     unbox(Globals.AsyncStorage.removeItem key)
 
 /// Removes all rows from the model.
-let clear<'a>() =
+let inline clear<'a>() =
     let key = modelsKey + typeof<'a>.FullName
     let s:string = [||] |> toJsonWithTypeInfo
     setItem(key,s)
 
 /// Gets or creates a new model.
-let private getModel<'a> (key) : JS.Promise<Table<'a>> =
+let inline private getModel<'a> (key) : JS.Promise<Table<'a>> =
     Globals.AsyncStorage.getItem (key)
     |> Promise.map (function
         | null -> [||]
-        | v -> ofJsonWithTypeInfo<Table<'a>> v)
+        | v -> Decode.Auto.unsafeFromString v)
 
 /// Adds a row to a model
-let add<'a> (data:'a) =
+let inline add<'a> (data:'a) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -43,7 +43,7 @@ let add<'a> (data:'a) =
         setItem(key,newModel))
 
 /// Updates a row in a model
-let update<'a>(index, data:'a) =
+let inline update<'a>(index, data:'a) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -52,7 +52,7 @@ let update<'a>(index, data:'a) =
         setItem(key,newModel))
 
 /// Deletes a row from a model
-let delete<'a>(index) =
+let inline delete<'a>(index) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -65,7 +65,7 @@ let delete<'a>(index) =
         setItem(key,newModel))
 
 /// Updates multiple rows in a model
-let updateMultiple<'a>(values) =
+let inline updateMultiple<'a>(values) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -75,7 +75,7 @@ let updateMultiple<'a>(values) =
         setItem(key,newModel))
 
 ///  Update data by an update function.
-let updateWithFunction<'a>(updateF: 'a[] -> 'a[]) =
+let inline updateWithFunction<'a>(updateF: 'a[] -> 'a[]) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -84,7 +84,7 @@ let updateWithFunction<'a>(updateF: 'a[] -> 'a[]) =
         setItem(key,newModel))
 
 ///  Update data by an update function.
-let updateWithFunctionAndKey<'a>(updateF: 'a[] -> 'a[],key) =
+let inline updateWithFunctionAndKey<'a>(updateF: 'a[] -> 'a[],key) =
     let key = modelsKey + typeof<'a>.FullName + "/" + key
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -93,7 +93,7 @@ let updateWithFunctionAndKey<'a>(updateF: 'a[] -> 'a[],key) =
         setItem(key,newModel))
 
 /// Adds multiple rows to a model
-let addMultiple<'a>(data:'a []) =
+let inline addMultiple<'a>(data:'a []) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.bind (fun model ->
@@ -101,40 +101,40 @@ let addMultiple<'a>(data:'a []) =
         setItem(key,newModel))
 
 /// Replaces all rows of a model
-let replaceWithKey<'a>(key,data:'a []) =
+let inline replaceWithKey<'a>(key,data:'a []) =
     let modelKey = modelsKey + typeof<'a>.FullName + "/" + key
     let newModel : string = data |> toJsonWithTypeInfo
     setItem(modelKey,newModel)
 
 /// Deletes all rows of a model
-let deleteWithKey<'a>(key) =
+let inline deleteWithKey<'a>(key) =
     let modelKey = modelsKey + typeof<'a>.FullName + "/" + key
     removeItem(modelKey)
 
 /// Replaces all rows of a model
-let replace<'a>(data:'a []) =
+let inline replace<'a>(data:'a []) =
     let modelKey = modelsKey + typeof<'a>.FullName
     let newModel : string = data |> toJsonWithTypeInfo
     setItem(modelKey,newModel)
 
 /// Gets a row from the model
-let get<'a>(index:int) =
+let inline get<'a>(index:int) =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.map (fun model -> model.[index])
 
 /// Gets all rows from the model
-let getAll<'a>() =
+let inline getAll<'a>() =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
 
 /// Gets all rows from the model
-let getAllWithKey<'a>(key) =
+let inline getAllWithKey<'a>(key) =
     let key = modelsKey + typeof<'a>.FullName + "/" + key
     getModel<'a> key
 
 /// Gets the row count from the model
-let count<'a>() =
+let inline count<'a>() =
     let key = modelsKey + typeof<'a>.FullName
     getModel<'a> key
     |> Promise.map (fun model -> model.Length)
