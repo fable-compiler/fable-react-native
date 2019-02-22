@@ -528,13 +528,13 @@ module Props =
         | RenderLoading of (unit -> React.ReactElement)
         | ScrollEnabled of bool
         | StartInLoadingState of bool
-        | Style of IStyle list
         | Url of string
         | Source of U3<WebViewUriSource, WebViewHtmlSource, float>
         | MediaPlaybackRequiresUserAction of bool
         | ScalesPageToFit of bool
         | Ref of Ref<WebView>
         interface IWebViewProperties
+        static member Style (style: IStyle list) : IWebViewProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type ImageURISourceProperties =
         | Uri of string
@@ -771,10 +771,10 @@ module Props =
         | NumberOfLines of float
         | OnLayout of (LayoutChangeEvent -> unit)
         | OnPress of (unit -> unit)
-        | Style of IStyle list
         | TestID of string
         | Ref of Ref<Text>
         interface ITextProperties
+        static member Style (style: IStyle list) : ITextProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     module TextInput =
         type TextInputIOSProperties =
@@ -818,11 +818,11 @@ module Props =
             | SecureTextEntry of bool
             | SelectTextOnFocus of bool
             | SelectionColor of string
-            | Style of IStyle list
             | TestID of string
             | Value of string
             | Ref of Ref<TextInput>
             interface ITextInputProperties
+            static member Style (style: IStyle list) : ITextInputProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     module Toolbar =
         type ToolbarAndroidProperties =
@@ -834,7 +834,6 @@ module Props =
             | OnIconClicked of (unit -> unit)
             | OverflowIcon of IImageSource
             | Rtl of bool
-            | Style of IStyle list
             | Subtitle of string
             | SubtitleColor of string
             | TestID of string
@@ -842,6 +841,7 @@ module Props =
             | TitleColor of string
             | Ref of Ref<ToolbarAndroid>
             interface IToolbarAndroidProperties
+            static member Style (style: IStyle list) : IToolbarAndroidProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type GestureResponderHandlers =
         | OnStartShouldSetResponder of (GestureResponderEvent -> bool)
@@ -879,10 +879,10 @@ module Props =
         | OnMagicTap of (unit -> unit)
         | PointerEvents of PointerEvents
         | RemoveClippedSubviews of bool
-        | Style of IStyle list
         | TestID of string
         | Ref of Ref<View>
         interface IViewProperties
+        static member Style (style: IStyle list) : IViewProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type ViewPagerAndroidProperties =
         | InitialPage of int
@@ -892,9 +892,9 @@ module Props =
         | OnPageScrollStateChanged of (ScrollState -> unit)
         | KeyboardDismissMode of KeyboardDismissMode
         | PageMargin of float
-        | Style of IStyle list
         | Ref of Ref<ViewPagerAndroid>
         interface IViewPagerAndroidProperties
+        static member Style (style: IStyle list) : IViewPagerAndroidProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type KeyboardAvoidingViewProps =
         | Behavior of Behavior
@@ -922,8 +922,8 @@ module Props =
         | TintColor of string
         | TitleTextColor of string
         | Translucent of bool
-        | Style of IStyle list
         | Ref of Ref<NavigatorIOS>
+        static member Style (style: IStyle list) : NavigatorIOSProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     module ActivityIndicator =
         type ActivityIndicatorProperties =
@@ -931,9 +931,9 @@ module Props =
             | Color of string
             | HidesWhenStopped of bool
             | Size of Size
-            | Style of IStyle list
             | Ref of Ref<ActivityIndicator>
             interface IViewProperties
+            static member Style (style: IStyle list) : ActivityIndicatorProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
 
         type ActivityIndicatorIOSProperties =
@@ -942,9 +942,9 @@ module Props =
             | HidesWhenStopped of bool
             | OnLayout of (obj -> unit)
             | Size of Size
-            | Style of IStyle list
             | Ref of Ref<ActivityIndicatorIOS>
             interface IViewProperties
+            static member Style (style: IStyle list) : ActivityIndicatorIOSProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type DatePickerIOSProperties =
         | Date of DateTime
@@ -984,8 +984,8 @@ module Props =
             | TestID of string
 
         type PickerPropertiesIOS<'a> =
-            | ItemStyle of IStyle list
             interface IPickerProperties<'a>
+            static member Style (style: IStyle list) : IPickerProperties<'a> = !!("style", keyValueList CaseRules.LowerFirst style)
 
         type PickerPropertiesAndroid<'a> =
             | Enabled of bool
@@ -996,10 +996,10 @@ module Props =
         type PickerProperties<'a> =
             | OnValueChange of ('a -> int -> unit)
             | SelectedValue of 'a
-            | Style of IStyle list
             | TestId of string
             | Ref of Ref<Picker>
             interface IPickerProperties<'a>
+            static member Style (style: IStyle list) : IPickerProperties<'a> = !!("style", keyValueList CaseRules.LowerFirst style)
 
         type PickerIOSProperties<'a> =
             | ItemStyle of ViewStyle list
@@ -1008,7 +1008,6 @@ module Props =
 
     module ProgressBar =
         type ProgressBarAndroidProperties =
-            | Style of IStyle list
             | StyleAttr of StyleAttr
             | Indeterminate of bool
             | Progress of float
@@ -1016,9 +1015,9 @@ module Props =
             | TestID of string
             | Ref of Ref<ProgressBarAndroid>
             interface IProgressBarAndroidProperties
+            static member Style (style: IStyle list) : IProgressBarAndroidProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
         type ProgressViewIOSProperties =
-            | Style of IStyle list
             | ProgressViewStyle of ProgressViewStyle
             | Progress of float
             | ProgressTintColor of string
@@ -1027,6 +1026,7 @@ module Props =
             | TrackImage of IImageSource
             | Ref of Ref<ProgressViewIOS>
             interface IProgressViewIOSProperties
+            static member Style (style: IStyle list) : IProgressBarAndroidProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type RefreshControlPropertiesIOS =
         | TintColor of string
@@ -1069,11 +1069,11 @@ module Props =
         | OnSlidingComplete of (float -> unit)
         | OnValueChange of (float -> unit)
         | Step of float
-        | Style of IStyle list
         | TestID of string
         | Value of float
         | Ref of Ref<Slider>
         interface ISliderProperties
+        static member Style (style: IStyle list) : ISliderProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type SwitchProperties =
         | Disabled of bool
@@ -1127,10 +1127,10 @@ module Props =
         | OnError of (ImageErrorEvent -> unit)
         | ResizeMode of ResizeMode
         | Source of IImageSource
-        | Style of IStyle list
         | TestID of string
         | Ref of Ref<Image>
         interface IImageProperties
+        static member Style (style: IStyle list) : IImageProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
 
     type MapViewAnnotation =
@@ -1182,10 +1182,10 @@ module Props =
         | RotateEnabled of bool
         | ScrollEnabled of bool
         | ShowsUserLocation of bool
-        | Style of IStyle list
         | ZoomEnabled of bool
         | Ref of Ref<MapView>
         interface IMapViewProperties
+        static member Style (style: IStyle list) : IMapViewProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type ModalProperties =
         | Animated of bool
@@ -1226,25 +1226,24 @@ module Props =
         | OnPress of (unit -> unit)
         | OnPressIn of (unit -> unit)
         | OnPressOut of (unit -> unit)
-        | Style of IStyle list
         | PressRetentionOffset of obj
         | Ref of Ref<TouchableWithoutFeedback>
         interface ITouchableWithoutFeedbackProperties
+        static member Style (style: IStyle list) : ITouchableWithoutFeedbackProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type TouchableHighlightProperties =
         | ActiveOpacity of float
         | OnHideUnderlay of (unit -> unit)
         | OnShowUnderlay of (unit -> unit)
-        | Style of IStyle list
         | UnderlayColor of string
         | Ref of Ref<TouchableHighlight>
         interface ITouchableHighlightProperties
+        static member Style (style: IStyle list) : TouchableHighlightProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type TouchableOpacityProperties =
         | ActiveOpacity of float
         | Ref of Ref<TouchableOpacity>
         interface ITouchableOpacityProperties
-
 
     type TouchableNativeFeedbackProperties =
         | Background of obj
@@ -1260,7 +1259,7 @@ module Props =
         | Navigator of Navigator
         | RouteMapper of NavigationBarRouteMapper
         | NavState of NavState
-        | Style of IStyle list
+        static member Style (style: IStyle list) : NavigationBarProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type INavigatorProperties =
         interface end
@@ -1285,20 +1284,20 @@ module Props =
             | OnPress of (unit -> unit)
             | Selected of bool
             | SelectedIcon of U2<obj, string>
-            | Style of IStyle list
             | SystemIcon of SystemIcon
             | Title of string
             | Ref of Ref<TabBarItemStatic>
             interface IViewProperties
+            static member Style (style: IStyle list) : TabBarItemProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
         type TabBarIOSProperties =
             | BarTintColor of string
-            | Style of IStyle list
             | TintColor of string
             | Translucent of bool
             | UnselectedTintColor of string
             | Ref of Ref<TabBarIOS>
             interface IViewProperties
+            static member Style (style: IStyle list) : TabBarIOSProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type IScrollViewPropertiesIOS =
         inherit IScrollViewProperties
@@ -1358,13 +1357,13 @@ module Props =
         | RemoveClippedSubviews of bool
         | ShowsHorizontalScrollIndicator of bool
         | ShowsVerticalScrollIndicator of bool
-        | Style of IStyle list
         | ScrollEnabled of bool
         | RefreshControl of React.ReactElement
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
         interface IFlatListProperties<'a>
         interface ISectionListProperties<'a>
+        static member Style (style: IStyle list) : IScrollViewProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type ListViewProperties<'a> =
         | DataSource of ListViewDataSource<'a>
@@ -1518,10 +1517,10 @@ module Props =
 
     type NavigationAnimatedViewProps =
         | Route of obj
-        | Style of IStyle list
         | RenderOverlay of (obj -> React.ReactElement)
         | ApplyAnimation of (obj * obj -> unit)
         | RenderScene of (obj -> React.ReactElement)
+        static member Style (style: IStyle list) : NavigationAnimatedViewProps = !!("style", keyValueList CaseRules.LowerFirst style)
 
 
     type INavigationHeaderProps =
@@ -1540,13 +1539,13 @@ module Props =
 
     type NavigationCardStackProps =
         | Direction of Direction
-        | Style of IStyle list
         | EnableGestures of bool
         | GestureResponseDistance of float
         | CardStyle of IStyle list
         | RenderHeader of (NavigationTransitionProps -> React.ReactElement)
         | OnNavigateBack of (unit -> unit)
         interface INavigationCardStackProps
+        static member Style (style: IStyle list) : NavigationCardStackProps = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type IBreadcrumbNavigationBarProperties =
         interface end
@@ -1555,8 +1554,8 @@ module Props =
         | Navigator of Navigator
         | RouteMapper of NavigatorStatic.BreadcrumbNavigationBarRouteMapper
         | NavState of NavState
-        | Style of IStyle list
         interface IBreadcrumbNavigationBarProperties
+        static member Style (style: IStyle list) : IBreadcrumbNavigationBarProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type CommonProps<'a> =
         | Key of string
