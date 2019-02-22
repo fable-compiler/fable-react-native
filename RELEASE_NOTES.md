@@ -1,3 +1,6 @@
+### 2.0.0-beta-004
+- Fix Style properties for Fable 2
+
 ### 2.0.0-beta-003
 - Fix Fable.Helpers.ReactNative.SimpleStore.DB.fs
 
