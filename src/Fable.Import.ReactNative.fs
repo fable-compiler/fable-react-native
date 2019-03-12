@@ -2389,7 +2389,7 @@ module ReactNative =
         [<Import("AlertIOS", "react-native")>] static member AlertIOS with get(): AlertIOSStatic = jsNative and set(v: AlertIOSStatic): unit = jsNative
         [<Import("AppState", "react-native")>] static member AppState with get(): AppStateStatic = jsNative and set(v: AppStateStatic): unit = jsNative
         [<Import("AppStateIOS", "react-native")>] static member AppStateIOS with get(): AppStateStatic = jsNative and set(v: AppStateStatic): unit = jsNative
-        [<Import("AsyncStorage", "react-native")>] static member AsyncStorage with get(): AsyncStorageStatic = jsNative and set(v: AsyncStorageStatic): unit = jsNative
+        [<Import("AsyncStorage", "@react-native-community/async-storage")>] static member AsyncStorage with get(): AsyncStorageStatic = jsNative and set(v: AsyncStorageStatic): unit = jsNative
         [<Import("BackAndroid", "react-native")>] static member BackAndroid with get(): BackAndroidStatic = jsNative and set(v: BackAndroidStatic): unit = jsNative
         [<Import("CameraRoll", "react-native")>] static member CameraRoll with get(): CameraRollStatic = jsNative and set(v: CameraRollStatic): unit = jsNative
         [<Import("Clipboard", "react-native")>] static member Clipboard with get(): ClipboardStatic = jsNative and set(v: ClipboardStatic): unit = jsNative
