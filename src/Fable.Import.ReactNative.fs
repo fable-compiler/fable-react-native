@@ -2381,7 +2381,7 @@ module ReactNative =
         [<Import("TouchableWithoutFeedback", "react-native")>] static member TouchableWithoutFeedback with get(): TouchableWithoutFeedbackStatic = jsNative and set(v: TouchableWithoutFeedbackStatic): unit = jsNative
         [<Import("UIManager", "react-native")>] static member UIManager with get(): UIManagerStatic = jsNative and set(v: UIManagerStatic): unit = jsNative
         [<Import("View", "react-native")>] static member View with get(): ViewStatic = jsNative and set(v: ViewStatic): unit = jsNative
-        [<Import("ViewPagerAndroid", "react-native")>] static member ViewPagerAndroid with get(): ViewPagerAndroidStatic = jsNative and set(v: ViewPagerAndroidStatic): unit = jsNative
+        [<Import("ViewPagerAndroid", "@react-native-community/viewpager")>] static member ViewPagerAndroid with get(): ViewPagerAndroidStatic = jsNative and set(v: ViewPagerAndroidStatic): unit = jsNative
         [<Import("WebView", "react-native")>] static member WebView with get(): WebViewStatic = jsNative and set(v: WebViewStatic): unit = jsNative
         [<Import("ActionSheetIOS", "react-native")>] static member ActionSheetIOS with get(): ActionSheetIOSStatic = jsNative and set(v: ActionSheetIOSStatic): unit = jsNative
         [<Import("AdSupportIOS", "react-native")>] static member AdSupportIOS with get(): AdSupportIOSStatic = jsNative and set(v: AdSupportIOSStatic): unit = jsNative
