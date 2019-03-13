@@ -1,8 +1,5 @@
 module Fable.Helpers.ReactNativeSimpleStore.DB
 
-open System
-open Fable.Import.ReactNative
-open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
 open Fable.PowerPack
@@ -10,16 +7,19 @@ open Thoth.Json
 
 let inline toJsonWithTypeInfo value = Encode.Auto.toString(0, value)
 
+type RCom = Fable.Import.React.ComponentClass<obj>
+
+let AsyncStorage: RCom = importDefault "@react-native-community/async-storage"
 
 [<Literal>]
 let private modelsKey = "models/"
 type Table<'a> = 'a[]
 
 let inline private setItem(key, s): JS.Promise<unit> =
-    unbox(Globals.AsyncStorage.setItem(key,s))
+    unbox(AsyncStorage?setItem(key,s))
 
 let inline private removeItem(key): JS.Promise<unit> =
-    unbox(Globals.AsyncStorage.removeItem key)
+    unbox(AsyncStorage?removeItem key)
 
 /// Removes all rows from the model.
 let inline clear<'a>() =
@@ -29,7 +29,7 @@ let inline clear<'a>() =
 
 /// Gets or creates a new model.
 let inline private getModel<'a> (key) : JS.Promise<Table<'a>> =
-    Globals.AsyncStorage.getItem (key)
+    AsyncStorage?getItem (key)
     |> Promise.map (function
         | null -> [||]
         | v -> Decode.Auto.unsafeFromString v)

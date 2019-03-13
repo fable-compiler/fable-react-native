@@ -2118,32 +2118,6 @@ module Toast =
     let showLong (message:string) : unit =
         !!Toast?show(message,Toast?LONG)
 
-module Storage =
-    open Fable.Core.JsInterop
-
-    /// Loads a value as string with the given key from the local device storage.
-    /// Returns None if the key is not found.
-    let getItem (key:string) : JS.Promise<string option> =
-        Globals.AsyncStorage.getItem key
-        |> Promise.map (function
-            | null -> Option.None
-            | v -> Some v)
-
-    /// Loads a value with the given key from the local device storage.
-    /// Returns None if the key is not found.
-    let inline load<'a> (key:string) : JS.Promise<'a option> =
-        Globals.AsyncStorage.getItem key
-        |> Promise.map (function
-            | null -> Option.None
-            | v -> Some (Decode.Auto.unsafeFromString v))
-
-    /// Saves a value with the given key to the local device storage.
-    let setItem (k:string) (v:string): JS.Promise<unit> =
-        !!Globals.AsyncStorage.setItem(k,v)
-
-    /// Saves a value with the given key to the local device storage.
-    let save<'a> (k:string) (v:'a): JS.Promise<unit> =
-        !!Globals.AsyncStorage.setItem(k, Encode.Auto.toString(0, v))
 
 module Platform =
     type OS<'a> =

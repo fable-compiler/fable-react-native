@@ -1693,18 +1693,6 @@ module ReactNative =
         abstract addEventListener: ``type``: AppStateEvent * listener: (AppStateStatus -> unit) -> unit
         abstract removeEventListener: ``type``: AppStateEvent * listener: (AppStateStatus -> unit) -> unit
 
-    and AsyncStorageStatic =
-        abstract getItem: key: string * ?callback: (Error -> string -> unit) -> Promise<string>
-        abstract setItem: key: string * value: string * ?callback: (Error -> unit) -> Promise<string>
-        abstract removeItem: key: string * ?callback: (Error -> unit) -> Promise<string>
-        abstract mergeItem: key: string * value: string * ?callback: (Error -> unit) -> Promise<string>
-        abstract clear: ?callback: (Error -> unit) -> Promise<string>
-        abstract getAllKeys: ?callback: (Error -> ResizeArray<string> -> unit) -> Promise<string>
-        abstract multiGet: keys: ResizeArray<string> * ?callback: (ResizeArray<Error> -> ResizeArray<ResizeArray<string>> -> unit) -> Promise<string>
-        abstract multiSet: keyValuePairs: ResizeArray<ResizeArray<string>> * ?callback: (ResizeArray<Error> -> unit) -> Promise<string>
-        abstract multiRemove: keys: ResizeArray<string> * ?callback: (ResizeArray<Error> -> unit) -> Promise<string>
-        abstract multiMerge: keyValuePairs: ResizeArray<ResizeArray<string>> * ?callback: (ResizeArray<Error> -> unit) -> Promise<string>
-
     and BackAndroidStatic =
         abstract exitApp: unit -> unit
         abstract addEventListener: eventName: string * handler: (unit -> unit) -> unit
@@ -2262,9 +2250,6 @@ module ReactNative =
     and AppStateIOS =
         AppStateStatic
 
-    and AsyncStorage =
-        AsyncStorageStatic
-
     and BackAndroid =
         BackAndroidStatic
 
@@ -2389,7 +2374,6 @@ module ReactNative =
         [<Import("AlertIOS", "react-native")>] static member AlertIOS with get(): AlertIOSStatic = jsNative and set(v: AlertIOSStatic): unit = jsNative
         [<Import("AppState", "react-native")>] static member AppState with get(): AppStateStatic = jsNative and set(v: AppStateStatic): unit = jsNative
         [<Import("AppStateIOS", "react-native")>] static member AppStateIOS with get(): AppStateStatic = jsNative and set(v: AppStateStatic): unit = jsNative
-        [<Import("AsyncStorage", "@react-native-community/async-storage")>] static member AsyncStorage with get(): AsyncStorageStatic = jsNative and set(v: AsyncStorageStatic): unit = jsNative
         [<Import("BackAndroid", "react-native")>] static member BackAndroid with get(): BackAndroidStatic = jsNative and set(v: BackAndroidStatic): unit = jsNative
         [<Import("CameraRoll", "react-native")>] static member CameraRoll with get(): CameraRollStatic = jsNative and set(v: CameraRollStatic): unit = jsNative
         [<Import("Clipboard", "react-native")>] static member Clipboard with get(): ClipboardStatic = jsNative and set(v: ClipboardStatic): unit = jsNative
