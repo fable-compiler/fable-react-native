@@ -1,3 +1,6 @@
+### 2.0.0-beta-005
+- Changes for RN 0.59
+
 ### 2.0.0-beta-004
 - Fix Style properties for Fable 2
 
