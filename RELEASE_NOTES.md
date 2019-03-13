@@ -1,3 +1,6 @@
+### 2.0.0-beta-007
+- Remove ViewPagerAndroid - it's no longer supported in RN
+
 ### 2.0.0-beta-006
 - Remove AsyncStorage - it's no longer supported in RN
 

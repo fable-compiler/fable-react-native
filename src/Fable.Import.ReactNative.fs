@@ -715,30 +715,6 @@ module ReactNative =
         inherit NativeComponent
         inherit React.ComponentClass<ViewProperties>
 
-
-    and ViewPagerAndroidOnPageScrollEventData =
-        abstract position: float with get, set
-        abstract offset: float with get, set
-
-    and ViewPagerAndroidOnPageSelectedEventData =
-        abstract position: float with get, set
-
-    and ViewPagerAndroidProperties =
-        inherit ViewProperties
-        abstract initialPage: float option with get, set
-        abstract scrollEnabled: bool option with get, set
-        abstract onPageScroll: (NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> -> unit) option with get, set
-        abstract onPageSelected: (NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> -> unit) option with get, set
-        abstract onPageScrollStateChanged: ((* TODO StringEnum Idle | Dragging | Settling *) string -> unit) option with get, set
-        abstract keyboardDismissMode: (* TODO StringEnum none | on-drag *) string option with get, set
-        abstract pageMargin: float option with get, set
-
-    and ViewPagerAndroidStatic =
-        inherit NativeComponent
-        inherit React.ComponentClass<ViewPagerAndroidProperties>
-        abstract setPage: (float -> unit) with get, set
-        abstract setPageWithoutAnimation: (float -> unit) with get, set
-
     and KeyboardAvoidingViewStatic =
         inherit React.ComponentClass<KeyboardAvoidingViewProps>
 
@@ -2226,9 +2202,6 @@ module ReactNative =
     and View =
         ViewStatic
 
-    and ViewPagerAndroid =
-        ViewPagerAndroidStatic
-
     and WebView =
         WebViewStatic
 
@@ -2365,8 +2338,7 @@ module ReactNative =
         [<Import("TouchableOpacity", "react-native")>] static member TouchableOpacity with get(): TouchableOpacityStatic = jsNative and set(v: TouchableOpacityStatic): unit = jsNative
         [<Import("TouchableWithoutFeedback", "react-native")>] static member TouchableWithoutFeedback with get(): TouchableWithoutFeedbackStatic = jsNative and set(v: TouchableWithoutFeedbackStatic): unit = jsNative
         [<Import("UIManager", "react-native")>] static member UIManager with get(): UIManagerStatic = jsNative and set(v: UIManagerStatic): unit = jsNative
-        [<Import("View", "react-native")>] static member View with get(): ViewStatic = jsNative and set(v: ViewStatic): unit = jsNative
-        [<Import("ViewPagerAndroid", "@react-native-community/viewpager")>] static member ViewPagerAndroid with get(): ViewPagerAndroidStatic = jsNative and set(v: ViewPagerAndroidStatic): unit = jsNative
+        [<Import("View", "react-native")>] static member View with get(): ViewStatic = jsNative and set(v: ViewStatic): unit = jsNative        
         [<Import("WebView", "react-native")>] static member WebView with get(): WebViewStatic = jsNative and set(v: WebViewStatic): unit = jsNative
         [<Import("ActionSheetIOS", "react-native")>] static member ActionSheetIOS with get(): ActionSheetIOSStatic = jsNative and set(v: ActionSheetIOSStatic): unit = jsNative
         [<Import("AdSupportIOS", "react-native")>] static member AdSupportIOS with get(): AdSupportIOSStatic = jsNative and set(v: AdSupportIOSStatic): unit = jsNative

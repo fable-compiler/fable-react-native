@@ -427,9 +427,6 @@ module Props =
     type IViewPropertiesAndroid =
         interface end
 
-    type IViewPagerAndroidProperties =
-        interface end
-
     type IButtonProperties =
         interface end
 
@@ -469,7 +466,6 @@ module Props =
         inherit IViewPropertiesIOS
         inherit IToolbarAndroidProperties
         inherit IGestureResponderHandlers
-        inherit IViewPagerAndroidProperties
         inherit IKeyboardAvoidingViewProps
         inherit IWebViewProperties
         inherit ISegmentedControlIOSProperties
@@ -884,17 +880,6 @@ module Props =
         interface IViewProperties
         static member Style (style: IStyle list) : IViewProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
-    type ViewPagerAndroidProperties =
-        | InitialPage of int
-        | ScrollEnabled of bool
-        | OnPageScroll of (NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> -> unit)
-        | OnPageSelected of (NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> -> unit)
-        | OnPageScrollStateChanged of (ScrollState -> unit)
-        | KeyboardDismissMode of KeyboardDismissMode
-        | PageMargin of float
-        | Ref of Ref<ViewPagerAndroid>
-        interface IViewPagerAndroidProperties
-        static member Style (style: IStyle list) : IViewPagerAndroidProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     type KeyboardAvoidingViewProps =
         | Behavior of Behavior
@@ -1586,7 +1571,6 @@ module Props =
         interface IMapViewPropertiesAndroid
         interface IViewPropertiesIOS
         interface IViewPropertiesAndroid
-        interface IViewPagerAndroidProperties
         interface ISectionListProperties<'a>
         interface IButtonProperties
         interface IImageProperties
@@ -1867,11 +1851,6 @@ let inline touchableNativeFeedback (props:ITouchableNativeFeedbackProperties lis
       props,
       children)
 
-let inline viewPagerAndroid (props: IViewPagerAndroidProperties list) (children: React.ReactElement seq) : React.ReactElement =
-    createElement(
-        RN.ViewPagerAndroid,
-        props,
-        children)
 
 let inline navigator (props:INavigatorProperties list) : React.ReactElement =
     createElement(
