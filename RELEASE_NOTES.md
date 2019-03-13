@@ -1,4 +1,7 @@
-### 2.0.0-beta-007
+### 2.0.0-beta-009
+- Fix Style properties in camera for Fable 2
+
+### 2.0.0-beta-008
 - Remove ViewPagerAndroid - it's no longer supported in RN
 
 ### 2.0.0-beta-006

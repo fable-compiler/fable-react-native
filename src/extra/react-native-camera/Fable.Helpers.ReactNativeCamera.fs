@@ -1,17 +1,9 @@
 module Fable.Helpers.ReactNativeCamera
 
-open System
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
-open Fable.Import.ReactNativeVideo
-module RN = Fable.Helpers.ReactNative
-
-open Fable.Import.Browser
 open Fable.PowerPack
-
-
-open Fable.Core.JsInterop
 
 module RN = Fable.Helpers.ReactNative
 
@@ -30,8 +22,8 @@ module Props =
 
     [<RequireQualifiedAccess>]
     type CameraProperties =
-    | Style of CameraStyle list
         interface ICameraProperties
+        static member Style (style: CameraStyle list) : ICameraProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
 
 let Camera: RCom = importDefault "react-native-camera"
