@@ -44,7 +44,6 @@ type CameraRef() =
 
     /// Take a picture
     member __.Capture() = 
-        
         match !cameraRef with
         | Some v -> 
             promise {
