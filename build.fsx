@@ -23,9 +23,7 @@ let CWD = __SOURCE_DIRECTORY__
 
 // Clean and install dotnet SDK
 Target "Bootstrap" (fun () ->
-    let dotnetcliVersion =
-        Path.Combine(__SOURCE_DIRECTORY__, "global.json")
-        |> findLineAndGetGroupValue "\"version\": \"(.*?)\"" 1
+    let dotnetcliVersion = DotNetCli.GetDotNetSDKVersionFromGlobalJson()
 
     !! "src/bin" ++ "src/obj" |> CleanDirs
     dotnetExePath <- DotNetCli.InstallDotNetSDK dotnetcliVersion
