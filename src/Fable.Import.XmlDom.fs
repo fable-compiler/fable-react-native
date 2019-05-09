@@ -1,7 +1,6 @@
 namespace Fable.Import
 open System
 open Fable.Core
-open Fable.Import.JS
 
 module XmlDom =
     type DOMParserStatic =

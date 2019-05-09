@@ -1,3 +1,6 @@
+### 2.0.0-beta-010
+- Remove reference to PowerPack
+
 ### 2.0.0-beta-009
 - Fix Style properties in camera for Fable 2
 

@@ -5,7 +5,6 @@ open Fable.Import.ReactNative
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
-open Fable.PowerPack
 open Thoth.Json
 
 type RN = ReactNative.Globals
