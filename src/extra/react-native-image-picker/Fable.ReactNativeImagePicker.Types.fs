@@ -1,6 +1,5 @@
 namespace Fable.ReactNativeImagePicker.Types
 
-open System
 open Fable.Core
 
 [<StringEnum>]
