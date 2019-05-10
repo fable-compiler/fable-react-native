@@ -1,6 +1,7 @@
-namespace Fable.Import
+namespace Fable
 open System
 open Fable.Core
+open Fable.Core.JS
 
 module XmlDom =
     type DOMParserStatic =
@@ -11,10 +12,10 @@ module XmlDom =
         [<Emit("new $0()")>] abstract Create: unit -> XMLSerializer
 
     and DOMParser =
-        abstract parseFromString: xmlsource: string * ?mimeType: string -> Browser.Document
+        abstract parseFromString: xmlsource: string * ?mimeType: string -> Browser.Types.Document
 
     and XMLSerializer =
-        abstract serializeToString: node: Browser.Node -> string
+        abstract serializeToString: node: Browser.Types.Node -> string
 
     and Options =
         | Locator of obj

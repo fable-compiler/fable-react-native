@@ -1,13 +1,14 @@
-module Fable.Helpers.ReactNative
+namespace Fable.ReactNative
 
 open System
-open Fable.Import.ReactNative
+open Fable
 open Fable.Core
 open Fable.Core.JsInterop
-open Fable.Import
+open Fable.React
+open Fable.ReactNative.Types
 open Thoth.Json
 
-type RN = ReactNative.Globals
+type RN = ReactNative.Types.Globals
 
 type Ref<'t> = ('t -> unit)
 
@@ -316,7 +317,7 @@ module Props =
         interface end
 
     type IPickerItem<'a> =
-        inherit React.ReactElement
+        inherit ReactElement
 
     type IStyle =
         interface end
@@ -519,8 +520,8 @@ module Props =
         | OnLoadStart of (NavState -> unit)
         | OnNavigationStateChange of (NavState -> unit)
         | OnShouldStartLoadWithRequest of (obj -> bool)
-        | RenderError of (unit -> React.ReactElement)
-        | RenderLoading of (unit -> React.ReactElement)
+        | RenderError of (unit -> ReactElement)
+        | RenderLoading of (unit -> ReactElement)
         | ScrollEnabled of bool
         | StartInLoadingState of bool
         | Url of string
@@ -1235,9 +1236,9 @@ module Props =
         interface ITouchableNativeFeedbackProperties
 
     type NavigationBarRouteMapper =
-        | Title of (Route -> Navigator -> float -> NavState -> React.ReactElement)
-        | LeftButton of (Route -> Navigator -> float -> NavState -> React.ReactElement)
-        | RightButton of (Route -> Navigator -> float -> NavState -> React.ReactElement)
+        | Title of (Route -> Navigator -> float -> NavState -> ReactElement)
+        | LeftButton of (Route -> Navigator -> float -> NavState -> ReactElement)
+        | RightButton of (Route -> Navigator -> float -> NavState -> ReactElement)
 
     type NavigationBarProperties =
         | Navigator of Navigator
@@ -1252,11 +1253,11 @@ module Props =
         | ConfigureScene of (Route -> ResizeArray<Route> -> SceneConfig)
         | InitialRoute of Route
         | InitialRouteStack of ResizeArray<Route>
-        | NavigationBar of React.ReactElement // React.ReactElement option
+        | NavigationBar of ReactElement // ReactElement option
         | Navigator of Navigator
         | OnDidFocus of (unit -> unit)
         | OnWillFocus of (unit -> unit)
-        | RenderScene of (Route -> Navigator -> React.ReactElement)
+        | RenderScene of (Route -> Navigator -> ReactElement)
         | SceneStyle of ViewStyle list
         | DebugOverlay of bool
         interface INavigatorProperties
@@ -1342,7 +1343,7 @@ module Props =
         | ShowsHorizontalScrollIndicator of bool
         | ShowsVerticalScrollIndicator of bool
         | ScrollEnabled of bool
-        | RefreshControl of React.ReactElement
+        | RefreshControl of ReactElement
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
         interface IFlatListProperties<'a>
@@ -1358,12 +1359,12 @@ module Props =
         | OnEndReachedThreshold of float
         | PageSize of float
         | RemoveClippedSubviews of bool
-        | RenderFooter of (unit -> React.ReactElement)
-        | RenderHeader of (unit -> React.ReactElement)
-        | RenderRow of ('a -> U2<string, float> -> U2<string, float> -> bool -> React.ReactElement)
-        | RenderScrollComponent of (ScrollViewProperties -> React.ReactElement)
-        | RenderSectionHeader of (obj -> U2<string, float> -> React.ReactElement)
-        | RenderSeparator of (U2<string, float> -> U2<string, float> -> bool -> React.ReactElement)
+        | RenderFooter of (unit -> ReactElement)
+        | RenderHeader of (unit -> ReactElement)
+        | RenderRow of ('a -> U2<string, float> -> U2<string, float> -> bool -> ReactElement)
+        | RenderScrollComponent of (ScrollViewProperties -> ReactElement)
+        | RenderSectionHeader of (obj -> U2<string, float> -> ReactElement)
+        | RenderSeparator of (U2<string, float> -> U2<string, float> -> bool -> ReactElement)
         | ScrollRenderAheadDistance of float
         | Ref of Ref<ListView<'a>>
         interface IListViewProperties
@@ -1390,16 +1391,16 @@ module Props =
 
     type SectionListDataProps<'a> =
         | Key of string
-        | RenderItem of (SectionListRenderItemInfo<'a> -> React.ReactElement)
-        | ItemSeparatorComponent of (unit -> React.ReactElement)
+        | RenderItem of (SectionListRenderItemInfo<'a> -> ReactElement)
+        | ItemSeparatorComponent of (unit -> ReactElement)
         | KeyExtractor of ('a -> float -> string)
 
     type SectionListProperties<'a> =
-        | ItemSeparatorComponent of (unit -> React.ReactElement)
-        | ListEmptyComponent of (unit -> React.ReactElement)
-        | ListFooterComponent of (unit -> React.ReactElement)
-        | ListHeaderComponent of (unit -> React.ReactElement)
-        | SectionSeparatorComponent of (unit -> React.ReactElement)
+        | ItemSeparatorComponent of (unit -> ReactElement)
+        | ListEmptyComponent of (unit -> ReactElement)
+        | ListFooterComponent of (unit -> ReactElement)
+        | ListHeaderComponent of (unit -> ReactElement)
+        | SectionSeparatorComponent of (unit -> ReactElement)
         | ExtraData of obj
         | GetItemLayout of (ResizeArray<SectionListData<'a>> -> float -> GetItemLayoutResult)
         | InitialNumToRender of int
@@ -1412,19 +1413,19 @@ module Props =
         | OnViewableItemsChanged of (OnViewableItemsChangedInfo<'a> -> unit)
         | Refreshing of bool
         | RemoveClippedSubviews of bool
-        | RenderItem of (SectionListRenderItemInfo<'a> -> React.ReactElement)
+        | RenderItem of (SectionListRenderItemInfo<'a> -> ReactElement)
         | StickySectionHeadersEnabled of bool
-        | RenderSectionHeader of (SectionListRenderInfo<'a> -> React.ReactElement)
-        | RenderSectionFooter of (SectionListRenderInfo<'a> -> React.ReactElement)
-        | RenderScrollComponent of (ScrollViewProperties -> React.ReactElement)
+        | RenderSectionHeader of (SectionListRenderInfo<'a> -> ReactElement)
+        | RenderSectionFooter of (SectionListRenderInfo<'a> -> ReactElement)
+        | RenderScrollComponent of (ScrollViewProperties -> ReactElement)
         | Ref of Ref<SectionList<'a>>
         interface ISectionListProperties<'a>
 
     type FlatListProperties<'a> =
-        | ItemSeparatorComponent of (unit -> React.ReactElement)
-        | ListEmptyComponent of (unit -> React.ReactElement)
-        | ListFooterComponent of (unit -> React.ReactElement)
-        | ListHeaderComponent of (unit -> React.ReactElement)
+        | ItemSeparatorComponent of (unit -> ReactElement)
+        | ListEmptyComponent of (unit -> ReactElement)
+        | ListFooterComponent of (unit -> ReactElement)
+        | ListHeaderComponent of (unit -> ReactElement)
         | ColumnWrapperStyle of IStyle list
         | ExtraData of obj
         | GetItemLayout of (ResizeArray<'a> -> GetItemLayoutResult)
@@ -1440,7 +1441,7 @@ module Props =
         | OnViewableItemsChanged of (OnViewableItemsChangedInfo<'a> -> unit)
         | Refreshing of bool
         | RemoveClippedSubviews of bool
-        | RenderItem of (FlatListRenderItemInfo<'a> -> React.ReactElement)
+        | RenderItem of (FlatListRenderItemInfo<'a> -> ReactElement)
         | ViewabilityConfig of ViewabilityConfig
         | Ref of Ref<FlatList<'a>>
         interface IFlatListProperties<'a>
@@ -1448,8 +1449,8 @@ module Props =
     type SwipeableListViewProps<'a> =
         | DataSource of SwipeableListViewDataSource<'a> // REQUIRED!
         | MaxSwipeDistance of float
-        | RenderRow of ('a -> U2<string, float> -> U2<string, float> -> bool -> React.ReactElement) // REQUIRED!
-        | RenderQuickActions of ('a -> string -> string -> React.ReactElement) // REQUIRED!
+        | RenderRow of ('a -> U2<string, float> -> U2<string, float> -> bool -> ReactElement) // REQUIRED!
+        | RenderQuickActions of ('a -> string -> string -> ReactElement) // REQUIRED!
 
     type ActionSheetIOSOptions =
         | Title of string
@@ -1501,9 +1502,9 @@ module Props =
 
     type NavigationAnimatedViewProps =
         | Route of obj
-        | RenderOverlay of (obj -> React.ReactElement)
+        | RenderOverlay of (obj -> ReactElement)
         | ApplyAnimation of (obj * obj -> unit)
-        | RenderScene of (obj -> React.ReactElement)
+        | RenderScene of (obj -> ReactElement)
         static member Style (style: IStyle list) : NavigationAnimatedViewProps = !!("style", keyValueList CaseRules.LowerFirst style)
 
 
@@ -1511,9 +1512,9 @@ module Props =
         interface end
 
     type NavigationHeaderProps =
-        | RenderTitleComponent of (NavigationTransitionProps -> React.ReactElement)
-        | RenderLeftComponent of (NavigationTransitionProps -> React.ReactElement)
-        | RenderRightComponent of (NavigationTransitionProps -> React.ReactElement)
+        | RenderTitleComponent of (NavigationTransitionProps -> ReactElement)
+        | RenderLeftComponent of (NavigationTransitionProps -> ReactElement)
+        | RenderRightComponent of (NavigationTransitionProps -> ReactElement)
         | StatusBarHeight of U2<float,Animated.Value>
         | OnNavigateBack of (unit -> unit)
         interface INavigationHeaderProps
@@ -1526,7 +1527,7 @@ module Props =
         | EnableGestures of bool
         | GestureResponseDistance of float
         | CardStyle of IStyle list
-        | RenderHeader of (NavigationTransitionProps -> React.ReactElement)
+        | RenderHeader of (NavigationTransitionProps -> ReactElement)
         | OnNavigateBack of (unit -> unit)
         interface INavigationCardStackProps
         static member Style (style: IStyle list) : NavigationCardStackProps = !!("style", keyValueList CaseRules.LowerFirst style)
@@ -1580,388 +1581,389 @@ module Props =
         interface ITextProperties
         interface ITextInputProperties
 
-open Props
-module R = Fable.Helpers.React
+[<AutoOpen>]
+module Helpers =
+    open Props
 
-[<Emit("$0")>]
-// density independent pixels
-let dip (_: float): ISizeUnit = jsNative
+    [<Emit("$0")>]
+    // density independent pixels
+    let dip (_: float): ISizeUnit = jsNative
 
-[<Emit("$0 + \"%\"")>]
-// percents
-let pct (_: float): ISizeUnit = jsNative
+    [<Emit("$0 + \"%\"")>]
+    // percents
+    let pct (_: float): ISizeUnit = jsNative
 
-[<Emit("$0 + \"deg\"")>]
-let deg (_: float): IAngle = jsNative
+    [<Emit("$0 + \"deg\"")>]
+    let deg (_: float): IAngle = jsNative
 
-[<Emit("$0 + \"rad\"")>]
-let rad (_: float): IAngle = jsNative
+    [<Emit("$0 + \"rad\"")>]
+    let rad (_: float): IAngle = jsNative
 
-[<Emit("require($0)")>]
-// Use `require` to load a local image
-let inline localImage (_path:string) : IImageSource = jsNative
+    [<Emit("require($0)")>]
+    // Use `require` to load a local image
+    let inline localImage (_path:string) : IImageSource = jsNative
 
-let inline remoteImage (source: ImageURISourceProperties list) =
-  unbox<IImageSource> (keyValueList CaseRules.LowerFirst source)
+    let inline remoteImage (source: ImageURISourceProperties list) =
+      unbox<IImageSource> (keyValueList CaseRules.LowerFirst source)
 
-let inline remoteImages (sources: ImageURISourceProperties list array) =
-  unbox<IImageSource> (Array.map remoteImage sources)
+    let inline remoteImages (sources: ImageURISourceProperties list array) =
+      unbox<IImageSource> (Array.map remoteImage sources)
 
-let inline section<'a> (data: 'a []) (props: SectionListDataProps<'a> list) (custom: obj): SectionListData<'a> =
-    let pascalCaseProps, camelCaseProps =
-      List.partition (function
-                      | SectionListDataProps.ItemSeparatorComponent _ -> true
-                      | _ -> false)
-                      props
+    let inline section<'a> (data: 'a []) (props: SectionListDataProps<'a> list) (custom: obj): SectionListData<'a> =
+        let pascalCaseProps, camelCaseProps =
+          List.partition (function
+                          | SectionListDataProps.ItemSeparatorComponent _ -> true
+                          | _ -> false)
+                          props
 
-    unbox<SectionListData<'a>>
-      (JS.Object.assign(
-        createObj ["data" ==> data],
-        keyValueList CaseRules.LowerFirst camelCaseProps,
-        keyValueList CaseRules.None pascalCaseProps,
-        custom
-      ))
-
-let inline createElement(c: React.ComponentClass<'T>, props: 'P list, children: React.ReactElement seq) =
-    R.createElement (c, keyValueList CaseRules.LowerFirst props, children)
-
-let inline internal createElementWithObjProps(c: React.ComponentClass<'T>, props: obj, children: React.ReactElement seq) =
-    R.createElement (c, props, children)
-
-let inline text (props:ITextProperties list) (text:string): React.ReactElement =
-    createElement(RN.Text, props, [React.str text])
-
-let inline textInput (props: ITextInputProperties list): React.ReactElement =
-    createElement(RN.TextInput, props, [])
-
-let inline textInputWithChild (props: ITextInputProperties list) (text: string): React.ReactElement =
-    createElement(RN.TextInput, props, [React.str text])
-
-let inline createToolbarAction(title:string,showStatus:ToolbarActionShowStatus) : ToolbarAndroidAction =
-    createObj [
-        "title" ==> title
-        "show" ==> showStatus
-    ]
-
-let inline createToolbarActionWithIcon(title:string,icon: IImageSource,showStatus:ToolbarActionShowStatus) : ToolbarAndroidAction =
-    createObj [
-        "title" ==> title
-        "icon" ==> icon
-        "show" ==> showStatus
-    ]
-
-let inline toolbarAndroid (props:IToolbarAndroidProperties list) (onActionSelected:int -> unit) : React.ReactElement =
-    createElementWithObjProps(
-        RN.ToolbarAndroid,
-        !!JS.Object.assign(
-            createObj ["onActionSelected" ==> onActionSelected],
-            keyValueList CaseRules.LowerFirst props), [])
-
-let inline keyboardAvoidingView (props:IKeyboardAvoidingViewProps list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.KeyboardAvoidingView,
-      props,
-      children)
-
-let inline view (props: IViewProperties list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-        RN.View,
-        props,
-        children)
-
-let inline webView (props:IWebViewProperties list) : React.ReactElement =
-    createElement(
-      RN.WebView,
-      props, [])
-
-let inline segmentedControlIOS (props:ISegmentedControlIOSProperties list) : React.ReactElement =
-    createElement(
-      RN.SegmentedControlIOS,
-      props, [])
-
-let inline activityIndicator (props:IActivityIndicatorProperties list) : React.ReactElement =
-    createElement(
-      RN.ActivityIndicator,
-      props, [])
-
-let inline activityIndicatorIOS (props:IActivityIndicatorIOSProperties list) : React.ReactElement =
-    createElement(
-      RN.ActivityIndicatorIOS,
-      props, [])
-
-let inline datePickerIOS (props:IDatePickerIOSProperties list) : React.ReactElement =
-    createElement(
-      RN.DatePickerIOS,
-      props, [])
-
-let inline drawerLayoutAndroid (props:IDrawerLayoutAndroidProperties list) (renderNavigationView: unit -> React.ReactElement) (children: React.ReactElement seq): React.ReactElement =
-    createElementWithObjProps(
-      RN.DrawerLayoutAndroid,
-      !!JS.Object.assign(
-            createObj ["renderNavigationView" ==> renderNavigationView],
-            keyValueList CaseRules.LowerFirst props),
-      children)
-
-let inline pickerIOSItem (props:Picker.PickerIOSItemProperties list) : React.ReactElement =
-    createElement(
-      RN.PickerIOS.Item,
-      props, [])
-
-let inline pickerItem<'a> (props:Picker.PickerItemProperties<'a> list) : IPickerItem<'a> =
-    unbox<IPickerItem<'a>> (createElement(RN.Picker.Item, props, []))
-
-let inline picker (props:IPickerProperties<'a> list) (children:IPickerItem<'a> seq): React.ReactElement =
-    createElement(
-      RN.Picker,
-      props,
-      unbox<React.ReactElement seq> children)
-
-let inline pickerIOS (props:Picker.PickerIOSProperties<'a> list) (children:React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.PickerIOS,
-      props,
-      children)
-
-let inline progressBarAndroid (props:IProgressBarAndroidProperties list) : React.ReactElement =
-    createElement(
-      RN.ProgressBarAndroid,
-      props, [])
-
-let inline progressViewIOS (props:IProgressViewIOSProperties list) : React.ReactElement =
-    createElement(
-      RN.ProgressViewIOS,
-      props, [])
-
-let inline refreshControl (props:IRefreshControlProperties list) : React.ReactElement =
-    createElement(
-      RN.RefreshControl,
-      props, [])
-
-let inline slider (props:ISliderProperties list) : React.ReactElement =
-    createElement(
-      RN.Slider,
-      props, [])
-
-let inline switch (props:ISwitchProperties list) : React.ReactElement =
-    createElement(
-      RN.Switch,
-      props, [])
-
-let inline image (props:IImageProperties list) : React.ReactElement =
-    createElement(
-      RN.Image,
-      props, [])
-
-let inline imageWithChild (props: IImageProperties list) (child: React.ReactElement) : React.ReactElement =
-    createElement(
-        RN.Image,
-        props,
-        [child])
-
-let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewProperties list)  : React.ReactElement =
-    createElementWithObjProps(
-      RN.ListView,
-      !!JS.Object.assign(
-            createObj ["dataSource" ==> dataSource],
-            keyValueList CaseRules.LowerFirst props), [])
-
-let inline flatList<'a> (data:'a []) (props: IFlatListProperties<'a> list)  : React.ReactElement =
-    // Some of FlatList properties are upper case:
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-native/index.d.ts#L3608-L3623
-    let pascalCaseProps =
-      List.filter (function
-                   | ItemSeparatorComponent _ -> true
-                   | ListEmptyComponent _ -> true
-                   | ListFooterComponent _ -> true
-                   | ListHeaderComponent _ -> true
-                   | _ -> false)
-                   (unbox<FlatListProperties<'a> list> props)
-
-    createElementWithObjProps(
-      RN.FlatList,
-      !!JS.Object.assign(
+        unbox<SectionListData<'a>>
+          (JS.Object.assign(
             createObj ["data" ==> data],
-            keyValueList CaseRules.LowerFirst props,
-            keyValueList CaseRules.None pascalCaseProps), [])
+            keyValueList CaseRules.LowerFirst camelCaseProps,
+            keyValueList CaseRules.None pascalCaseProps,
+            custom
+          ))
 
-let inline sectionList<'a> (sections: SectionListData<'a> []) (props: ISectionListProperties<'a> list)  : React.ReactElement =
-    let pascalCaseProps =
-      List.filter (function
-                   | SectionListProperties.ItemSeparatorComponent _ -> true
-                   | SectionListProperties.ListEmptyComponent _ -> true
-                   | SectionListProperties.ListFooterComponent _ -> true
-                   | SectionListProperties.ListHeaderComponent _ -> true
-                   | SectionSeparatorComponent _ -> true
-                   | _ -> false)
-                   (unbox<SectionListProperties<'a> list> props)
+    let inline createElement(c: ReactElementType<'T>, props: 'P list, children: ReactElement seq) =
+        ReactBindings.React.createElement (c, keyValueList CaseRules.LowerFirst props, children)
 
-    createElementWithObjProps(
-      RN.SectionList,
-      !!JS.Object.assign(
-            createObj ["sections" ==> sections],
-            keyValueList CaseRules.LowerFirst props,
-            keyValueList CaseRules.None pascalCaseProps), [])
+    let inline internal createElementWithObjProps(c: ReactElementType<'T>, props: obj, children: ReactElement seq) =
+        ReactBindings.React.createElement (c, props, children)
 
-let inline mapView (props:IMapViewProperties list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.MapView,
-      props,
-      children)
+    let inline text (props:ITextProperties list) (text:string): ReactElement =
+        createElement(RN.Text, props, [str text])
 
-let inline modal (props:ModalProperties list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.Modal,
-      props,
-      children)
+    let inline textInput (props: ITextInputProperties list): ReactElement =
+        createElement(RN.TextInput, props, [])
 
-let inline button (props:IButtonProperties list) (children: React.ReactElement seq) : React.ReactElement =
-    createElement(
-      RN.Button,
-      props,
-      children)
+    let inline textInputWithChild (props: ITextInputProperties list) (text: string): ReactElement =
+        createElement(RN.TextInput, props, [str text])
 
-let inline touchableWithoutFeedback (props:ITouchableWithoutFeedbackProperties list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.TouchableWithoutFeedback,
-      props,
-      children)
+    let inline createToolbarAction(title:string,showStatus:ToolbarActionShowStatus) : ToolbarAndroidAction =
+        createObj [
+            "title" ==> title
+            "show" ==> showStatus
+        ]
 
-let inline touchableHighlight (props:ITouchableHighlightProperties list) (children: React.ReactElement seq) : React.ReactElement =
-    createElement(
-      RN.TouchableHighlight,
-      props,
-      children)
+    let inline createToolbarActionWithIcon(title:string,icon: IImageSource,showStatus:ToolbarActionShowStatus) : ToolbarAndroidAction =
+        createObj [
+            "title" ==> title
+            "icon" ==> icon
+            "show" ==> showStatus
+        ]
 
-let inline touchableHighlightWithChild (props:ITouchableHighlightProperties list) (child: React.ReactElement): React.ReactElement =
-    createElement(
-      RN.TouchableHighlight,
-      props,
-      [child])
+    let inline toolbarAndroid (props:IToolbarAndroidProperties list) (onActionSelected:int -> unit) : ReactElement =
+        createElementWithObjProps(
+            RN.ToolbarAndroid,
+            !!JS.Object.assign(
+                createObj ["onActionSelected" ==> onActionSelected],
+                keyValueList CaseRules.LowerFirst props), [])
 
-let inline touchableOpacity (props:ITouchableOpacityProperties list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.TouchableOpacity,
-      props,
-      children)
+    let inline keyboardAvoidingView (props:IKeyboardAvoidingViewProps list) (children: ReactElement seq): ReactElement =
+        createElement(
+          RN.KeyboardAvoidingView,
+          props,
+          children)
 
-let inline touchableNativeFeedback (props:ITouchableNativeFeedbackProperties list) (children: React.ReactElement seq): React.ReactElement =
-    createElement(
-      RN.TouchableNativeFeedback,
-      props,
-      children)
+    let inline view (props: IViewProperties list) (children: ReactElement seq): ReactElement =
+        createElement(
+            RN.View,
+            props,
+            children)
+
+    let inline webView (props:IWebViewProperties list) : ReactElement =
+        createElement(
+          RN.WebView,
+          props, [])
+
+    let inline segmentedControlIOS (props:ISegmentedControlIOSProperties list) : ReactElement =
+        createElement(
+          RN.SegmentedControlIOS,
+          props, [])
+
+    let inline activityIndicator (props:IActivityIndicatorProperties list) : ReactElement =
+        createElement(
+          RN.ActivityIndicator,
+          props, [])
+
+    let inline activityIndicatorIOS (props:IActivityIndicatorIOSProperties list) : ReactElement =
+        createElement(
+          RN.ActivityIndicatorIOS,
+          props, [])
+
+    let inline datePickerIOS (props:IDatePickerIOSProperties list) : ReactElement =
+        createElement(
+          RN.DatePickerIOS,
+          props, [])
+
+    let inline drawerLayoutAndroid (props:IDrawerLayoutAndroidProperties list) (renderNavigationView: unit -> ReactElement) (children: ReactElement seq): ReactElement =
+        createElementWithObjProps(
+          RN.DrawerLayoutAndroid,
+          !!JS.Object.assign(
+                createObj ["renderNavigationView" ==> renderNavigationView],
+                keyValueList CaseRules.LowerFirst props),
+          children)
+
+    let inline pickerIOSItem (props:Picker.PickerIOSItemProperties list) : ReactElement =
+        createElement(
+          RN.PickerIOS.Item,
+          props, [])
+
+    let inline pickerItem<'a> (props:Picker.PickerItemProperties<'a> list) : IPickerItem<'a> =
+        unbox<IPickerItem<'a>> (createElement(RN.Picker.Item, props, []))
+
+    let inline picker (props:IPickerProperties<'a> list) (children:IPickerItem<'a> seq): ReactElement =
+        createElement(
+          RN.Picker,
+          props,
+          unbox<ReactElement seq> children)
+
+    let inline pickerIOS (props:Picker.PickerIOSProperties<'a> list) (children:ReactElement seq): ReactElement =
+        createElement(
+          RN.PickerIOS,
+          props,
+          children)
+
+    let inline progressBarAndroid (props:IProgressBarAndroidProperties list) : ReactElement =
+        createElement(
+          RN.ProgressBarAndroid,
+          props, [])
+
+    let inline progressViewIOS (props:IProgressViewIOSProperties list) : ReactElement =
+        createElement(
+          RN.ProgressViewIOS,
+          props, [])
+
+    let inline refreshControl (props:IRefreshControlProperties list) : ReactElement =
+        createElement(
+          RN.RefreshControl,
+          props, [])
+
+    let inline slider (props:ISliderProperties list) : ReactElement =
+        createElement(
+          RN.Slider,
+          props, [])
+
+    let inline switch (props:ISwitchProperties list) : ReactElement =
+        createElement(
+          RN.Switch,
+          props, [])
+
+    let inline image (props:IImageProperties list) : ReactElement =
+        createElement(
+          RN.Image,
+          props, [])
+
+    let inline imageWithChild (props: IImageProperties list) (child: ReactElement) : ReactElement =
+        createElement(
+            RN.Image,
+            props,
+            [child])
+
+    let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewProperties list)  : ReactElement =
+        createElementWithObjProps(
+          RN.ListView,
+          !!JS.Object.assign(
+                createObj ["dataSource" ==> dataSource],
+                keyValueList CaseRules.LowerFirst props), [])
+
+    let inline flatList<'a> (data:'a []) (props: IFlatListProperties<'a> list)  : ReactElement =
+        // Some of FlatList properties are upper case:
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-native/index.d.ts#L3608-L3623
+        let pascalCaseProps =
+          List.filter (function
+                       | ItemSeparatorComponent _ -> true
+                       | ListEmptyComponent _ -> true
+                       | ListFooterComponent _ -> true
+                       | ListHeaderComponent _ -> true
+                       | _ -> false)
+                       (unbox<FlatListProperties<'a> list> props)
+
+        createElementWithObjProps(
+          RN.FlatList,
+          !!JS.Object.assign(
+                createObj ["data" ==> data],
+                keyValueList CaseRules.LowerFirst props,
+                keyValueList CaseRules.None pascalCaseProps), [])
+
+    let inline sectionList<'a> (sections: SectionListData<'a> []) (props: ISectionListProperties<'a> list)  : ReactElement =
+        let pascalCaseProps =
+          List.filter (function
+                       | SectionListProperties.ItemSeparatorComponent _ -> true
+                       | SectionListProperties.ListEmptyComponent _ -> true
+                       | SectionListProperties.ListFooterComponent _ -> true
+                       | SectionListProperties.ListHeaderComponent _ -> true
+                       | SectionSeparatorComponent _ -> true
+                       | _ -> false)
+                       (unbox<SectionListProperties<'a> list> props)
+
+        createElementWithObjProps(
+          RN.SectionList,
+          !!JS.Object.assign(
+                createObj ["sections" ==> sections],
+                keyValueList CaseRules.LowerFirst props,
+                keyValueList CaseRules.None pascalCaseProps), [])
+
+    let inline mapView (props:IMapViewProperties list) (children: ReactElement seq): ReactElement =
+        createElement(
+          RN.MapView,
+          props,
+          children)
+
+    let inline modal (props:ModalProperties list) (children: ReactElement seq): ReactElement =
+        createElement(
+          RN.Modal,
+          props,
+          children)
+
+    let inline button (props:IButtonProperties list) (children: ReactElement seq) : ReactElement =
+        createElement(
+          RN.Button,
+          props,
+          children)
+
+    let inline touchableWithoutFeedback (props:ITouchableWithoutFeedbackProperties list) (children: ReactElement seq): ReactElement =
+        createElement(
+          RN.TouchableWithoutFeedback,
+          props,
+          children)
+
+    let inline touchableHighlight (props:ITouchableHighlightProperties list) (children: ReactElement seq) : ReactElement =
+        createElement(
+          RN.TouchableHighlight,
+          props,
+          children)
+
+    let inline touchableHighlightWithChild (props:ITouchableHighlightProperties list) (child: ReactElement): ReactElement =
+        createElement(
+          RN.TouchableHighlight,
+          props,
+          [child])
+
+    let inline touchableOpacity (props:ITouchableOpacityProperties list) (children: ReactElement seq): ReactElement =
+        createElement(
+          RN.TouchableOpacity,
+          props,
+          children)
+
+    let inline touchableNativeFeedback (props:ITouchableNativeFeedbackProperties list) (children: ReactElement seq): ReactElement =
+        createElement(
+          RN.TouchableNativeFeedback,
+          props,
+          children)
 
 
-let inline navigator (props:INavigatorProperties list) : React.ReactElement =
-    createElement(
-      RN.Navigator,
-      props, [])
+    let inline navigator (props:INavigatorProperties list) : ReactElement =
+        createElement(
+          RN.Navigator,
+          props, [])
 
-let inline tabBarItem (props:ITabBarItemProperties list) : React.ReactElement =
-    createElement(
-      RN.TabBarIOS.Item,
-      props, [])
+    let inline tabBarItem (props:ITabBarItemProperties list) : ReactElement =
+        createElement(
+          RN.TabBarIOS.Item,
+          props, [])
 
-let inline tabBarIOS (props:ITabBarIOSProperties list) : React.ReactElement =
-    createElement(
-      RN.TabBarIOS,
-      props, [])
+    let inline tabBarIOS (props:ITabBarIOSProperties list) : ReactElement =
+        createElement(
+          RN.TabBarIOS,
+          props, [])
 
-let inline scrollView (props:IScrollViewProperties list) (children: React.ReactElement seq) : React.ReactElement =
-    createElement(
-      RN.ScrollView,
-      props,
-      children)
+    let inline scrollView (props:IScrollViewProperties list) (children: ReactElement seq) : ReactElement =
+        createElement(
+          RN.ScrollView,
+          props,
+          children)
 
-let inline swipeableListView (props:SwipeableListViewProps<_> list) : React.ReactElement =
-    createElement(
-      RN.SwipeableListView,
-      props, [])
+    let inline swipeableListView (props:SwipeableListViewProps<_> list) : ReactElement =
+        createElement(
+          RN.SwipeableListView,
+          props, [])
 
-let inline statusBar (props:IStatusBarProperties list) : React.ReactElement =
-    createElement(
-      RN.StatusBar,
-      props, [])
+    let inline statusBar (props:IStatusBarProperties list) : ReactElement =
+        createElement(
+          RN.StatusBar,
+          props, [])
 
-let inline navigationHeader (props:INavigationHeaderProps list) (rendererProps:NavigationTransitionProps): React.ReactElement =
-    createElementWithObjProps(
-      RN.NavigationExperimental.Header,
-      !!JS.Object.assign(keyValueList CaseRules.LowerFirst props, rendererProps), [])
+    let inline navigationHeader (props:INavigationHeaderProps list) (rendererProps:NavigationTransitionProps): ReactElement =
+        createElementWithObjProps(
+          RN.NavigationExperimental.Header,
+          !!JS.Object.assign(keyValueList CaseRules.LowerFirst props, rendererProps), [])
 
-let inline navigationState (index:int) (routes:NavigationRoute list): NavigationState =
-    !!createObj ["index" ==> index
-                 "routes" ==> Array.ofList routes]
+    let inline navigationState (index:int) (routes:NavigationRoute list): NavigationState =
+        !!createObj ["index" ==> index
+                     "routes" ==> Array.ofList routes]
 
-let inline navigationRoute (key:string) (title:string option): NavigationRoute =
-    !!createObj ["key" ==> key
-                 "title" ==> title]
+    let inline navigationRoute (key:string) (title:string option): NavigationRoute =
+        !!createObj ["key" ==> key
+                     "title" ==> title]
 
-let inline navigationCardStack (navigationState: NavigationState)
-                        (renderScene: NavigationTransitionProps -> React.ReactElement)
-                        (props:INavigationCardStackProps list): React.ReactElement =
-    createElementWithObjProps(
-      RN.NavigationExperimental.CardStack,
-      !!JS.Object.assign(
-            createObj ["renderScene" ==> renderScene
-                       "navigationState" ==> navigationState],
-            keyValueList CaseRules.LowerFirst props), [])
+    let inline navigationCardStack (navigationState: NavigationState)
+                            (renderScene: NavigationTransitionProps -> ReactElement)
+                            (props:INavigationCardStackProps list): ReactElement =
+        createElementWithObjProps(
+          RN.NavigationExperimental.CardStack,
+          !!JS.Object.assign(
+                createObj ["renderScene" ==> renderScene
+                           "navigationState" ==> navigationState],
+                keyValueList CaseRules.LowerFirst props), [])
 
-let inline navigationContainer (props:NavigationContainerProps list) : React.ReactElement =
-    createElement(
-      RN.NavigationContainer,
-      props, [])
+    let inline navigationContainer (props:NavigationContainerProps list) : ReactElement =
+        createElement(
+          RN.NavigationContainer,
+          props, [])
 
-let inline navigationRootContainer (props:NavigationRootContainerProps list) : React.ReactElement =
-    createElement(
-      RN.NavigationRootContainer,
-      props, [])
+    let inline navigationRootContainer (props:NavigationRootContainerProps list) : ReactElement =
+        createElement(
+          RN.NavigationRootContainer,
+          props, [])
 
-let inline navigationBar (props:NavigationBarProperties list) : React.ReactElement =
-    createElement(
-      NavigatorStatic.Globals.NavigationBar,
-      props, [])
+    let inline navigationBar (props:NavigationBarProperties list) : ReactElement =
+        createElement(
+          NavigatorStatic.Globals.NavigationBar,
+          props, [])
 
-let inline breadcrumbNavigationBar (props:IBreadcrumbNavigationBarProperties list) : React.ReactElement =
-    createElement(
-      NavigatorStatic.Globals.BreadcrumbNavigationBar,
-      props, [])
+    let inline breadcrumbNavigationBar (props:IBreadcrumbNavigationBarProperties list) : ReactElement =
+        createElement(
+          NavigatorStatic.Globals.BreadcrumbNavigationBar,
+          props, [])
 
-let inline emptyDataSource<'a>() : ListViewDataSource<'a> =
-    !!RN.ListView.DataSource.Create(
-        !!createObj ["rowHasChanged" ==> fun r1 r2 -> r1 <> r2])
+    let inline emptyDataSource<'a>() : ListViewDataSource<'a> =
+        !!RN.ListView.DataSource.Create(
+            !!createObj ["rowHasChanged" ==> fun r1 r2 -> r1 <> r2])
 
-let inline newDataSource<'a> (elements:'a []) =
-    emptyDataSource<'a>().cloneWithRows(!!elements)
+    let inline newDataSource<'a> (elements:'a []) =
+        emptyDataSource<'a>().cloneWithRows(!!elements)
 
-let inline updateDataSource<'a> (data:'a []) (dataSource : ListViewDataSource<'a>) : ListViewDataSource<'a> =
-    dataSource.cloneWithRows(!!data)
+    let inline updateDataSource<'a> (data:'a []) (dataSource : ListViewDataSource<'a>) : ListViewDataSource<'a> =
+        dataSource.cloneWithRows(!!data)
 
-[<Import("Buffer","buffer")>]
-[<Emit("$0.from($1).toString($2)")>]
-let encode (text: string, encoding:string) : string = jsNative
+    [<Import("Buffer","buffer")>]
+    [<Emit("$0.from($1).toString($2)")>]
+    let encode (text: string, encoding:string) : string = jsNative
 
-let encodeBase64 (text: string) : string = encode(text,"base64")
-let encodeAscii (text: string) : string = encode(text,"ascii")
-
-
-[<Import("BackHandler","react-native")>]
-let private BackHandler = obj()
-
-let removeOnHardwareBackPressHandler (onHardwareBackPress: unit -> bool): unit =
-    BackHandler?removeEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
-
-let setOnHardwareBackPressHandler (onHardwareBackPress: unit -> bool): unit =
-    BackHandler?addEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
+    let encodeBase64 (text: string) : string = encode(text,"base64")
+    let encodeAscii (text: string) : string = encode(text,"ascii")
 
 
-let exitApp (): unit =
-    BackHandler?exitApp() |> ignore
+    [<Import("BackHandler","react-native")>]
+    let private BackHandler = obj()
 
-[<Import("Linking","react-native")>]
-let private Linking = obj()
+    let removeOnHardwareBackPressHandler (onHardwareBackPress: unit -> bool): unit =
+        BackHandler?removeEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
 
-/// Opens the given URL
-let openUrl (url:string) : unit =
-    Linking?openURL(url) |> ignore
+    let setOnHardwareBackPressHandler (onHardwareBackPress: unit -> bool): unit =
+        BackHandler?addEventListener("hardwareBackPress", onHardwareBackPress) |> ignore
+
+
+    let exitApp (): unit =
+        BackHandler?exitApp() |> ignore
+
+    [<Import("Linking","react-native")>]
+    let private Linking = obj()
+
+    /// Opens the given URL
+    let openUrl (url:string) : unit =
+        Linking?openURL(url) |> ignore
 
 module Alert =
     [<Import("Alert","react-native")>]
@@ -2002,8 +2004,8 @@ module NetInfo =
     [<Import("NetInfo","react-native")>]
     let private NetInfo = obj()
 
-    open Fable.Import.JS
-    open Fable.Import.Browser
+    open Fable.Core.JS
+    open Browser.Types
 
     let getConnectionType() : Promise<string> =
         !!NetInfo?fetch()
@@ -2095,7 +2097,6 @@ module Toast =
     /// Shows a toast with long duration
     let showLong (message:string) : unit =
         !!Toast?show(message,Toast?LONG)
-
 
 module Platform =
     type OS<'a> =

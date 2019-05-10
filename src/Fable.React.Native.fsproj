@@ -6,10 +6,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Fable.Import.ReactNative.fs" />
-    <Compile Include="Fable.Helpers.ReactNative.fs" />
-    <Compile Include="Fable.Import.XmlDom.fs" />
-    <Compile Include="extra/react-native-image-picker/Fable.Import.ReactNativeImagePicker.fs" />
+    <Compile Include="Fable.ReactNative.Types.fs" />
+    <Compile Include="Fable.ReactNative.fs" />
+    <Compile Include="Fable.XmlDom.fs" />
+    <!-- <Compile Include="extra/react-native-image-picker/Fable.Import.ReactNativeImagePicker.fs" />
     <Compile Include="extra/react-native-image-picker/Fable.Helpers.ReactNativeImagePicker.fs" />
     <Compile Include="extra/react-native-simple-store/Fable.Helpers.ReactNative.SimpleStore.KeyValueStore.fs" />
     <Compile Include="extra/react-native-simple-store/Fable.Helpers.ReactNative.SimpleStore.DB.fs" />
@@ -29,7 +29,7 @@
     <Compile Include="extra/react-native-modal-datetime-picker/Fable.Helpers.ReactNativeDateTimePicker.fs" />
     <Compile Include="extra/react-native-video/Fable.Import.ReactNativeVideo.fs" />
     <Compile Include="extra/react-native-video/Fable.Helpers.ReactNativeVideo.fs" />
-    <Compile Include="extra/react-native-camera/Fable.Helpers.ReactNativeCamera.fs" />
+    <Compile Include="extra/react-native-camera/Fable.Helpers.ReactNativeCamera.fs" /> -->
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.*" PackagePath="fable\" />
