@@ -1,4 +1,4 @@
-### 2.0.0-beta-010
+### 2.0.0-beta-011
 - Remove reference to PowerPack
 
 ### 2.0.0-beta-009
