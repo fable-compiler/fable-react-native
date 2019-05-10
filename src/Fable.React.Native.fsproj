@@ -20,11 +20,11 @@
     <Compile Include="extra/react-native-push-notification/Fable.Import.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Helpers.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-signature-view/Fable.Helpers.ReactNativeSignatureView.fs" />
-    <Compile Include="extra/react-native-device-info/Fable.Helpers.ReactNativeDeviceInfo.fs" />
     <Compile Include="extra/react-native-modal-datetime-picker/Fable.Helpers.ReactNativeDateTimePicker.fs" />
     <Compile Include="extra/react-native-video/Fable.Import.ReactNativeVideo.fs" />
     <Compile Include="extra/react-native-video/Fable.Helpers.ReactNativeVideo.fs" /> -->
     <Compile Include="extra/react-native-camera/Fable.ReactNativeCamera.fs" />
+    <Compile Include="extra/react-native-device-info/Fable.ReactNativeDeviceInfo.fs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="*.*" PackagePath="fable\" />
