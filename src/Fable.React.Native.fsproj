@@ -19,7 +19,6 @@
     <Compile Include="extra/react-native-popup-menu/Fable.Helpers.ReactNativePopupMenu.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Import.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Helpers.ReactNativePushNotification.fs" />
-    <Compile Include="extra/react-native-signature-pad/Fable.Helpers.ReactNativeSignaturePad.fs" />
     <Compile Include="extra/react-native-signature-view/Fable.Helpers.ReactNativeSignatureView.fs" />
     <Compile Include="extra/react-native-device-info/Fable.Helpers.ReactNativeDeviceInfo.fs" />
     <Compile Include="extra/react-native-modal-datetime-picker/Fable.Helpers.ReactNativeDateTimePicker.fs" />
