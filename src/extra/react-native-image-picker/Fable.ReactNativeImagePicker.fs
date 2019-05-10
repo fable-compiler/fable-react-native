@@ -31,8 +31,6 @@ open Props
 
 [<AutoOpen>]
 module Helpers =
-    open Props
-
     let inline showImagePicker (props: IImagePickerOptions list) f =
         IP.ImagePicker.showImagePicker(!!(keyValueList CaseRules.LowerFirst props), f)
 
