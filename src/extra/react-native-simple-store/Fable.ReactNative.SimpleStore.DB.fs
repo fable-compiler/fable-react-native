@@ -7,17 +7,17 @@ open Thoth.Json
 module Helpers =
 
     let inline toJsonWithTypeInfo value = Encode.Auto.toString(0, value)
-    let private asyncStorage: obj = importDefault "@react-native-community/async-storage"
+    let AsyncStorage: obj = importDefault "@react-native-community/async-storage"
 
     [<Literal>]
-    let private ModelsKey = "models/"
+    let ModelsKey = "models/"
     type Table<'a> = 'a[]
 
     let inline private setItem(key, s): Fable.Core.JS.Promise<unit> =
-        unbox(asyncStorage?setItem(key,s))
+        unbox(AsyncStorage?setItem(key,s))
 
     let inline private removeItem(key): Fable.Core.JS.Promise<unit> =
-        unbox(asyncStorage?removeItem key)
+        unbox(AsyncStorage?removeItem key)
 
     /// Removes all rows from the model.
     let inline clear<'a>() =
@@ -27,7 +27,7 @@ module Helpers =
 
     /// Gets or creates a new model.
     let inline private getModel<'a> (key) : Fable.Core.JS.Promise<Table<'a>> =
-        asyncStorage?getItem (key)
+        AsyncStorage?getItem (key)
         |> Promise.map (function
             | null -> [||]
             | v -> Decode.Auto.unsafeFromString v)
