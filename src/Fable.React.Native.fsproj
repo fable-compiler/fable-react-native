@@ -15,9 +15,7 @@
     <Compile Include="extra/react-native-simple-store/Fable.ReactNative.SimpleStore.DB.fs" />
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.Types.fs" />
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.fs" />
-    <!-- <Compile Include="extra/react-native-barcodescanner/Fable.Import.ReactNativeBarcodeScanner.fs" />
-    <Compile Include="extra/react-native-barcodescanner/Fable.Helpers.ReactNativeBarcodeScanner.fs" />
-    <Compile Include="extra/react-native-popup-menu/Fable.Import.ReactNativePopupMenu.fs" />
+    <!-- <Compile Include="extra/react-native-popup-menu/Fable.Import.ReactNativePopupMenu.fs" />
     <Compile Include="extra/react-native-popup-menu/Fable.Helpers.ReactNativePopupMenu.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Import.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Helpers.ReactNativePushNotification.fs" />
