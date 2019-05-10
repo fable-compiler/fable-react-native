@@ -14,7 +14,6 @@ module Helpers =
     | Time
     | DateTime
 
-
     /// Creates a DateTime picker
     let dateTimePicker 
         (props:IStyle list)
