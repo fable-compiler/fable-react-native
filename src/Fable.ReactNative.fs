@@ -400,6 +400,9 @@ module Props =
     type IScrollViewProperties =
         inherit IListViewProperties
 
+    type IAnimatedScrollViewProperties =
+        inherit IScrollViewProperties
+
     type IStatusBarProperties =
         interface end
 
@@ -433,6 +436,9 @@ module Props =
     type IImageProperties =
         interface end
 
+    type IAnimatedImageProperties =
+        inherit IImageProperties
+
     type ITouchableHighlightProperties =
         interface end
 
@@ -457,6 +463,9 @@ module Props =
 
     type ITextProperties =
         interface end
+
+    type IAnimatedTextProperties =
+        inherit ITextProperties
 
     type ITextInputProperties =
         interface end
@@ -483,6 +492,9 @@ module Props =
         inherit IStatusBarProperties
         inherit ISwitchProperties
         inherit IMapViewProperties
+
+    type IAnimatedViewProperties =
+        inherit IViewProperties
 
     type WebViewPropertiesAndroid =
         | JavaScriptEnabled of bool
@@ -760,6 +772,7 @@ module Props =
         | AllowFontScaling of bool // REQUIRED!
         | SuppressHighlighting of bool
         interface ITextProperties
+        interface IAnimatedTextProperties
 
     type TextProperties =
         | AllowFontScaling of bool
@@ -770,6 +783,7 @@ module Props =
         | TestID of string
         | Ref of Ref<Text>
         interface ITextProperties
+        interface IAnimatedTextProperties
         static member Style (style: IStyle list) : ITextProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
     module TextInput =
@@ -1096,11 +1110,13 @@ module Props =
         | OnPartialLoad of (unit -> unit)
         | OnProgress of (ImageProgressChangeEvent -> unit)
         interface IImageProperties
+        interface IAnimatedImageProperties
 
     type ImagePropertiesAndroid =
         | ResizeMethod of ResizeMethod
         | FadeDuration of float
         interface IImageProperties
+        interface IAnimatedImageProperties
 
     type ImageProperties =
         | BlurRadius of float
@@ -1115,8 +1131,8 @@ module Props =
         | TestID of string
         | Ref of Ref<Image>
         interface IImageProperties
+        interface IAnimatedImageProperties
         static member Style (style: IStyle list) : IImageProperties = !!("style", keyValueList CaseRules.LowerFirst style)
-
 
     type MapViewAnnotation =
         | Latitude of float
@@ -1346,6 +1362,7 @@ module Props =
         | RefreshControl of ReactElement
         | Ref of Ref<ScrollView>
         interface IScrollViewProperties
+        interface IAnimatedScrollViewProperties
         interface IFlatListProperties<'a>
         interface ISectionListProperties<'a>
         static member Style (style: IStyle list) : IScrollViewProperties = !!("style", keyValueList CaseRules.LowerFirst style)
@@ -1574,6 +1591,7 @@ module Props =
         interface ISectionListProperties<'a>
         interface IButtonProperties
         interface IImageProperties
+        interface IAnimatedScrollViewProperties
         interface ITouchableHighlightProperties
         interface ITouchableWithoutFeedbackProperties
         interface ITouchableNativeFeedbackProperties
@@ -1937,13 +1955,36 @@ module Helpers =
     let inline updateDataSource<'a> (data:'a []) (dataSource : ListViewDataSource<'a>) : ListViewDataSource<'a> =
         dataSource.cloneWithRows(!!data)
 
+    let inline animatedView (props: IAnimatedViewProperties list) (children: ReactElement list): ReactElement =
+        createElement(
+            Animated.Globals.View,
+            props,
+            children)
+
+    let inline animatedScrollView (props: IAnimatedScrollViewProperties list) (children: ReactElement list): ReactElement =
+        createElement(
+            Animated.Globals.ScrollView,
+            props,
+            children)
+
+    let inline animatedImage (props: IAnimatedImageProperties list) (children: ReactElement list): ReactElement =
+        createElement(
+            Animated.Globals.Image,
+            props,
+            children)
+
+    let inline animatedText (props: IAnimatedTextProperties list) (children: ReactElement list): ReactElement =
+        createElement(
+            Animated.Globals.Text,
+            props,
+            children)
+
     [<Import("Buffer","buffer")>]
     [<Emit("$0.from($1).toString($2)")>]
     let encode (text: string, encoding:string) : string = jsNative
 
     let encodeBase64 (text: string) : string = encode(text,"base64")
     let encodeAscii (text: string) : string = encode(text,"ascii")
-
 
     [<Import("BackHandler","react-native")>]
     let private BackHandler = obj()
