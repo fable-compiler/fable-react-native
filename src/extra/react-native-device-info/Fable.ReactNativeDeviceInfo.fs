@@ -1,4 +1,4 @@
-namespace Fable.Helpers.ReactNativeDeviceInfo
+namespace Fable.ReactNativeDeviceInfo
 open Fable.Core.JsInterop
 
 [<AutoOpen>]
