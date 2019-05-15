@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Version>2.0.0</Version>
-    <PackageVersion>2.0.0-beta-014</PackageVersion>
+    <PackageVersion>2.0.0-beta-015</PackageVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -16,6 +16,7 @@
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.Types.fs" />
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.fs" />
     <Compile Include="extra/react-native-maps/Fable.ReactNativeMaps.fs" />
+    <Compile Include="extra/react-native-dialog/Fable.ReactNativeDialog.fs" />
     <!-- <Compile Include="extra/react-native-popup-menu/Fable.Import.ReactNativePopupMenu.fs" />
     <Compile Include="extra/react-native-popup-menu/Fable.Helpers.ReactNativePopupMenu.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Import.ReactNativePushNotification.fs" />

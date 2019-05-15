@@ -1,4 +1,5 @@
-### 2.0.0-beta-014
+### 2.0.0-beta-015
+- Fable.ReactNativeDialog
 - Fable.ReactNativeMaps
 
 ### 2.0.0-beta-013
