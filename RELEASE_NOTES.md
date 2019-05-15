@@ -1,3 +1,6 @@
+### 2.0.0-beta-014
+- Fable.ReactNativeMaps
+
 ### 2.0.0-beta-013
 - Remove reference to PowerPack
 
