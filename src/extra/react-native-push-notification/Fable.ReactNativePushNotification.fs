@@ -1,13 +1,10 @@
 /// Contains functions for push notifications.
-module Fable.Helpers.ReactNativePushNotification
+namespace Fable.ReactNativePushNotification
 
 open Fable.Core
 open Fable.Import
-open Fable.Import.ReactNativePushNotification
-
 open Fable.Core.JsInterop
 
-type PN = ReactNativePushNotification.Globals
 
 /// Contains properties for push notifications.
 module Props =
@@ -57,22 +54,22 @@ module Props =
 
 open Props
 
-/// Contains functions for push notifications.
-module PushNotification =
+[<AutoOpen>]
+module Helpers =
 
     /// Configures the push notification system.
     let inline configure (props: IPushNotificationOptions list) =
-        PN.PushNotification?configure(keyValueList CaseRules.LowerFirst props) |> ignore
+        Globals.PushNotification?configure(keyValueList CaseRules.LowerFirst props) |> ignore
 
 
     /// Set the application badge icon number.
     /// Works natively in iOS and uses the ShortcutBadger on Android, and as such will not work on all Android devices.
     let inline setApplicationIconBadgeNumber (number:int) =
-        PN.PushNotification?setApplicationIconBadgeNumber(number) |> ignore
+        Globals.PushNotification?setApplicationIconBadgeNumber(number) |> ignore
 
     /// Sends a local push notification.
     let inline localNotification (props: ILocalPushNotificationProperties list) (message: string) =
-        PN.PushNotification?localNotification(
+        Globals.PushNotification?localNotification(
             JS.Object.assign(
                 createObj ["message" ==> message],
                 keyValueList CaseRules.LowerFirst props))
@@ -80,7 +77,7 @@ module PushNotification =
 
     /// Schedules a local push notification.
     let inline localNotificationSchedule (props: ILocalPushNotificationProperties list) (date:System.DateTime) (message: string) =
-        PN.PushNotification?localNotificationSchedule(
+        Globals.PushNotification?localNotificationSchedule(
             JS.Object.assign(
                 createObj  ["message" ==> message
                             "date" ==> date],
@@ -93,8 +90,8 @@ module PushNotification =
     ///
     /// Sample: PushNotification.cancelLocalNotifications [LocalPushNotificationProperties.Id "123"]
     let inline cancelLocalNotifications (details: ILocalPushNotificationProperties list) =
-        PN.PushNotification?cancelLocalNotifications(keyValueList CaseRules.LowerFirst details) |> ignore
+        Globals.PushNotification?cancelLocalNotifications(keyValueList CaseRules.LowerFirst details) |> ignore
 
     /// Cancels all scheduled notifications and clears the notifications alerts that are in the notification centre.
     let inline cancelAllLocalNotifications () =
-        PN.PushNotification?cancelAllLocalNotifications() |> ignore
+        Globals.PushNotification?cancelAllLocalNotifications() |> ignore
