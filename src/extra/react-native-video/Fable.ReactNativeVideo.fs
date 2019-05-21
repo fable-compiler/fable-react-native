@@ -1,12 +1,8 @@
-module Fable.Helpers.ReactNativeVideo
+namespace Fable.ReactNativeVideo
 
-open System
-open Fable.Core
-open Fable.Core.JsInterop
-open Fable.Import
-open Fable.Import.ReactNativeVideo
-module RN = Fable.Helpers.ReactNative
-type RNV = ReactNativeVideo.Globals
+open Fable.ReactNative.Props
+
+module RN = Fable.ReactNative.Helpers
 
 module Props =
     type VideoSource = { uri : string; mainVer : float; patchVer : float }
@@ -33,13 +29,14 @@ module Props =
         | OnError of (unit->unit)
         | OnBuffer of (unit->unit)
         | OnTimedMetadata of (unit->unit)
-        | Style of RN.Props.IStyle list
-        | Ref of RN.Ref<Video>
+        | Style of IStyle list
+        | Ref of Ref<Video>
             interface IVideoProperties
 
 open Props
+open Fable.React
 
-let inline video (props:IVideoProperties list) : React.ReactElement =
-    RN.createElement(
-      RNV.Video,
-        props, [])
+[<AutoOpen>]
+module Helpers =
+    let inline video (props:IVideoProperties list) : ReactElement =
+        RN.createElement(Globals.Video, props, [])
