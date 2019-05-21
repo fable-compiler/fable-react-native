@@ -17,9 +17,9 @@
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.fs" />
     <Compile Include="extra/react-native-maps/Fable.ReactNativeMaps.fs" />
     <Compile Include="extra/react-native-dialog/Fable.ReactNativeDialog.fs" />
-    <!-- <Compile Include="extra/react-native-popup-menu/Fable.Import.ReactNativePopupMenu.fs" />
-    <Compile Include="extra/react-native-popup-menu/Fable.Helpers.ReactNativePopupMenu.fs" />
-    <Compile Include="extra/react-native-push-notification/Fable.Import.ReactNativePushNotification.fs" />
+    <Compile Include="extra/react-native-popup-menu/Fable.ReactNativePopupMenu.Types.fs" />
+    <Compile Include="extra/react-native-popup-menu/Fable.ReactNativePopupMenu.fs" />
+    <!-- <Compile Include="extra/react-native-push-notification/Fable.Import.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-push-notification/Fable.Helpers.ReactNativePushNotification.fs" />
     <Compile Include="extra/react-native-video/Fable.Import.ReactNativeVideo.fs" />
     <Compile Include="extra/react-native-video/Fable.Helpers.ReactNativeVideo.fs" /> -->

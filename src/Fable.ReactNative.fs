@@ -1645,7 +1645,10 @@ module Helpers =
     let inline createElement(c: ReactElementType<'T>, props: 'P list, children: ReactElement seq) =
         ReactBindings.React.createElement (c, keyValueList CaseRules.LowerFirst props, children)
 
-    let inline internal createElementWithObjProps(c: ReactElementType<'T>, props: obj, children: ReactElement seq) =
+    let inline createElementWithBaseProps(c: ReactElementType<'T>, baseProps: (string*obj) list, props: 'P list, children: ReactElement seq) =
+        ReactBindings.React.createElement(c, JS.Object.assign(createObj baseProps, keyValueList CaseRules.LowerFirst props), children)
+
+    let inline internal createElementWithObjProps(c: ReactElementType, props: obj, children: ReactElement seq) =
         ReactBindings.React.createElement (c, props, children)
 
     let inline text (props:ITextProperties list) (text:string): ReactElement =
