@@ -1,4 +1,4 @@
-### 2.0.0-beta016
+### 2.0.0
 - Converted to Fable Core 3
 - Fable.ReactNativeDialog
 - Fable.ReactNativeMaps
