@@ -1,3 +1,6 @@
+### 2.0.2
+- Fixed Dialog
+
 ### 2.0.1
 - Fixed Camera and Barcode scanner
 

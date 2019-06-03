@@ -42,9 +42,9 @@ type ContainerProperties =
 type IExports = 
     abstract Title : ReactElementType<obj>
     abstract Description : ReactElementType<obj>
-    abstract Container : ReactElementType<IContainerProperties list>
-    abstract Button : ReactElementType<IButtonProperties list>
-    abstract Input : ReactElementType<IInputProperties list>
+    abstract Container : ReactElementType<obj>
+    abstract Button : ReactElementType<obj>
+    abstract Input : ReactElementType<obj>
 
 [<AutoOpen>]
 module Helpers =
@@ -63,10 +63,10 @@ module Helpers =
         ReactElementType.create Dialog.Description description [ str text ]
 
     let button (props:IButtonProperties list) : ReactElement =
-        ReactElementType.create Dialog.Button props []
+        ReactElementType.create Dialog.Button (keyValueList CaseRules.LowerFirst props) []
 
     let input (props:IInputProperties list) : ReactElement =
-        ReactElementType.create Dialog.Input props []
+        ReactElementType.create Dialog.Input (keyValueList CaseRules.LowerFirst props) []
 
     let container (props:IContainerProperties list) (children) : ReactElement =
-        ReactElementType.create Dialog.Container props children
+        ReactElementType.create Dialog.Container (keyValueList CaseRules.LowerFirst props) children
