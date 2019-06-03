@@ -58,4 +58,4 @@ module Helpers =
                 additionalProps,
                 keyValueList CaseRules.LowerFirst props)
 
-        ofImport "default" "react-native-camera" props children
+        ofImport "RNCamera" "react-native-camera" props children

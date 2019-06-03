@@ -1,3 +1,6 @@
+### 2.0.1
+- Fixed Camera and Barcode scanner
+
 ### 2.0.0
 - Converted to Fable Core 3
 - Fable.ReactNativeDialog
