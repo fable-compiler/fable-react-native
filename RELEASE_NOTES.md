@@ -1,3 +1,6 @@
+### 2.0.3
+- Fixed DatePicker
+
 ### 2.0.2
 - Fixed Dialog
 

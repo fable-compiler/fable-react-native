@@ -26,7 +26,7 @@ module Helpers =
             createObj
                 ["onConfirm" ==> dateChangedF
                  "onCancel" ==> cancelledF
-                 "date" ==> initialDate.Date
+                 "date" ==> initialDate
                  "mode" ==> 
                     match mode with 
                     | DateTimePickerMode.Date -> "date"
