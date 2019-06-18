@@ -286,3 +286,4 @@ __pycache__/
 *.xsd.cs
 /release.cmd
 *.orig
+/.ionide/

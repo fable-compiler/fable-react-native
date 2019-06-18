@@ -1,3 +1,6 @@
+### 2.0.4
+- Fixed Map
+
 ### 2.0.3
 - Fixed DatePicker
 

@@ -154,14 +154,14 @@ module Helpers =
 
 
     let mapView (props:IMapViewProperties list) (children) : ReactElement =
-        ofImport "default" "react-native-maps" props children
+        ofImport "default" "react-native-maps" (keyValueList CaseRules.LowerFirst props) children
 
 
     let circle (props:ICircleProperties list) : ReactElement =
-        ofImport "Circle" "react-native-maps" props []
+        ofImport "Circle" "react-native-maps" (keyValueList CaseRules.LowerFirst props) []
 
     let callout (props:ICalloutProperties list) (children) : ReactElement =
-        ofImport "Callout" "react-native-maps" props children
+        ofImport "Callout" "react-native-maps" (keyValueList CaseRules.LowerFirst props) children
 
     let marker (props:IMarkerProperties list) (children) : ReactElement =
-        ofImport "Marker" "react-native-maps" props children
+        ofImport "Marker" "react-native-maps" (keyValueList CaseRules.LowerFirst props) children
