@@ -1,3 +1,6 @@
+### 2.0.5
+- Add NPM dependency
+
 ### 2.0.4
 - Fixed Map
 
