@@ -1,3 +1,6 @@
+### 2.0.6
+- Fixed GoogleMaps properties
+
 ### 2.0.5
 - Add NPM dependency
 

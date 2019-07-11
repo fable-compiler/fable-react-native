@@ -10,7 +10,7 @@ type Region =
     class end
     with
 
-        static member Create(latitude:float,longitude:float,latitudeDelta:float,longitudeDelta:float) : Region =        
+        static member Create(latitude:float,longitude:float,latitudeDelta:float,longitudeDelta:float) : Region =
             createObj
                 [ "latitude" ==> latitude
                   "longitude" ==> longitude
@@ -41,8 +41,8 @@ type MapViewProperties =
     | ShowsIndoorLevelPicker of bool
     | ZoomEnabled of bool
     | ZoomControlEnabled of bool
-    | MinZoomLevel of bool
-    | MaxZoomLevel of bool
+    | MinZoomLevel of int
+    | MaxZoomLevel of int
     | RotateEnabled of bool
     | ScrollEnabled of bool
     | PitchEnabled of bool
@@ -103,10 +103,10 @@ type MarkerColor =
     | Aqua
     | Violet
     | Indigo
-    with 
+    with
         override this.ToString() =
             match this with
-            | Red -> "red" 
+            | Red -> "red"
             | Tomato -> "tomato"
             | Orange -> "orange"
             | Yellow -> "yellow"
@@ -138,8 +138,8 @@ module Helpers =
 
     let getPosition (options: obj) : Fable.Core.JS.Promise<obj> = importMember "./location.js"
 
-    
-    let getGeoPosition () = 
+
+    let getGeoPosition () =
         promise {
             let! pos = getPosition()
             let (c:GeoCoordinates) = pos?coords |> unbox
