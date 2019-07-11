@@ -136,9 +136,9 @@ type MarkerProperties =
     | Key of string
     | Identifier of string
     | Coordinate of GeoCoordinates
-    | OnDragStart of DragPosition
-    | OnDrag of DragPosition
-    | OnDragEnd of DragPosition
+    | OnDragStart of (DragPosition -> unit)
+    | OnDrag of (DragPosition -> unit)
+    | OnDragEnd of (DragPosition -> unit)
     | Draggable
     | Title of string
     | Description of string
