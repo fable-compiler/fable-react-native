@@ -1,3 +1,6 @@
+### 2.0.7
+- Draggable Markers
+
 ### 2.0.6
 - Fixed GoogleMaps properties
 

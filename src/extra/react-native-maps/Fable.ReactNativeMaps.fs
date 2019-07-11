@@ -67,6 +67,14 @@ type GeoCoordinates =
     abstract latitude: float with get, set
     abstract longitude: float with get, set
 
+type Point =
+    abstract x: float with get, set
+    abstract y: float with get, set
+
+type DragPosition =
+    abstract coordinate: GeoCoordinates with get, set
+    abstract posiiton: Point with get, set
+
 type ICalloutProperties =
     interface end
 
@@ -128,6 +136,10 @@ type MarkerProperties =
     | Key of string
     | Identifier of string
     | Coordinate of GeoCoordinates
+    | OnDragStart of DragPosition
+    | OnDrag of DragPosition
+    | OnDragEnd of DragPosition
+    | Draggable
     | Title of string
     | Description of string
     | PinColor of string
