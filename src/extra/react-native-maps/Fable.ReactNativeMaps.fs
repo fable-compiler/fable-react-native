@@ -75,6 +75,9 @@ type DragPosition =
     abstract coordinate: GeoCoordinates with get, set
     abstract posiiton: Point with get, set
 
+type DragPositionEvent =
+    abstract nativeEvent: DragPosition with get
+
 type ICalloutProperties =
     interface end
 
@@ -136,9 +139,9 @@ type MarkerProperties =
     | Key of string
     | Identifier of string
     | Coordinate of GeoCoordinates
-    | OnDragStart of (DragPosition -> unit)
-    | OnDrag of (DragPosition -> unit)
-    | OnDragEnd of (DragPosition -> unit)
+    | OnDragStart of (DragPositionEvent -> unit)
+    | OnDrag of (DragPositionEvent -> unit)
+    | OnDragEnd of (DragPositionEvent -> unit)
     | Draggable
     | Title of string
     | Description of string
