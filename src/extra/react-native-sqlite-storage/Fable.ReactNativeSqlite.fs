@@ -62,7 +62,7 @@ type [<AllowNullLiteral>] StatementErrorCallback =
     [<Emit "$0($1...)">] abstract Invoke: transaction: Transaction * error: SQLError -> unit
 
 type [<AllowNullLiteral>] Transaction =
-    abstract executeSql: sqlStatement: string * ?arguments: obj [] -> Promise<Transaction * ResultSet>
+    abstract executeSql: sqlStatement: string * ?arguments: obj [] -> Transaction * SqlResults
 
 type [<AllowNullLiteral>] TransactionCallback =
     [<Emit "$0($1...)">] abstract Invoke: transaction: Transaction -> unit
