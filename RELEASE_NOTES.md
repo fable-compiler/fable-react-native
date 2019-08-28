@@ -1,3 +1,6 @@
+### 2.1.0
+- Support for react-native-fs
+
 ### 2.0.9
 - Draggable Markers
 
