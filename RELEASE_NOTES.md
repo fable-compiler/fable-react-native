@@ -1,3 +1,6 @@
+### 2.2.3
+- TestID for TouchableHighlight
+
 ### 2.2.2
 - Support for react-native-sqlite-storage
 
