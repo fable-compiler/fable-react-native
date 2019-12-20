@@ -840,6 +840,7 @@ module Props =
             | ContentInsetEnd of float
             | ContentInsetStart of float
             | Logo of IImageSource
+            | OnActionSelected of (int -> unit)
             | NavIcon of IImageSource
             | OnIconClicked of (unit -> unit)
             | OverflowIcon of IImageSource
@@ -1675,12 +1676,11 @@ module Helpers =
             "show" ==> showStatus
         ]
 
-    let inline toolbarAndroid (props:IToolbarAndroidProperties list) (onActionSelected:int -> unit) : ReactElement =
-        createElementWithObjProps(
+    let inline toolbarAndroid (props:IToolbarAndroidProperties list)  : ReactElement =
+        createElement(
             RN.ToolbarAndroid,
-            !!JS.Object.assign(
-                createObj ["onActionSelected" ==> onActionSelected],
-                keyValueList CaseRules.LowerFirst props), [])
+            props,
+            [])
 
     let inline keyboardAvoidingView (props:IKeyboardAvoidingViewProps list) (children: ReactElement seq): ReactElement =
         createElement(

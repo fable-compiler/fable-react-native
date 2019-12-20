@@ -1,3 +1,6 @@
+### 2.3.0
+- BREAKING: Put onActionSelected into properties of ToolbarAndroid
+
 ### 2.2.4
 - Fixing DeviceInfo
 
