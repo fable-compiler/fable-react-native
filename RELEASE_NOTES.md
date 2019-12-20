@@ -1,3 +1,6 @@
+### 2.2.4
+- Fixing DeviceInfo
+
 ### 2.2.3
 - TestID for TouchableHighlight
 

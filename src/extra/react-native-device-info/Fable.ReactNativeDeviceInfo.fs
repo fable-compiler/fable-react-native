@@ -29,7 +29,6 @@ module Helpers =
     let getBundleId () : string =
         deviceInfo?getBundleId() |> unbox
 
-
     /// Gets the carrier name (network operator).
     let getCarrier () : string =
         deviceInfo?getCarrier() |> unbox
@@ -38,7 +37,6 @@ module Helpers =
     /// Gets the device country based on the locale information.
     let getDeviceCountry () : string =
         deviceInfo?getDeviceCountry() |> unbox
-
 
     /// Gets the device ID.
     let getDeviceId () : string =
@@ -56,14 +54,13 @@ module Helpers =
     let getFirstInstallTime () : int64 =
         deviceInfo?getFirstInstallTime() |> unbox
 
-    /// Gets the device font scale. 
-    /// The font scale is the ratio of the current system font to the "normal" font size, 
+    /// Gets the device font scale.
+    /// The font scale is the ratio of the current system font to the "normal" font size,
     /// so if normal text is 10pt and the system font is currently 15pt, the font scale would be 1.5
-    /// This can be used to determine if accessability settings has been changed for the device; 
+    /// This can be used to determine if accessability settings has been changed for the device;
     /// you may want to re-layout certain views if the font scale is significantly larger ( > 2.0 )
     let getFontScale () : float =
         deviceInfo?getFontScale() |> unbox
-
 
     /// Gets available storage size, in bytes.
     let getFreeDiskStorage () : int64 =
@@ -102,7 +99,6 @@ module Helpers =
     let getModel () : string =
         deviceInfo?getModel() |> unbox
 
-
     /// Gets the device phone number.
     ///
     /// Needs android.permission.READ_PHONE_STATE
@@ -125,7 +121,6 @@ module Helpers =
     let getSystemVersion () : string =
         deviceInfo?getSystemVersion() |> unbox
 
-
     /// Gets the device default timezone.
     let getTimezone () : string =
         deviceInfo?getTimezone() |> unbox
@@ -140,13 +135,11 @@ module Helpers =
 
     /// Gets the device unique ID.
     let getUniqueID () : string =
-        deviceInfo?getUniqueID() |> unbox
-
+        deviceInfo?getUniqueId() |> unbox
 
     /// Gets the device User Agent.
     let getUserAgent () : string =
         deviceInfo?getUserAgent() |> unbox
-
 
     /// Gets the application version.
     let getVersion () : string =
