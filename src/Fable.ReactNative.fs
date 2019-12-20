@@ -979,6 +979,7 @@ module Props =
         type PickerItemProperties<'a> =
             | Label of string // REQUIRED!
             | Value of 'a
+            | Key of string
             | Color of string
             | TestID of string
 
@@ -1232,7 +1233,7 @@ module Props =
         interface ITouchableWithoutFeedbackProperties
         static member Style (style: IStyle list) : ITouchableWithoutFeedbackProperties = !!("style", keyValueList CaseRules.LowerFirst style)
 
-    type TouchableHighlightProperties =    
+    type TouchableHighlightProperties =
         | TestID of string
         | ActiveOpacity of float
         | OnHideUnderlay of (unit -> unit)
