@@ -2351,7 +2351,7 @@ type Globals =
     [<Import("TabBarIOS", "react-native")>] static member TabBarIOS with get(): TabBarIOSStatic = jsNative and set(v: TabBarIOSStatic): unit = jsNative
     [<Import("Text", "react-native")>] static member Text with get(): TextStatic = jsNative and set(v: TextStatic): unit = jsNative
     [<Import("TextInput", "react-native")>] static member TextInput with get(): TextInputStatic = jsNative and set(v: TextInputStatic): unit = jsNative
-    [<Import("ToolbarAndroid", "react-native")>] static member ToolbarAndroid with get(): ToolbarAndroidStatic = jsNative and set(v: ToolbarAndroidStatic): unit = jsNative
+    [<Import("ToolbarAndroid", "@react-native-community/toolbar-android")>] static member ToolbarAndroid with get(): ToolbarAndroidStatic = jsNative and set(v: ToolbarAndroidStatic): unit = jsNative
     [<Import("TouchableHighlight", "react-native")>] static member TouchableHighlight with get(): TouchableHighlightStatic = jsNative and set(v: TouchableHighlightStatic): unit = jsNative
     [<Import("Button", "react-native")>] static member Button with get(): ButtonStatic = jsNative and set(v: ButtonStatic): unit = jsNative
     [<Import("TouchableNativeFeedback", "react-native")>] static member TouchableNativeFeedback with get(): TouchableNativeFeedbackStatic = jsNative and set(v: TouchableNativeFeedbackStatic): unit = jsNative

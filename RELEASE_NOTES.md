@@ -1,3 +1,6 @@
+### 2.4.0
+- BREAKING: use ToolbarAndroid from @react-native-community/toolbar-android
+
 ### 2.3.0
 - BREAKING: Put onActionSelected into properties of ToolbarAndroid
 
