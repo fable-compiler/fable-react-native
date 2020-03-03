@@ -1,4 +1,4 @@
-### 2.4.0
+### 2.4.1
 - BREAKING: use ToolbarAndroid from @react-native-community/toolbar-android
 
 ### 2.3.0
