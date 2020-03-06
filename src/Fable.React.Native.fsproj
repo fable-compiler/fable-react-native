@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version>2.4.1</Version>
-    <PackageVersion>2.4.1</PackageVersion>
+    <Version>2.5.0</Version>
+    <PackageVersion>2.5.0</PackageVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -26,7 +26,6 @@
     <Compile Include="extra/react-native-video/Fable.ReactNativeVideo.Types.fs" />
     <Compile Include="extra/react-native-video/Fable.ReactNativeVideo.fs" />
     <Compile Include="extra/react-native-camera/Fable.ReactNativeCamera.fs" />
-    <Compile Include="extra/react-native-device-info/Fable.ReactNativeDeviceInfo.fs" />
     <Compile Include="extra/react-native-modal-datetime-picker/Fable.ReactNativeDateTimePicker.fs" />
     <Compile Include="extra/react-native-signature-view/Fable.ReactNativeSignatureView.fs" />
   </ItemGroup>

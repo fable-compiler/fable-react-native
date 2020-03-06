@@ -1,3 +1,6 @@
+### 2.5.0
+- BREAKING: Deprecating Fable.ReactNativeDeviceInfo. Please use https://github.com/martinmoec/Fable.ReactNative.DeviceInfo
+
 ### 2.4.1
 - BREAKING: use ToolbarAndroid from @react-native-community/toolbar-android
 
