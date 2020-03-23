@@ -1,4 +1,4 @@
-### 2.5.1
+### 2.6.0
 - BREAKING: use NetInfo from react-native-netinfo
 
 ### 2.5.0
