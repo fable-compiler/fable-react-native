@@ -2047,7 +2047,7 @@ module Alert =
         )
 
 module NetInfo =
-    [<Import("NetInfo","react-native")>]
+    [<Import("NetInfo","react-native-netinfo")>]
     let private NetInfo = obj()
 
     open Fable.Core.JS

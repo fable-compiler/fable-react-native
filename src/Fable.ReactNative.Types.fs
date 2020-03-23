@@ -2374,7 +2374,7 @@ type Globals =
     [<Import("KeyboardAvoidingView", "react-native")>] static member KeyboardAvoidingView with get(): KeyboardAvoidingViewStatic = jsNative and set(v: KeyboardAvoidingViewStatic): unit = jsNative
     [<Import("Linking", "react-native")>] static member Linking with get(): LinkingStatic = jsNative and set(v: LinkingStatic): unit = jsNative
     [<Import("LinkingIOS", "react-native")>] static member LinkingIOS with get(): LinkingIOSStatic = jsNative and set(v: LinkingIOSStatic): unit = jsNative
-    [<Import("NetInfo", "react-native")>] static member NetInfo with get(): NetInfoStatic = jsNative and set(v: NetInfoStatic): unit = jsNative
+    [<Import("NetInfo", "react-native-netinfo")>] static member NetInfo with get(): NetInfoStatic = jsNative and set(v: NetInfoStatic): unit = jsNative
     [<Import("PanResponder", "react-native")>] static member PanResponder with get(): PanResponderStatic = jsNative and set(v: PanResponderStatic): unit = jsNative
     [<Import("PushNotificationIOS", "react-native")>] static member PushNotificationIOS with get(): PushNotificationIOSStatic = jsNative and set(v: PushNotificationIOSStatic): unit = jsNative
     [<Import("StatusBarIOS", "react-native")>] static member StatusBarIOS with get(): StatusBarIOSStatic = jsNative and set(v: StatusBarIOSStatic): unit = jsNative

@@ -1,3 +1,6 @@
+### 2.5.1
+- BREAKING: use NetInfo from react-native-netinfo
+
 ### 2.5.0
 - BREAKING: Deprecating Fable.ReactNativeDeviceInfo. Please use https://github.com/martinmoec/Fable.ReactNative.DeviceInfo
 
