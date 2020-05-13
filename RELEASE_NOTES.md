@@ -1,3 +1,6 @@
+### 2.6.1
+- Added disabled property for Buttons
+
 ### 2.6.0
 - BREAKING: use NetInfo from react-native-netinfo
 

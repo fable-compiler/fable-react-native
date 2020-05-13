@@ -11,6 +11,7 @@ type IButtonProperties =
 [<RequireQualifiedAccess>]
 type ButtonProperties =
     | Label of string
+    | Disabled of bool
     | OnPress of (unit -> unit)
     | Color of string
         interface IButtonProperties
@@ -39,7 +40,7 @@ type ContainerProperties =
         static member FooterStyle (style: IStyle list) : IContainerProperties = !!("footerStyle", keyValueList CaseRules.LowerFirst style)
         static member ButtonSeparatorStyle (style: IStyle list) : IContainerProperties = !!("buttonSeparatorStyle", keyValueList CaseRules.LowerFirst style)
 
-type IExports = 
+type IExports =
     abstract Title : ReactElementType<obj>
     abstract Description : ReactElementType<obj>
     abstract Container : ReactElementType<obj>
