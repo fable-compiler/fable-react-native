@@ -7,9 +7,9 @@ open Fable.Import
 
 [<AutoOpen>]
 module Helpers =
-    
-    [<Import("default","react-native-fs")>]
-    let private fileSystem = obj()
+
+    [<Import("default", "react-native-fs")>]
+    let private fileSystem = obj ()
 
     /// Result of the <c>stat</c> function.
     type IStatResult =
@@ -46,10 +46,11 @@ module Helpers =
         abstract IsDirectory: unit -> bool
 
     /// Delete a single file or a directory recursively.
-    let deleteFile (uri:string) : unit = fileSystem?unlink(uri) |> ignore
+    let deleteFile (uri: string): unit = fileSystem?unlink uri |> ignore
 
     /// Get content of file in Base64 encoding.
-    let getBase64File (uri:string) : JS.Promise<string> = fileSystem?readFile(uri,"base64") |> unbox
+    let getBase64File (uri: string): JS.Promise<string> =
+        fileSystem?readFile (uri, "base64") |> unbox
 
     /// Stat the item at <c>uri</c>.
     let stat (uri: string): JS.Promise<IStatResult> = fileSystem?stat uri
