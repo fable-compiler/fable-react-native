@@ -6,14 +6,13 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Fable.React
 open Fable.ReactNative.Types
-open Thoth.Json
 
 type RN = ReactNative.Types.Globals
 
 type Ref<'t> = ('t -> unit)
 
 module Props =
-
+  
     type ShadowOffset =
       { width: float
         height: float }
@@ -1638,7 +1637,7 @@ module Helpers =
                           props
 
         unbox<SectionListData<'a>>
-          (JS.Object.assign(
+          (JS.Constructors.Object.assign(
             createObj ["data" ==> data],
             keyValueList CaseRules.LowerFirst camelCaseProps,
             keyValueList CaseRules.None pascalCaseProps,
@@ -1649,7 +1648,7 @@ module Helpers =
         ReactBindings.React.createElement (c, keyValueList CaseRules.LowerFirst props, children)
 
     let inline createElementWithBaseProps(c: ReactElementType<'T>, baseProps: (string*obj) list, props: 'P list, children: ReactElement seq) =
-        ReactBindings.React.createElement(c, JS.Object.assign(createObj baseProps, keyValueList CaseRules.LowerFirst props), children)
+        ReactBindings.React.createElement(c, JS.Constructors.Object.assign(createObj baseProps, keyValueList CaseRules.LowerFirst props), children)
 
     let inline internal createElementWithObjProps(c: ReactElementType, props: obj, children: ReactElement seq) =
         ReactBindings.React.createElement (c, props, children)
@@ -1722,7 +1721,7 @@ module Helpers =
     let inline drawerLayoutAndroid (props:IDrawerLayoutAndroidProperties list) (renderNavigationView: unit -> ReactElement) (children: ReactElement seq): ReactElement =
         createElementWithObjProps(
           RN.DrawerLayoutAndroid,
-          !!JS.Object.assign(
+          !!JS.Constructors.Object.assign(
                 createObj ["renderNavigationView" ==> renderNavigationView],
                 keyValueList CaseRules.LowerFirst props),
           children)
@@ -1786,7 +1785,7 @@ module Helpers =
     let inline listView<'a> (dataSource:ListViewDataSource<'a>) (props: IListViewProperties list)  : ReactElement =
         createElementWithObjProps(
           RN.ListView,
-          !!JS.Object.assign(
+          !!JS.Constructors.Object.assign(
                 createObj ["dataSource" ==> dataSource],
                 keyValueList CaseRules.LowerFirst props), [])
 
@@ -1804,7 +1803,7 @@ module Helpers =
 
         createElementWithObjProps(
           RN.FlatList,
-          !!JS.Object.assign(
+          !!JS.Constructors.Object.assign(
                 createObj ["data" ==> data],
                 keyValueList CaseRules.LowerFirst props,
                 keyValueList CaseRules.None pascalCaseProps), [])
@@ -1822,7 +1821,7 @@ module Helpers =
 
         createElementWithObjProps(
           RN.SectionList,
-          !!JS.Object.assign(
+          !!JS.Constructors.Object.assign(
                 createObj ["sections" ==> sections],
                 keyValueList CaseRules.LowerFirst props,
                 keyValueList CaseRules.None pascalCaseProps), [])
@@ -1910,7 +1909,7 @@ module Helpers =
     let inline navigationHeader (props:INavigationHeaderProps list) (rendererProps:NavigationTransitionProps): ReactElement =
         createElementWithObjProps(
           RN.NavigationExperimental.Header,
-          !!JS.Object.assign(keyValueList CaseRules.LowerFirst props, rendererProps), [])
+          !!JS.Constructors.Object.assign(keyValueList CaseRules.LowerFirst props, rendererProps), [])
 
     let inline navigationState (index:int) (routes:NavigationRoute list): NavigationState =
         !!createObj ["index" ==> index
@@ -1925,7 +1924,7 @@ module Helpers =
                             (props:INavigationCardStackProps list): ReactElement =
         createElementWithObjProps(
           RN.NavigationExperimental.CardStack,
-          !!JS.Object.assign(
+          !!JS.Constructors.Object.assign(
                 createObj ["renderScene" ==> renderScene
                            "navigationState" ==> navigationState],
                 keyValueList CaseRules.LowerFirst props), [])
@@ -2042,7 +2041,7 @@ module Alert =
 
     let confirm (title:string,message:string,cancelText:string,okText:string) =
         Promise.create(fun onSuccess onError ->
-            let onError() = onError(new Exception("Cancelled"))
+            let onError() = onError(Exception("Cancelled"))
             alertWithTwoButtons (title,message,cancelText,onError,okText,onSuccess)
         )
 

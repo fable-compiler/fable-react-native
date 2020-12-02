@@ -70,7 +70,7 @@ module Helpers =
     /// Sends a local push notification.
     let inline localNotification (props: ILocalPushNotificationProperties list) (message: string) =
         Globals.PushNotification?localNotification(
-            JS.Object.assign(
+            JS.Constructors.Object.assign(
                 createObj ["message" ==> message],
                 keyValueList CaseRules.LowerFirst props))
         |> ignore
@@ -78,7 +78,7 @@ module Helpers =
     /// Schedules a local push notification.
     let inline localNotificationSchedule (props: ILocalPushNotificationProperties list) (date:System.DateTime) (message: string) =
         Globals.PushNotification?localNotificationSchedule(
-            JS.Object.assign(
+            JS.Constructors.Object.assign(
                 createObj  ["message" ==> message
                             "date" ==> date],
                 keyValueList CaseRules.LowerFirst props))

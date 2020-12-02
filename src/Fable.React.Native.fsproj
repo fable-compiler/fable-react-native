@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Version>2.6.1</Version>
     <PackageVersion>2.6.1</PackageVersion>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -11,8 +11,6 @@
     <Compile Include="Fable.XmlDom.fs" />
     <Compile Include="extra/react-native-image-picker/Fable.ReactNativeImagePicker.Types.fs" />
     <Compile Include="extra/react-native-image-picker/Fable.ReactNativeImagePicker.fs" />
-    <Compile Include="extra/react-native-simple-store/Fable.ReactNative.SimpleStore.KeyValueStore.fs" />
-    <Compile Include="extra/react-native-simple-store/Fable.ReactNative.SimpleStore.DB.fs" />
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.Types.fs" />
     <Compile Include="extra/react-native-image-resizer/Fable.ReactNativeImageResizer.fs" />
     <Compile Include="extra/react-native-maps/Fable.ReactNativeMaps.fs" />
