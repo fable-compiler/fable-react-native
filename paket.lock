@@ -1,91 +1,50 @@
 STORAGE: NONE
 NUGET
   remote: https://www.nuget.org/api/v2
-    Fable.Browser.Blob (1.0) - restriction: >= netstandard2.0
+    Fable.Browser.Blob (1.1) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
-      FSharp.Core (>= 4.5.2) - restriction: >= netstandard2.0
-    Fable.Browser.Dom (1.0) - restriction: >= netstandard2.0
-      Fable.Browser.Blob (>= 1.0) - restriction: >= netstandard2.0
-      Fable.Browser.Event (>= 1.0) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
+    Fable.Browser.Dom (2.2) - restriction: >= netstandard2.0
+      Fable.Browser.Blob (>= 1.1) - restriction: >= netstandard2.0
+      Fable.Browser.Event (>= 1.2.1) - restriction: >= netstandard2.0
       Fable.Browser.WebStorage (>= 1.0) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
-      FSharp.Core (>= 4.5.2) - restriction: >= netstandard2.0
-    Fable.Browser.Event (1.0) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.7.2) - restriction: >= netstandard2.0
+    Fable.Browser.Event (1.2.1) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
-      FSharp.Core (>= 4.5.2) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
     Fable.Browser.WebStorage (1.0) - restriction: >= netstandard2.0
       Fable.Browser.Event (>= 1.0) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.5.2) - restriction: >= netstandard2.0
     Fable.Core (3.1.6)
       FSharp.Core (>= 4.7.1) - restriction: >= netstandard2.0
-    Fable.Promise (2.0)
-      Fable.Core (>= 3.0) - restriction: >= netstandard2.0
-      FSharp.Core (>= 4.5.2) - restriction: >= netstandard2.0
-    Fable.React (5.2.3)
-      Fable.Browser.Dom (>= 1.0) - restriction: >= netstandard2.0
-      Fable.Core (>= 3.0) - restriction: >= netstandard2.0
-      FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
-    FSharp.Core (5.0)
+    Fable.Promise (2.1)
+      Fable.Core (>= 3.1.5) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
+    Fable.React (7.2)
+      Fable.Browser.Dom (>= 2.0.1) - restriction: >= netstandard2.0
+      Fable.Core (>= 3.1.5) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.7.2) - restriction: >= netstandard2.0
+    FSharp.Core (5.0) - restriction: >= netstandard2.0
 
 GROUP Build
 RESTRICTION: == net46
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (5.8.4)
-    Fake.Core.Context (5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.Core.Environment (5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.Core.FakeVar (5.13.5)
-      Fake.Core.Context (>= 5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.Core.Process (5.13.5)
-      Fake.Core.Environment (>= 5.13.5)
-      Fake.Core.FakeVar (>= 5.13.5)
-      Fake.Core.String (>= 5.13.5)
-      Fake.Core.Trace (>= 5.13.5)
-      Fake.IO.FileSystem (>= 5.13.5)
-      FSharp.Core (>= 4.3.4)
-      System.Diagnostics.Process (>= 4.3)
-    Fake.Core.ReleaseNotes (5.13.5)
-      Fake.Core.SemVer (>= 5.13.5)
-      Fake.Core.String (>= 5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.Core.SemVer (5.13.5)
-      FSharp.Core (>= 4.3.4)
-      System.Runtime.Numerics (>= 4.3)
-    Fake.Core.String (5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.Core.Trace (5.13.5)
-      Fake.Core.Environment (>= 5.13.5)
-      Fake.Core.FakeVar (>= 5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.Core.UserInput (5.13.5)
-      FSharp.Core (>= 4.3.4)
-    Fake.DotNet.Cli (5.13.5)
-    Fake.IO.FileSystem (5.13.5)
-      Fake.Core.String (>= 5.13.5)
-      FSharp.Core (>= 4.3.4)
-      System.Diagnostics.FileVersionInfo (>= 4.3)
-      System.IO.FileSystem.Watcher (>= 4.3)
-    Fake.Tools.Git (5.13.5)
-      Fake.Core.Environment (>= 5.13.5)
-      Fake.Core.Process (>= 5.13.5)
-      Fake.Core.SemVer (>= 5.13.5)
-      Fake.Core.String (>= 5.13.5)
-      Fake.Core.Trace (>= 5.13.5)
-      Fake.IO.FileSystem (>= 5.13.5)
-      FSharp.Core (>= 4.3.4)
-    FSharp.Core (4.6.2) - content: none, redirects: force
-    Octokit (0.32)
-    System.Diagnostics.FileVersionInfo (4.3)
-    System.Diagnostics.Process (4.3)
-    System.IO.FileSystem.Watcher (4.3)
-    System.Runtime.Numerics (4.3)
+    FAKE (5.16)
+    Fake.Core.Process (5.20.3)
+    Fake.Core.ReleaseNotes (5.20.3)
+    Fake.Core.String (5.20.3)
+    Fake.Core.UserInput (5.20.3)
+    Fake.DotNet.Cli (5.20.3)
+    Fake.IO.FileSystem (5.20.3)
+    Fake.Tools.Git (5.20.3)
+    FSharp.Core (5.0) - content: none, redirects: force
+    Octokit (0.48)
 GITHUB
   remote: fsharp/FAKE
-    modules/Octokit/Octokit.fsx (233a5ab4a51f5c6cf7bd2b1972d6bb5cccee9067)
+    modules/Octokit/Octokit.fsx (a210a980b1d1e9db5ed4b77232f3faecacab6f16)
       Octokit (>= 0.20)
   remote: fable-compiler/fake-helpers
     Fable.FakeHelpers.fs (1b26f2cd88aab4895b1d330edf30f3852ea81652)
