@@ -4,7 +4,6 @@ storage:none
 nuget Fable.Core
 nuget Fable.React
 nuget Fable.Promise
-nuget Thoth.Json
 
 group Build
 framework: net46

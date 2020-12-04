@@ -54,7 +54,7 @@ module Helpers =
                 "ref" ==> ref.SetRef]
 
         let props =
-            !!JS.Object.assign(
+            !!JS.Constructors.Object.assign(
                 additionalProps,
                 keyValueList CaseRules.LowerFirst props)
 
