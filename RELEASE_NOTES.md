@@ -1,3 +1,8 @@
+### 3.0.0-alpha001
+* Update to .NET 5.0
+* Removed dependency to Thoth.Json
+* removed simple store for now
+
 ### 2.6.1
 - Added disabled property for Buttons
 
