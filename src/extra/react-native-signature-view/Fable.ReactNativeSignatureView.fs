@@ -1,9 +1,10 @@
 namespace Fable.ReactNativeSignatureView
 
-open Fable.Core.JsInterop
-open Fable.ReactNative.Props
-open Fable.React
 open Fable.Core
+open Fable.Core.JsInterop
+open Fable.React
+open Fable.ReactNative
+open Fable.ReactNative.Props
 
 type SignatureViewRef() =
     let signatureView = ref None

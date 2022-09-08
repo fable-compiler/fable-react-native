@@ -3,6 +3,7 @@ namespace Fable.ReactNativeCamera
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.React
+open Fable.ReactNative
 
 module Props =
 

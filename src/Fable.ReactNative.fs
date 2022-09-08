@@ -1605,6 +1605,11 @@ module Props =
 module Helpers =
     open Props
 
+    /// Instantiate an imported React component. The first two arguments must be string literals, "default" can be used for the first one.
+    /// Example: `ofImport "Map" "leaflet" {| x = 10; y = 50 |} []`
+    let inline ofImport<'P> (importMember: string) (importPath: string) (props: 'P) (children: ReactElement seq): ReactElement =
+        ReactBindings.React.createElement(import importMember importPath, props, children)
+
     [<Emit("$0")>]
     // density independent pixels
     let dip (_: float): ISizeUnit = jsNative
@@ -1652,6 +1657,8 @@ module Helpers =
 
     let inline internal createElementWithObjProps(c: ReactElementType, props: obj, children: ReactElement seq) =
         ReactBindings.React.createElement (c, props, children)
+
+    let inline str (s: string): ReactElement = unbox s
 
     let inline text (props:ITextProperties list) (text:string): ReactElement =
         createElement(RN.Text, props, [str text])

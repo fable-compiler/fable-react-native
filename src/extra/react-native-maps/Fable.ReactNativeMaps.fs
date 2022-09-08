@@ -2,9 +2,9 @@ namespace Fable.ReactNativeMaps
 
 open Fable.Core
 open Fable.Core.JsInterop
-open Fable.ReactNative.Props
-open Fable.React.Helpers
 open Fable.React
+open Fable.ReactNative
+open Fable.ReactNative.Props
 
 type Region =
     class end

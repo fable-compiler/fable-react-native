@@ -2,8 +2,9 @@ namespace Fable.ReactNativeDateTimePicker
 
 open System
 open Fable.Core.JsInterop
-open Fable.ReactNative.Props
 open Fable.React
+open Fable.ReactNative
+open Fable.ReactNative.Props
 
 [<AutoOpen>]
 module Helpers =
