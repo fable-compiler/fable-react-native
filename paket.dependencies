@@ -2,7 +2,7 @@ source https://www.nuget.org/api/v2
 storage:none
 
 nuget Fable.Core
-nuget Fable.React
+nuget Fable.React.Types prerelease
 nuget Fable.Promise
 
 group Build

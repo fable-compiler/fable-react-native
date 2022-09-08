@@ -3,6 +3,7 @@ namespace Fable.ReactNativeDialog
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.React
+open Fable.ReactNative
 open Fable.ReactNative.Props
 
 type IButtonProperties =
@@ -55,19 +56,19 @@ module Helpers =
         let title =
             createObj [ ]
             |> unbox
-        ReactElementType.create Dialog.Title title [ str text ]
+        ReactBindings.React.createElement(Dialog.Title, title, [ str text ])
 
     let description (text:string) : ReactElement =
         let description =
             createObj [ ]
             |> unbox
-        ReactElementType.create Dialog.Description description [ str text ]
+        ReactBindings.React.createElement(Dialog.Description, description, [ str text ])
 
     let button (props:IButtonProperties list) : ReactElement =
-        ReactElementType.create Dialog.Button (keyValueList CaseRules.LowerFirst props) []
+        ReactBindings.React.createElement(Dialog.Button, keyValueList CaseRules.LowerFirst props, [])
 
     let input (props:IInputProperties list) : ReactElement =
-        ReactElementType.create Dialog.Input (keyValueList CaseRules.LowerFirst props) []
+        ReactBindings.React.createElement(Dialog.Input, keyValueList CaseRules.LowerFirst props, [])
 
     let container (props:IContainerProperties list) (children) : ReactElement =
-        ReactElementType.create Dialog.Container (keyValueList CaseRules.LowerFirst props) children
+        ReactBindings.React.createElement(Dialog.Container, keyValueList CaseRules.LowerFirst props, children)
