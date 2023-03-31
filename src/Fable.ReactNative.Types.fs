@@ -1448,8 +1448,8 @@ and StyleSheetStatic =
 and DataSourceAssetCallback =
     abstract rowHasChanged: (obj -> obj -> bool) option with get, set
     abstract sectionHeaderHasChanged: (obj -> obj -> bool) option with get, set
-    abstract getRowData: (obj -> U2<float, string> -> U2<float, string> -> 'T) option with get, set
-    abstract getSectionHeaderData: (obj -> U2<float, string> -> 'T) option with get, set
+    abstract getRowData: (obj -> U2<float, string> -> U2<float, string> -> obj) option with get, set
+    abstract getSectionHeaderData: (obj -> U2<float, string> -> obj) option with get, set
 
 and ListViewDataSource<'a> =
     [<Emit("new $0($1...)")>] abstract Create: onAsset: DataSourceAssetCallback -> ListViewDataSource<'a>
