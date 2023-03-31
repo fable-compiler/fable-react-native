@@ -1,7 +1,6 @@
 namespace rec Fable.ReactNative.Types
 
 open System
-open System.Text.RegularExpressions
 open Fable
 open Fable.Core
 open Fable.Core.JS
